@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="javagram.View.formElements.MessageItem">
+  <grid id="27dc6" layout-manager="CardLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="48282" binding="mainPanel" layout-manager="FlowLayout" hgap="0" vgap="10" flow-align="2">
+        <constraints>
+          <card name="Card1"/>
+        </constraints>
+        <properties>
+          <minimumSize width="93" height="60"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="5ddca" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints/>
+            <properties>
+              <opaque value="false"/>
+              <preferredSize width="307" height="75"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="1ad73" binding="pnlMsgOutTop" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <opaque value="false"/>
+                  <preferredSize width="307" height="9"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="ad493" binding="pnlMsgOutBottom" custom-create="true" layout-manager="FlowLayout" hgap="5" vgap="13" flow-align="0">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <minimumSize width="88" height="35"/>
+                  <opaque value="false"/>
+                  <preferredSize width="307" height="25"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="54668" class="javax.swing.JLabel">
+                    <constraints/>
+                    <properties>
+                      <font size="10"/>
+                      <foreground color="-6049613"/>
+                      <text value="5 минут назад"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="96a61" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="West"/>
+                <properties>
+                  <background color="-11909976"/>
+                  <preferredSize width="254" height="50"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <grid id="59ec9" layout-manager="CardLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="Center"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="fe35e" class="javax.swing.JTextPane" binding="sdfsdfsdfSdfsdfDsfDsfTextPane" default-binding="true">
+                        <constraints>
+                          <card name="Card1"/>
+                        </constraints>
+                        <properties>
+                          <text value="sdfsdfsdf&#10;sdfsdf&#10;dsf&#10;dsf&#10;sd&#10;fsd"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="5711" binding="pnlMsgTip" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties>
+              <opaque value="false"/>
+              <preferredSize width="8" height="60"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="5a206" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties>
+              <opaque value="false"/>
+              <preferredSize width="30" height="30"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

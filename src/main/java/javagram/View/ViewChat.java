@@ -99,24 +99,9 @@ public class ViewChat implements IViewChat {
     panelTopBar.add(headLine.getPanelHeadline(), BorderLayout.NORTH);
 
     //TODO сделать чтобы плавающая кнопка меняла положени при ресайзе и при открытии других панелей
-    JPanel p = new JPanel(new CardLayout(100, 100));
-    p.setBorder(BorderFactory.createCompoundBorder(
-        BorderFactory.createLineBorder(new Color(249, 255, 246), 3),
-        BorderFactory.createEmptyBorder(25, 25, 25, 25)));
-    p.setBackground(Color.GREEN);
-    Dimension frameDimension = WindowHandler.getFrameSize();
-    p.setBounds(20, (int) frameDimension.getHeight() - 70, 26, 26);
- /*   try {
-      ProfileChangeData glassPanel = new ProfileChangeData(WindowHandler.getFrameSize(),
-          "Настройки профиля");
-    } catch (IOException e1) {
-      e1.printStackTrace();
-    } catch (FontFormatException e1) {
-      e1.printStackTrace();
-    }*/
-    WindowHandler.setFloatComponents(p);
-    WindowHandler.showLayeredFloatButtons();
-    WindowHandler.repaintFrame();
+
+    //set Float Buttons to Form
+    setFloatPanels();
 
     //temp
     pnlTitleBarSettings.addMouseListener(new MouseAdapter() {
@@ -177,7 +162,7 @@ public class ViewChat implements IViewChat {
     setContactsJListButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-          presenter.getContactList();
+        presenter.getContactList();
       }
     });
     lblBtnClearContacts.addActionListener(new ActionListener() {
@@ -235,7 +220,8 @@ public class ViewChat implements IViewChat {
         Color color = isSelected ? new Color(213, 245, 255) : new Color(255, 255, 255);
         BufferedImage imgUser = isSelected ? imgUserPhotoListSelected : imgUserPhoto1;
         //add gui form ItemContactList to item in list
-        ItemContactList cList = new ItemContactList(tc.getId() + "имя:" + tc.getName(), tc.getLastMessage(),
+        ItemContactList cList = new ItemContactList(tc.getName(),
+            tc.getLastMessage(),
             tc.getTime() + " мин.", imgUser);
         cList.getMainPanel().setBackground(color);
         return cList.getMainPanel();
@@ -249,11 +235,38 @@ public class ViewChat implements IViewChat {
   }
 
   @Override
-  public void setUserPhotoTop(Image userPhoto) {
-    userPhoto = userPhoto.getScaledInstance(lblTitleBarUserPic.getWidth(), lblTitleBarUserPic.getWidth(), Image.SCALE_SMOOTH);
+  public void setUserPhotoTop(Image userPhoto, String userFirstName, String userLastName) {
+    if (userPhoto == null){
+      lblTitleBarUserPic.setText(getFullNameInitiates(userFirstName, userLastName));
+      return;
+    }
+    userPhoto = userPhoto
+        .getScaledInstance(lblTitleBarUserPic.getWidth(), lblTitleBarUserPic.getWidth(),
+            Image.SCALE_SMOOTH);
     ImageIcon icon = new ImageIcon(userPhoto);
 
     lblTitleBarUserPic.setIcon(icon);
+  }
+
+  private String getFullNameInitiates(String userFirstName, String userLastName){
+    boolean hasLastName = (userLastName != null && userLastName != "");
+    return hasLastName ? userFirstName.substring(0,1) + userLastName.substring(0,1) : userFirstName.substring(0,1);
+  }
+
+
+  //set Float Buttons to Form
+  private void setFloatPanels() {
+    JPanel p = new JPanel(new CardLayout(100, 100));
+    p.setBorder(BorderFactory.createCompoundBorder(
+        BorderFactory.createLineBorder(new Color(249, 255, 246), 3),
+        BorderFactory.createEmptyBorder(25, 25, 25, 25)));
+    p.setBackground(Color.GREEN);
+    Dimension frameDimension = WindowHandler.getFrameSize();
+    p.setBounds(20, (int) frameDimension.getHeight() - 70, 26, 26);
+
+    WindowHandler.setFloatComponents(p);
+    WindowHandler.showLayeredFloatButtons();
+    WindowHandler.repaintFrame();
   }
 
   //Custom UI components create

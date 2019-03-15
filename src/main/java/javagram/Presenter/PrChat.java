@@ -21,10 +21,10 @@ public class PrChat {
     WindowHandler.makeFrameResizable();
     WindowHandler.setViewOnFrame(this.view);
 
-    view.setUserFullNameLabelTop(TLHandler.getInstance().getUserNameFull());
-    view.setUserPhotoTop(TLHandler.getInstance().getUserPhoto());
-
-    view.showError(String.valueOf(TLHandler.getInstance().getUserId()));
+    this.view.setUserFullNameLabelTop(TLHandler.getInstance().getUserFullName());
+    this.view.showError(String.valueOf(TLHandler.getInstance().getUserId()));
+    this.view.setUserPhotoTop(TLHandler.getInstance().getUserPhoto(),
+        TLHandler.getInstance().getUserFirstName(), TLHandler.getInstance().getUserLastName());
   }
 
   public void getContactList() {
@@ -37,10 +37,8 @@ public class PrChat {
   }
 
   public void clearModel() {
-model.clear();
+    model.clear();
   }
-
-
 
 
 }

@@ -6,12 +6,10 @@ package javagram.Model;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.logging.Logger;
 import javagram.Configs;
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
 import org.javagram.response.AuthCheckedPhone;
@@ -29,7 +27,10 @@ public class TLHandler {
   private TelegramApiBridge bridge;
   private String userPhone;
   private boolean isPhoneRegistered = false;
-  private String userNameFull;
+  private String userFullName;
+  private String userFirstName;
+  private String userLastName;
+  private int userId;
   private TelegramApi tlApi;
   private AuthAuthorization authorization;
 
@@ -59,7 +60,7 @@ public class TLHandler {
   public void clearApiBridge() {
     userPhone = "";
     isPhoneRegistered = false;
-    userNameFull = "";
+    userFullName = "";
   }
 
   public void checkPhoneRegistered(String ph) {
@@ -87,25 +88,42 @@ public class TLHandler {
     //проверка кода
     authorization = bridge.authSignIn(confirmCode);
     //получаем имя, фамилию юзера и записываем
-    userNameFull = authorization.getUser().toString();
+    userFirstName = authorization.getUser().getFirstName();
+    userLastName = authorization.getUser().getLastName();
+    userFullName = authorization.getUser().toString();
+    userId = authorization.getUser().getId();
   }
 
-  public int getUserId() {
-    return authorization.getUser().getId();
+  public void getMessages(){
+
   }
+
 
   public String getUserPhone() {
     return userPhone;
   }
 
-  public String getUserNameFull() {
-    return userNameFull;
+  public String getUserFullName() {
+    return userFullName;
+  }
+
+  public String getUserFirstName() {
+    return userFirstName;
+  }
+
+  public String getUserLastName() {
+    return userLastName;
+  }
+
+  public int getUserId() {
+    return userId;
   }
 
   public Image getUserPhoto() {
-    Image img = Configs.IMG_DEFAULT_USER;
+    Image img = null;
     try {
       byte[] userPhoto = authorization.getUser().getPhoto(true);
+      //if user has no photo - set default gag
       if (userPhoto != null) {
         img = ImageIO.read(new ByteArrayInputStream(userPhoto));
       }

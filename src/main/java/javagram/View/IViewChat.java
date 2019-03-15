@@ -17,6 +17,6 @@ public interface IViewChat extends IView {
 
   void setUserFullNameLabelTop(String fullName);
 
-  void setUserPhotoTop(Image userPhoto);
+  void setUserPhotoTop(Image userPhoto, String userFirstName, String userLastName);
 
 }

@@ -502,7 +502,13 @@
                           <card name="Card1"/>
                         </constraints>
                         <properties>
-                          <text value="Label"/>
+                          <background color="-1710618"/>
+                          <font size="14" style="1"/>
+                          <foreground color="-12828863"/>
+                          <horizontalAlignment value="0"/>
+                          <horizontalTextPosition value="0"/>
+                          <opaque value="false"/>
+                          <text value="ШШ"/>
                         </properties>
                       </component>
                     </children>
@@ -510,7 +516,7 @@
                   <component id="f366f" class="javax.swing.JLabel" binding="lblFullUserNameTopBar">
                     <constraints/>
                     <properties>
-                      <font size="14"/>
+                      <font size="16" style="1"/>
                       <foreground color="-1314827"/>
                       <text value="Михаил Карасев"/>
                     </properties>

@@ -10,7 +10,7 @@ public class TgContact {
 
   public TgContact() {
     id = count++;
-    name = String.valueOf(Math.random()*1000);
+    name = "имя " + id;
     time = String.valueOf((int)(Math.random()*9));
     lastMessage = String.valueOf(Math.random()*1000000);
   }

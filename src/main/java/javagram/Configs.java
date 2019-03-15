@@ -15,16 +15,16 @@ import java.util.Properties;
 import javax.imageio.ImageIO;
 
 public class Configs {
-  private static Properties props = new Properties();
 
   //TODO set check for 11 for RELEASE!!!!
   public static final int SYS_PHONE_NUMBER_LENGTH = 10;
   public static String IMG_BG, IMG_LOGO_SIGN, IMG_BTN_BG, IMG_ICON_PHONE;
   public static String ERR_NO_IMAGES, ERR_PHONE_FORMAT, INFO_CONNECT_TELEGRAM, ERR_WRONG_CODE,
       ERR_PHONE_EMPTY;
-    //images for all formElement
+  //images for all formElement
   public static Image IMG_LOADING_GIF_100;
-  public static BufferedImage  IMG_BUTTON_BACK_35_35, IMG_DEFAULT_USER;
+  public static BufferedImage IMG_BUTTON_BACK_35_35, IMG_DEFAULT_USER;
+  public static BufferedImage IMG_MESSAGE_OUTGOING_OUT_TOP, IMG_MESSAGE_OUTGOING_OUT_BOTTOM, IMG_MESSAGE_OUTGOING_TIP;
   public static String BTN_CONTINUE;
   //TL Connect settings
   public static String TL_SERVER, TL_APP_HASH;
@@ -32,6 +32,7 @@ public class Configs {
   public static String INTERFACE_PHONE_MASK;
   public static char INTERFACE_PHONE_MASK_PLACEHOLDER;
   public static int TL_APP_ID;
+  private static Properties props = new Properties();
 
   public static void read() {
 
@@ -61,13 +62,19 @@ public class Configs {
       IMG_ICON_PHONE = props.getProperty("IMG_ICON_PHONE", "res/img/icon-phone.png");
       IMG_DEFAULT_USER = ImageIO.read(new File("res/img/icon-default-user.png"));
 
+      IMG_MESSAGE_OUTGOING_OUT_TOP = ImageIO.read(new File("res/img/message-out-top.png"));
+      IMG_MESSAGE_OUTGOING_OUT_BOTTOM = ImageIO.read(new File("res/img/message-out-bottom.png"));
+      IMG_MESSAGE_OUTGOING_TIP = ImageIO.read(new File("res/img/message-out-right.png"));
+
       //ERRORS WARNINGS INFO texts
       ERR_NO_IMAGES = props.getProperty("ERR_NO_IMAGES", "Неудалось загрузить картинки!");
       ERR_PHONE_FORMAT = props.getProperty("ERR_PHONE_FORMAT", "Неверный формат номера!");
-      ERR_WRONG_CODE = props.getProperty("ERR_WRONG_CODE", "Неверный код подтверждения, попробуйте еще раз");
+      ERR_WRONG_CODE = props
+          .getProperty("ERR_WRONG_CODE", "Неверный код подтверждения, попробуйте еще раз");
       ERR_PHONE_EMPTY = props.getProperty("ERR_PHONE_EMPTY", "Пожалуйста, введите номер телефона");
 
-      INFO_CONNECT_TELEGRAM = props.getProperty("INFO_CONNECT_TELEGRAM", "Подключение к серверам телеграм...");
+      INFO_CONNECT_TELEGRAM = props
+          .getProperty("INFO_CONNECT_TELEGRAM", "Подключение к серверам телеграм...");
 
       //BUTTONS AND LABELS
       BTN_CONTINUE = props.getProperty("BTN_CONTINUE", "ПРОДОЛЖИТЬ");

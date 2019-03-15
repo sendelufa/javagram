@@ -150,7 +150,7 @@
                   <minimumSize width="280" height="50"/>
                   <opaque value="false"/>
                   <preferredSize width="110" height="50"/>
-                  <text value="2222"/>
+                  <text value="22222"/>
                 </properties>
               </component>
             </children>
