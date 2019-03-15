@@ -106,7 +106,7 @@ public class ViewSendCode implements IViewSendCode {
 
     @Override
     public void clearError() {
-
+        lblError.setText("");
     }
 
     @Override
@@ -114,9 +114,7 @@ public class ViewSendCode implements IViewSendCode {
         txtCode.setEnabled(false);
         lblBtnSend.setText("");
         lblBtnSend.setEnabled(false);
-        Image image = Toolkit.getDefaultToolkit()
-            .createImage(Configs.props.getProperty("LOADING_GIF_100_IMAGE"));
-        ImageIcon imageIcon = new ImageIcon(image);
+        ImageIcon imageIcon = new ImageIcon(Configs.IMG_LOADING_GIF_100);
         imageIcon.setImageObserver(lblBtnSend);
         lblBtnSend.setDisabledIcon(imageIcon);
 

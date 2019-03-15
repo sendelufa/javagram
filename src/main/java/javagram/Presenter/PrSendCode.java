@@ -5,7 +5,7 @@ package javagram.Presenter;
 
 import java.io.IOException;
 import javagram.Configs;
-import javagram.Model.TelegramHandler;
+import javagram.Model.TLHandler;
 import javagram.View.ViewChat;
 import javagram.View.IViewSendCode;
 import javagram.View.ViewEnterPhone;
@@ -19,14 +19,14 @@ public class PrSendCode {
   public PrSendCode(IViewSendCode view) {
     this.view = view;
     WindowHandler.setViewOnFrame(this.view);
-    view.setPhoneNumber(TelegramHandler.getUserPhone());
+    view.setPhoneNumber(TLHandler.getInstance().getUserPhone());
     sendCode();
   }
 
   private void sendCode() {
     view.clearError();
     try {
-      TelegramHandler.sendCode();
+      TLHandler.getInstance().sendCode();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -38,8 +38,8 @@ public class PrSendCode {
       @Override
       public void run() {
         try {
-          TelegramHandler.checkCode(confirmCode);
-          view.showError("Логин успешен для пользователя: " + TelegramHandler.getUserNameFull());
+          TLHandler.getInstance().checkCode(confirmCode);
+          view.showError("Логин успешен для пользователя: " + TLHandler.getInstance().getUserNameFull());
         } catch (RpcException e) {
           if (e.getErrorTag().equals("PHONE_CODE_INVALID")) {
             view.showError(Configs.ERR_WRONG_CODE);
@@ -67,9 +67,9 @@ chat.setPresenter(new PrChat(chat));
 
   public void goBackToPhoneInput(){
     ViewEnterPhone viewEnterPhone = new ViewEnterPhone();
-    viewEnterPhone.fillPhoneNumberTextField(TelegramHandler.getUserPhone());
+    viewEnterPhone.fillPhoneNumberTextField(TLHandler.getInstance().getUserPhone());
     viewEnterPhone.setPresenter(new PrEnterPhone(viewEnterPhone));
-    TelegramHandler.clearApiBridge();
+    TLHandler.getInstance().clearApiBridge();
   }
 
 

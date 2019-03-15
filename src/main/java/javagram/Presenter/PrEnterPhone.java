@@ -5,7 +5,7 @@ package javagram.Presenter;
 
 import javagram.Configs;
 import javagram.Exceptions.PhoneFormatError;
-import javagram.Model.TelegramHandler;
+import javagram.Model.TLHandler;
 import javagram.View.IViewEnterPhone;
 import javagram.View.ViewSendCode;
 import javagram.WindowGUI.WindowHandler;
@@ -44,7 +44,7 @@ public class PrEnterPhone {
     }
 
     view.showError(Configs.INFO_CONNECT_TELEGRAM);
-    //get connect Telegram Api
+    //get getInstance Telegram Api
 
     view.showLoadingProcess();
 
@@ -52,11 +52,11 @@ public class PrEnterPhone {
       @Override
       public void run() {
         //check phone on telegram server
-        TelegramHandler.connect();
+        TLHandler.getInstance();
         //check phone on telegram server
 
-        TelegramHandler.checkPhoneRegistered(phone_clean);
-        if (TelegramHandler.isPhoneRegistered()) {
+        TLHandler.getInstance().checkPhoneRegistered(phone_clean);
+        if (TLHandler.getInstance().isPhoneRegistered()) {
           ViewSendCode view = new ViewSendCode();
           view.setPresenter(new PrSendCode(view));
         }

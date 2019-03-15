@@ -72,20 +72,19 @@ public class ViewEnterPhone implements IViewEnterPhone {
       }
     });
 
-    setTextFieldMask(txtPhone, "+# (###) #######", '_');
+    setTextFieldMask(txtPhone, Configs.INTERFACE_PHONE_MASK,
+        Configs.INTERFACE_PHONE_MASK_PLACEHOLDER);
     //format phone text input field
 
-    //txtPhone.setBorder(null);
     txtPhone.setText("9996624444");
-    //WindowHandler.startFrame();
-    //WindowHandler.setViewOnFrame(this);
+
   }
 
   //format phone text input field
-  private void setTextFieldMask(JFormattedTextField field, String mask, char placeholder){
+  private void setTextFieldMask(JFormattedTextField field, String mask, char placeholder) {
     MaskFormatter maskFormatter;
     try {
-      maskFormatter = new MaskFormatter("+# (###) #######");
+      maskFormatter = new MaskFormatter(mask);
       maskFormatter.setPlaceholder(null);
       maskFormatter.setPlaceholderCharacter(placeholder);
       field.setFormatterFactory(new DefaultFormatterFactory(maskFormatter));
@@ -152,9 +151,7 @@ public class ViewEnterPhone implements IViewEnterPhone {
     txtPhone.setEnabled(false);
     lblBtnSend.setText("");
     lblBtnSend.setEnabled(false);
-    Image image = Toolkit.getDefaultToolkit()
-        .createImage(Configs.props.getProperty("LOADING_GIF_100_IMAGE"));
-    ImageIcon imageIcon = new ImageIcon(image);
+    ImageIcon imageIcon = new ImageIcon(Configs.IMG_LOADING_GIF_100);
     imageIcon.setImageObserver(lblBtnSend);
     lblBtnSend.setDisabledIcon(imageIcon);
 

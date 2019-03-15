@@ -3,7 +3,7 @@
  */
 package javagram.Presenter;
 
-import javagram.Model.TelegramHandler;
+import javagram.Model.TLHandler;
 import javagram.View.IViewChat;
 import javagram.WindowGUI.WindowHandler;
 
@@ -20,7 +20,7 @@ public class PrChat {
     WindowHandler.repaintFrame();
     WindowHandler.makeFrameResizable();
 
-    view.showError(String.valueOf(TelegramHandler.getUserId()));
+    view.showError(String.valueOf(TLHandler.getInstance().getUserId()));
 
 
 

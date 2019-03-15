@@ -5,57 +5,59 @@ package javagram.Model;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 import javagram.Configs;
 import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
 import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.AuthSentCode;
-import org.javagram.response.object.UserContact;
-import org.telegram.api.TLImportedContact;
-import org.telegram.api.TLInputContact;
-import org.telegram.api.contacts.TLImportedContacts;
 import org.telegram.api.engine.TelegramApi;
-import org.telegram.api.requests.TLRequestContactsImportContacts;
-import org.telegram.tl.TLVector;
 
-public class TelegramHandler {
+/**
+ * Singleton Concurrency Pattern
+ */
 
-  public static TelegramApiBridge bridge;
+public class TLHandler {
+
+  private static volatile TLHandler instance;
   private static Logger l = Logger.getLogger("1");
-  private static String userPhone;
-  private static boolean isPhoneRegistered = false;
-  private static String userNameFull;
-  private static TelegramApi tlApi;
-  private static AuthAuthorization authorization;
+  private TelegramApiBridge bridge;
+  private String userPhone;
+  private boolean isPhoneRegistered = false;
+  private String userNameFull;
+  private TelegramApi tlApi;
+  private AuthAuthorization authorization;
 
-  public static void clearApiBridge() {
+  private TLHandler() {
+    //Подключаемся к API телеграмм
+    try {
+      bridge = new TelegramApiBridge(Configs.TL_SERVER, Configs.TL_APP_ID, Configs.TL_APP_HASH);
+      //получаем доступ и ссылку на параметр api TelegramApiBridge
+      getTlApiReflection();
+
+      l.warning("tlApi.getState()" + tlApi.getState());
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static TLHandler getInstance() {
+      synchronized (TLHandler.class) {
+        if (instance == null) {
+          instance = new TLHandler();
+      }
+    }
+    return instance;
+  }
+
+  public void clearApiBridge() {
     userPhone = "";
     isPhoneRegistered = false;
     userNameFull = "";
   }
 
-  public static void connect() {
-    if (bridge == null) {
-
-      l.warning("bridge == null");
-
-      //Подключаемся к API телеграмм
-      try {
-        bridge = new TelegramApiBridge(Configs.TL_SERVER, Configs.TL_APP_ID, Configs.TL_APP_HASH);
-        //получаем доступ и ссылку на параметр api TelegramApiBridge
-        getTlApiReflection();
-
-        l.warning("tlApi.getState()" + tlApi.getState());
-
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-  }
-
-  public static void checkPhoneRegistered(String ph) {
+  public void checkPhoneRegistered(String ph) {
     try {
       AuthCheckedPhone checkedPhone = bridge.authCheckPhone(ph);
       userPhone = ph;
@@ -65,33 +67,33 @@ public class TelegramHandler {
     }
   }
 
-  public static boolean isPhoneRegistered() {
+  public boolean isPhoneRegistered() {
     return isPhoneRegistered;
   }
 
-  public static void sendCode() throws IOException {
+  public void sendCode() throws IOException {
     if (isPhoneRegistered) {
       //Отправляем проверочный код для пользователя с введеным номером телефона
       AuthSentCode sentCode = bridge.authSendCode(userPhone);
     }
   }
 
-  public static void checkCode(String confirmCode) throws IOException {
+  public void checkCode(String confirmCode) throws IOException {
     //проверка кода
     authorization = bridge.authSignIn(confirmCode);
     //получаем имя, фамилию юзера и записываем
     userNameFull = authorization.getUser().toString();
   }
 
-  public static int getUserId(){
+  public int getUserId() {
     return authorization.getUser().getId();
   }
 
-  public static String getUserPhone() {
+  public String getUserPhone() {
     return userPhone;
   }
 
-  public static String getUserNameFull() {
+  public String getUserNameFull() {
     return userNameFull;
   }
 
@@ -114,7 +116,7 @@ public class TelegramHandler {
   }*/
 
   //получаем доступ к приватной переменной api из TelegramApiBridge
-  private static void getTlApiReflection() {
+  private void getTlApiReflection() {
     Field fieldApi;
     try {
       //попытка получить параметр api класса TelegramApiBridge
