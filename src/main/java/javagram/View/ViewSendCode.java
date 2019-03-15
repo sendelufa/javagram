@@ -200,7 +200,7 @@ public class ViewSendCode implements IViewSendCode {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(Configs.BUTTON_BACK_35_35, 0, 0, null);
+                g.drawImage(Configs.IMG_BUTTON_BACK_35_35, 0, 0, null);
             }
         };
 

@@ -46,10 +46,10 @@ public class ViewEnterPhone implements IViewEnterPhone {
 
   public ViewEnterPhone() {
     try {
-      bg = ImageIO.read(new File(Configs.BG_IMAGE));
-      logo = ImageIO.read(new File(Configs.LOGO_SIGN_IMAGE));
-      imgBtn = ImageIO.read(new File(Configs.BTN_BG_IMAGE));
-      imgIcoPhone = ImageIO.read(new File(Configs.ICON_PHONE_IMAGE));
+      bg = ImageIO.read(new File(Configs.IMG_BG));
+      logo = ImageIO.read(new File(Configs.IMG_LOGO_SIGN));
+      imgBtn = ImageIO.read(new File(Configs.IMG_BTN_BG));
+      imgIcoPhone = ImageIO.read(new File(Configs.IMG_ICON_PHONE));
     } catch (IOException e) {
       showError(Configs.ERR_NO_IMAGES);
       e.printStackTrace();
