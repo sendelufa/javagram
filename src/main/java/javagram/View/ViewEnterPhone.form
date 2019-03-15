@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="javagram.View.ViewEnterPhone">
+  <grid id="27dc6" binding="mainPanel" custom-create="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="839" height="600"/>
+    </constraints>
+    <properties>
+      <background color="-1909479"/>
+      <maximumSize width="800" height="600"/>
+      <minimumSize width="800" height="600"/>
+      <opaque value="false"/>
+      <preferredSize width="800" height="600"/>
+      <visible value="true"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="d32c4" layout-manager="FlowLayout" hgap="0" vgap="50" flow-align="1">
+        <constraints/>
+        <properties>
+          <background color="-4514764"/>
+          <foreground color="-4514764"/>
+          <opaque value="false"/>
+          <preferredSize width="165" height="243"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="b627" binding="panelLogo" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties>
+              <background color="-6439704"/>
+              <maximumSize width="165" height="168"/>
+              <minimumSize width="165" height="168"/>
+              <opaque value="false"/>
+              <preferredSize width="165" height="168"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </grid>
+      <grid id="918c" layout-manager="FlowLayout" hgap="5" vgap="25" flow-align="1">
+        <constraints/>
+        <properties>
+          <background color="-11345318"/>
+          <maximumSize width="800" height="80"/>
+          <minimumSize width="500" height="80"/>
+          <opaque value="false"/>
+          <preferredSize width="500" height="80"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="f4a48" class="javax.swing.JTextPane" binding="lbpDescPhone">
+            <constraints/>
+            <properties>
+              <editable value="false"/>
+              <enabled value="true"/>
+              <focusable value="false"/>
+              <font size="14"/>
+              <foreground color="-393226"/>
+              <inheritsPopupMenu value="true"/>
+              <margin top="3" left="3" bottom="3" right="15"/>
+              <opaque value="false"/>
+              <preferredSize width="230" height="60"/>
+              <text value="Введите код страны и номер&#10;вашего мобильного телефона"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="13895" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints/>
+        <properties>
+          <background color="-11345318"/>
+          <maximumSize width="800" height="60"/>
+          <minimumSize width="500" height="60"/>
+          <opaque value="false"/>
+          <preferredSize width="500" height="80"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="c4aa7" layout-manager="FlowLayout" hgap="15" vgap="5" flow-align="1">
+            <constraints border-constraint="North"/>
+            <properties>
+              <maximumSize width="347" height="55"/>
+              <minimumSize width="347" height="55"/>
+              <opaque value="false"/>
+              <preferredSize width="317" height="55"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="1736a" binding="pnlIcoPhone" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints/>
+                <properties>
+                  <maximumSize width="22" height="36"/>
+                  <minimumSize width="22" height="36"/>
+                  <opaque value="false"/>
+                  <preferredSize width="22" height="36"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <component id="25b4" class="javax.swing.JFormattedTextField" binding="txtPhone">
+                <constraints/>
+                <properties>
+                  <caretColor color="-1"/>
+                  <disabledTextColor color="-1579033"/>
+                  <focusCycleRoot value="true"/>
+                  <font name="Arial Nova Cond" size="36"/>
+                  <foreground color="-1"/>
+                  <margin top="2" left="5" bottom="2" right="5"/>
+                  <opaque value="false"/>
+                  <preferredSize width="280" height="50"/>
+                  <text value="+7 (965)9363762"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="7e62a" layout-manager="FlowLayout" hgap="5" vgap="0" flow-align="1">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="90c66" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints/>
+                <properties>
+                  <background color="-393226"/>
+                  <preferredSize width="330" height="2"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="dd761" binding="panelButtonContainer" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
+        <constraints/>
+        <properties>
+          <alignmentY value="0.5"/>
+          <background color="-11345318"/>
+          <maximumSize width="600" height="65"/>
+          <minimumSize width="600" height="65"/>
+          <opaque value="false"/>
+          <preferredSize width="600" height="65"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="5c861" binding="pnlBtnSend" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints/>
+            <properties>
+              <alignmentX value="0.5"/>
+              <alignmentY value="0.5"/>
+              <maximumSize width="337" height="65"/>
+              <opaque value="false"/>
+              <preferredSize width="337" height="65"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="34c43" class="javax.swing.JLabel" binding="lblBtnSend">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <alignmentX value="0.5"/>
+                  <alignmentY value="0.5"/>
+                  <font size="22"/>
+                  <foreground color="-393226"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <maximumSize width="337" height="65"/>
+                  <minimumSize width="337" height="65"/>
+                  <opaque value="false"/>
+                  <preferredSize width="337" height="65"/>
+                  <text value="ПРОДОЛЖИТЬ"/>
+                  <verticalAlignment value="0"/>
+                  <verticalTextPosition value="0"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="94ad" binding="pnlLoading" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints/>
+            <properties>
+              <maximumSize width="65" height="65"/>
+              <minimumSize width="65" height="65"/>
+              <opaque value="false"/>
+              <preferredSize width="65" height="65"/>
+              <visible value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="176fe" class="javax.swing.JLabel" binding="lblLoading">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <doubleBuffered value="true"/>
+                  <opaque value="true"/>
+                  <preferredSize width="65" height="65"/>
+                  <text value=""/>
+                  <visible value="true"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="22fa0" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints/>
+        <properties>
+          <opaque value="false"/>
+          <preferredSize width="600" height="150"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="e8246" class="javax.swing.JLabel" binding="lblError">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <font size="20"/>
+              <foreground color="-393226"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <preferredSize width="300" height="50"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="javagram.View.formElements.HeadLineForm">
+  <grid id="27dc6" binding="basePanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="839" height="600"/>
+    </constraints>
+    <properties>
+      <background color="-1909479"/>
+      <maximumSize width="800" height="600"/>
+      <minimumSize width="800" height="600"/>
+      <opaque value="false"/>
+      <preferredSize width="800" height="600"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="9fc5" binding="panelHeadline" layout-manager="FlowLayout" hgap="6" vgap="6" flow-align="2">
+        <constraints/>
+        <properties>
+          <background color="-1710618"/>
+          <foreground color="-1710618"/>
+          <maximumSize width="800" height="30"/>
+          <minimumSize width="800" height="30"/>
+          <opaque value="true"/>
+          <preferredSize width="800" height="30"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="b9223" binding="pnlBtnMinimize" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties>
+              <background color="-13795822"/>
+              <maximumSize width="18" height="18"/>
+              <minimumSize width="18" height="18"/>
+              <opaque value="false"/>
+              <preferredSize width="18" height="18"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="38d75" binding="pnlBtnMaximize" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints/>
+            <properties>
+              <background color="-13795822"/>
+              <maximumSize width="18" height="18"/>
+              <minimumSize width="18" height="18"/>
+              <opaque value="false"/>
+              <preferredSize width="18" height="18"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="eeba0" binding="pnlBtnNormalize" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints/>
+            <properties>
+              <background color="-13795822"/>
+              <maximumSize width="18" height="18"/>
+              <minimumSize width="18" height="18"/>
+              <opaque value="false"/>
+              <preferredSize width="18" height="18"/>
+              <visible value="false"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="53042" binding="pnlBtnExit" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties>
+              <background color="-13795822"/>
+              <maximumSize width="18" height="18"/>
+              <minimumSize width="18" height="18"/>
+              <opaque value="false"/>
+              <preferredSize width="18" height="18"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

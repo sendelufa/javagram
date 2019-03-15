@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="javagram.View.formElements.ItemContactList">
+  <grid id="27dc6" layout-manager="CardLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <maximumSize width="254" height="70"/>
+      <minimumSize width="254" height="70"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="5bb38" binding="mainPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
+        <constraints>
+          <card name="Card1"/>
+        </constraints>
+        <properties>
+          <background color="-393226"/>
+          <preferredSize width="245" height="70"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="e0b8f" binding="pnlUserPhoto1" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties>
+              <opaque value="false"/>
+              <preferredSize width="60" height="70"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="81c65" layout-manager="FlowLayout" hgap="10" vgap="0" flow-align="0">
+            <constraints/>
+            <properties>
+              <opaque value="false"/>
+              <preferredSize width="130" height="70"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="de8fe" class="javax.swing.JLabel" binding="lblName">
+                <constraints/>
+                <properties>
+                  <font size="14" style="1"/>
+                  <foreground color="-12828863"/>
+                  <opaque value="false"/>
+                  <preferredSize width="140" height="35"/>
+                  <text value="Андрей Петров"/>
+                  <verticalAlignment value="3"/>
+                </properties>
+              </component>
+              <component id="6a38e" class="javax.swing.JLabel" binding="lblLastMessage">
+                <constraints/>
+                <properties>
+                  <font size="12"/>
+                  <foreground color="-6049613"/>
+                  <preferredSize width="140" height="20"/>
+                  <text value="Хорошо! До встречи..."/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="e75aa" layout-manager="FlowLayout" hgap="5" vgap="25" flow-align="1">
+            <constraints/>
+            <properties>
+              <opaque value="false"/>
+              <preferredSize width="40" height="70"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="fe9ef" class="javax.swing.JLabel" binding="lblTime">
+                <constraints/>
+                <properties>
+                  <font size="10"/>
+                  <foreground color="-6049613"/>
+                  <text value="2 мин"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
