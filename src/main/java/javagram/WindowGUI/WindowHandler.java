@@ -9,9 +9,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -19,7 +16,6 @@ import javagram.View.IView;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -160,13 +156,13 @@ public class WindowHandler {
     JPanel c = (JPanel) frame.getContentPane();
     lp.removeAll();
     frame.setContentPane(c);
-    setLayeredFloatButtons();
+    showLayeredFloatButtons();
     frame.repaint();
     frame.setVisible(true);
   }
 
   //set float buttons to frame
-  public static void setLayeredFloatButtons() {
+  public static void showLayeredFloatButtons() {
     if (floatComponents != null) {
       lp.add(floatComponents, JLayeredPane.MODAL_LAYER, INDEX_OF_LAYER_FLOAT_BUTTONS);
     } else {

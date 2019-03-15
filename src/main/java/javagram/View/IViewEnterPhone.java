@@ -6,9 +6,6 @@ import javagram.Presenter.PrEnterPhone;
 //view for window with phone input
 public interface IViewEnterPhone extends IView {
 
-  //show error
-  void showPhoneFormatError(String strError);
-
   //main method init View
   void setPresenter(PrEnterPhone presenter);
 

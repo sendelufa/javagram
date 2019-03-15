@@ -137,12 +137,15 @@ public class ViewEnterPhone implements IViewEnterPhone {
   }
 
   @Override
-  public void showPhoneFormatError(String strError) {
+  public void showError(String strError) {
+    clearError();
+    lblError.setForeground(Color.RED);
     lblError.setText(strError);
   }
 
   @Override
-  public void showError(String strError) {
+  public void showInfo(String strError) {
+    clearError();
     lblError.setText(strError);
   }
 
@@ -179,6 +182,7 @@ public class ViewEnterPhone implements IViewEnterPhone {
   @Override
   public void clearError() {
     lblError.setText("");
+    lblError.setForeground(Color.WHITE);
   }
 
 

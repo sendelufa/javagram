@@ -435,15 +435,7 @@
                       <preferredSize width="254" height="0"/>
                     </properties>
                     <border type="none"/>
-                    <children>
-                      <component id="41cb5" class="javax.swing.JLabel">
-                        <constraints/>
-                        <properties>
-                          <preferredSize width="250" height="1000"/>
-                          <text value="пмтмитмит"/>
-                        </properties>
-                      </component>
-                    </children>
+                    <children/>
                   </scrollpane>
                 </children>
               </grid>
@@ -497,17 +489,25 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <grid id="7d069" binding="pnlTitleBarUserPic" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                    <margin top="0" left="0" bottom="0" right="0"/>
+                  <grid id="7d069" binding="pnlTitleBarUserPic" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
                     <constraints/>
                     <properties>
                       <opaque value="false"/>
                       <preferredSize width="29" height="50"/>
                     </properties>
                     <border type="none"/>
-                    <children/>
+                    <children>
+                      <component id="89f13" class="javax.swing.JLabel" binding="lblTitleBarUserPic">
+                        <constraints>
+                          <card name="Card1"/>
+                        </constraints>
+                        <properties>
+                          <text value="Label"/>
+                        </properties>
+                      </component>
+                    </children>
                   </grid>
-                  <component id="f366f" class="javax.swing.JLabel">
+                  <component id="f366f" class="javax.swing.JLabel" binding="lblFullUserNameTopBar">
                     <constraints/>
                     <properties>
                       <font size="14"/>

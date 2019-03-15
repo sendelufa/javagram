@@ -5,8 +5,11 @@ package javagram.Model;
 
 public class TgContact {
   String name, time, lastMessage;
+  int id;
+  static int count = 0;
 
   public TgContact() {
+    id = count++;
     name = String.valueOf(Math.random()*1000);
     time = String.valueOf((int)(Math.random()*9));
     lastMessage = String.valueOf(Math.random()*1000000);
@@ -23,6 +26,10 @@ public class TgContact {
 
   public String getTime() {
     return time;
+  }
+
+  public int getId() {
+    return id;
   }
 
   public String getLastMessage() {

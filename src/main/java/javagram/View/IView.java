@@ -7,6 +7,9 @@ public interface IView {
   //show various error
   void showError(String strError);
 
+  //show various info
+  void showInfo(String strError);
+
   void clearError();
 
   //show Loading Icon (animated)

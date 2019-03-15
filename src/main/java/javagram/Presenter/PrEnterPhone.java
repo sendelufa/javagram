@@ -26,7 +26,7 @@ public class PrEnterPhone {
 
     //Check empty string
     if (phone_clean.isEmpty()){
-      view.showPhoneFormatError(Configs.ERR_PHONE_EMPTY);
+      view.showError(Configs.ERR_PHONE_EMPTY);
       return;
     }
 
@@ -34,7 +34,7 @@ public class PrEnterPhone {
     try {
       if (phone_clean.length() != Configs.SYS_PHONE_NUMBER_LENGTH) {
 
-        view.showPhoneFormatError(Configs.ERR_PHONE_FORMAT);
+        view.showError(Configs.ERR_PHONE_FORMAT);
         throw new PhoneFormatError(Configs.ERR_PHONE_FORMAT);
 
       }
@@ -43,18 +43,13 @@ public class PrEnterPhone {
       return;
     }
 
-    view.showError(Configs.INFO_CONNECT_TELEGRAM);
-    //get getInstance Telegram Api
-
+    view.showInfo(Configs.INFO_CONNECT_TELEGRAM);
     view.showLoadingProcess();
 
     Thread thread = new Thread(new Runnable() {
       @Override
       public void run() {
         //check phone on telegram server
-        TLHandler.getInstance();
-        //check phone on telegram server
-
         TLHandler.getInstance().checkPhoneRegistered(phone_clean);
         if (TLHandler.getInstance().isPhoneRegistered()) {
           ViewSendCode view = new ViewSendCode();
@@ -64,7 +59,5 @@ public class PrEnterPhone {
       }
     });
     thread.start();
-
-
   }
 }

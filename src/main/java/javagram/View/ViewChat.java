@@ -25,9 +25,6 @@ import java.io.IOException;
 public class ViewChat implements IViewChat {
 
   //inner params
-  final static boolean shouldFill = true;
-  final static boolean shouldWeightX = true;
-  final static boolean RIGHT_TO_LEFT = false;
   private JPanel mainPanel;
   private JPanel panelHeadline;
   //Headline of Form
@@ -64,33 +61,19 @@ public class ViewChat implements IViewChat {
   private JButton setContactsJListButton;
   private JScrollPane contactsJScroll;
   private JButton lblBtnClearContacts;
+  private JLabel lblFullUserNameTopBar;
+  private JLabel lblTitleBarUserPic;
   //Resources - Images
-  private BufferedImage microLogo;
-  private BufferedImage imgHeadClose;
-  private BufferedImage imgHeadMin;
-  private BufferedImage imgTitleBarUserPic;
-  private BufferedImage imgTitleBarSettings;
-  private BufferedImage imgChatsTitle;
-  private BufferedImage imgUserPhoto1, imgUserPhoto2, imgUserPhotoListSelected;
-  private BufferedImage imgNewChat;
-  private BufferedImage imgCurrentChatUserEdit;
-  private BufferedImage imgTextInLeft;
-  private BufferedImage imgTextInCenter;
-  private BufferedImage imgTextInRight;
-  private BufferedImage imgMsgOutTop;
-  private BufferedImage imgMsgOutBottom;
-  private BufferedImage imgMsgTip;
+  private BufferedImage microLogo, imgTitleBarUserPic, imgTitleBarSettings;
+  private BufferedImage imgChatsTitle, imgUserPhoto1, imgUserPhoto2, imgUserPhotoListSelected;
+  private BufferedImage imgNewChat, imgCurrentChatUserEdit, imgTextInLeft, imgTextInCenter;
+  private BufferedImage imgTextInRight, imgMsgOutTop, imgMsgOutBottom, imgMsgTip;
 
   //Presenter
   private PrChat presenter;
 
-  DefaultListModel<TgContact> model = new DefaultListModel<>();
-
-
   public ViewChat() {
     try {
-      imgHeadClose = ImageIO.read(new File("res/img/icon-close.png"));
-      imgHeadMin = ImageIO.read(new File("res/img/icon-hide.png"));
       microLogo = ImageIO.read(new File("res/img/logo-micro.png"));
       imgTitleBarUserPic = ImageIO.read(new File("res/img/mask-blue-mini.png"));
       imgTitleBarSettings = ImageIO.read(new File("res/img/icon-settings.png"));
@@ -115,26 +98,24 @@ public class ViewChat implements IViewChat {
     HeadLineForm headLine = new HeadLineForm(HeadLineForm.SHOW_MINMAX);
     panelTopBar.add(headLine.getPanelHeadline(), BorderLayout.NORTH);
 
-
     //TODO сделать чтобы плавающая кнопка меняла положени при ресайзе и при открытии других панелей
-    JPanel p = new JPanel(new CardLayout(100,100));
-   p.setBorder(BorderFactory.createCompoundBorder(
-       BorderFactory.createLineBorder(new Color(249,255,246 ), 3),
-       BorderFactory.createEmptyBorder(25, 25, 25, 25)));
+    JPanel p = new JPanel(new CardLayout(100, 100));
+    p.setBorder(BorderFactory.createCompoundBorder(
+        BorderFactory.createLineBorder(new Color(249, 255, 246), 3),
+        BorderFactory.createEmptyBorder(25, 25, 25, 25)));
     p.setBackground(Color.GREEN);
     Dimension frameDimension = WindowHandler.getFrameSize();
-    p.setBounds(20, (int)frameDimension.getHeight()-70, 26, 26);
-    try {
+    p.setBounds(20, (int) frameDimension.getHeight() - 70, 26, 26);
+ /*   try {
       ProfileChangeData glassPanel = new ProfileChangeData(WindowHandler.getFrameSize(),
           "Настройки профиля");
     } catch (IOException e1) {
       e1.printStackTrace();
     } catch (FontFormatException e1) {
       e1.printStackTrace();
-    }
-    //WindowHandler.setModalFullScreenPanel(p, new JPanel());
+    }*/
     WindowHandler.setFloatComponents(p);
-    WindowHandler.setLayeredFloatButtons();
+    WindowHandler.showLayeredFloatButtons();
     WindowHandler.repaintFrame();
 
     //temp
@@ -196,39 +177,14 @@ public class ViewChat implements IViewChat {
     setContactsJListButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-
-
-        model = new DefaultListModel<>();
-        model.ensureCapacity(50);
-        for(int i = 0; i < 100; i++){
-          model.addElement(new TgContact());
-        }
-        JList<TgContact> list = new JList<>(model);
-        list.setLayoutOrientation(JList.VERTICAL);
-
-        contactsJScroll.setViewportView(list);
-
-        System.out.println("list size:" + model.getSize());
-        list.setCellRenderer(new DefaultListCellRenderer() {
-          public Component getListCellRendererComponent(JList list,
-              Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            TgContact tc = (TgContact) value;
-            //System.out.println(tc.getTime());
-            Color color = isSelected ? new Color(213, 245, 255) : new Color(255, 255, 255);
-            BufferedImage imgUser = isSelected ? imgUserPhotoListSelected : imgUserPhoto1;
-            ItemContactList cList = new ItemContactList("имя:" + tc.getName(), tc.getLastMessage(), tc.getTime()+ " мин.", imgUser);
-            cList.getMainPanel().setBackground(color);
-            return cList.getMainPanel() ;
-          }
-        });
-
+          presenter.getContactList();
       }
     });
     lblBtnClearContacts.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         //contactsJScroll.remove(1);
-        model.clear();
+        presenter.clearModel();
         WindowHandler.repaintFrame();
       }
     });
@@ -236,6 +192,11 @@ public class ViewChat implements IViewChat {
 
   @Override
   public void showError(String strError) {
+    txtEnterMessage.setText(strError);
+  }
+
+  @Override
+  public void showInfo(String strError) {
     txtEnterMessage.setText(strError);
   }
 
@@ -259,10 +220,40 @@ public class ViewChat implements IViewChat {
     return mainPanel;
   }
 
-  //add component with repaint
-  private void addComponentToPanel(JPanel p, Component c) {
-    p.add(c);
-    WindowHandler.repaintFrame();
+  @Override
+  public void showContactList(DefaultListModel<TgContact> model) {
+    JList<TgContact> list = new JList<>(model);
+    list.setLayoutOrientation(JList.VERTICAL);
+
+    contactsJScroll.setViewportView(list);
+    //set design form to item in JList
+    list.setCellRenderer(new DefaultListCellRenderer() {
+      public Component getListCellRendererComponent(JList list,
+          Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        TgContact tc = (TgContact) value;
+        //select color and img mask for selected item
+        Color color = isSelected ? new Color(213, 245, 255) : new Color(255, 255, 255);
+        BufferedImage imgUser = isSelected ? imgUserPhotoListSelected : imgUserPhoto1;
+        //add gui form ItemContactList to item in list
+        ItemContactList cList = new ItemContactList(tc.getId() + "имя:" + tc.getName(), tc.getLastMessage(),
+            tc.getTime() + " мин.", imgUser);
+        cList.getMainPanel().setBackground(color);
+        return cList.getMainPanel();
+      }
+    });
+  }
+
+  @Override
+  public void setUserFullNameLabelTop(String fullName) {
+    lblFullUserNameTopBar.setText(fullName);
+  }
+
+  @Override
+  public void setUserPhotoTop(Image userPhoto) {
+    userPhoto = userPhoto.getScaledInstance(lblTitleBarUserPic.getWidth(), lblTitleBarUserPic.getWidth(), Image.SCALE_SMOOTH);
+    ImageIcon icon = new ImageIcon(userPhoto);
+
+    lblTitleBarUserPic.setIcon(icon);
   }
 
   //Custom UI components create

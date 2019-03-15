@@ -101,12 +101,21 @@ public class ViewSendCode implements IViewSendCode {
 
     @Override
     public void showError(String strError) {
+        clearError();
+        lblError.setForeground(Color.RED);
+        lblError.setText(strError);
+    }
+
+    @Override
+    public void showInfo(String strError) {
+        clearError();
         lblError.setText(strError);
     }
 
     @Override
     public void clearError() {
         lblError.setText("");
+        lblError.setForeground(Color.WHITE);
     }
 
     @Override

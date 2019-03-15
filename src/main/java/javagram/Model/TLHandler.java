@@ -3,10 +3,15 @@
  */
 package javagram.Model;
 
+import java.awt.Image;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.logging.Logger;
 import javagram.Configs;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
 import org.javagram.response.AuthCheckedPhone;
@@ -43,9 +48,9 @@ public class TLHandler {
   }
 
   public static TLHandler getInstance() {
-      synchronized (TLHandler.class) {
-        if (instance == null) {
-          instance = new TLHandler();
+    synchronized (TLHandler.class) {
+      if (instance == null) {
+        instance = new TLHandler();
       }
     }
     return instance;
@@ -95,6 +100,20 @@ public class TLHandler {
 
   public String getUserNameFull() {
     return userNameFull;
+  }
+
+  public Image getUserPhoto() {
+    Image img = Configs.IMG_DEFAULT_USER;
+    try {
+      byte[] userPhoto = authorization.getUser().getPhoto(true);
+      if (userPhoto != null) {
+        img = ImageIO.read(new ByteArrayInputStream(userPhoto));
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      l.warning("НЕ ЗАГРУЗИЛАСЬ ФОТО ПОЛЬЗОВАТЕЛЯ!");
+    }
+    return img;
   }
 
  /* public static void getCurrentUser(){

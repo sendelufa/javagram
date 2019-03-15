@@ -38,18 +38,17 @@ public class PrSendCode {
       @Override
       public void run() {
         try {
+          //check confirm code
           TLHandler.getInstance().checkCode(confirmCode);
-          view.showError("Логин успешен для пользователя: " + TLHandler.getInstance().getUserNameFull());
         } catch (RpcException e) {
           if (e.getErrorTag().equals("PHONE_CODE_INVALID")) {
             view.showError(Configs.ERR_WRONG_CODE);
           } else if (e.getErrorTag().equals("PHONE_NUMBER_UNOCCUPIED")) {
-            view.showError("PHONE_NUMBER_UNOCCUPIED go to SignUp");
+            view.showInfo("PHONE_NUMBER_UNOCCUPIED go to SignUp");
 
           } else {
             view.showError("Неизвестная ошибка!");
           }
-
           return;
         } catch (IOException e) {
           e.printStackTrace();
@@ -57,15 +56,17 @@ public class PrSendCode {
         } finally {
           view.hideLoadingProcess();
         }
+
+        //view chat if no exceptions
         ViewChat chat = new ViewChat();
-chat.setPresenter(new PrChat(chat));
+        chat.setPresenter(new PrChat(chat));
       }
     });
     thread.start();
 
   }
 
-  public void goBackToPhoneInput(){
+  public void goBackToPhoneInput() {
     ViewEnterPhone viewEnterPhone = new ViewEnterPhone();
     viewEnterPhone.fillPhoneNumberTextField(TLHandler.getInstance().getUserPhone());
     viewEnterPhone.setPresenter(new PrEnterPhone(viewEnterPhone));

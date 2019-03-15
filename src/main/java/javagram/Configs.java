@@ -24,7 +24,7 @@ public class Configs {
       ERR_PHONE_EMPTY;
     //images for all formElement
   public static Image IMG_LOADING_GIF_100;
-  public static BufferedImage  IMG_BUTTON_BACK_35_35;
+  public static BufferedImage  IMG_BUTTON_BACK_35_35, IMG_DEFAULT_USER;
   public static String BTN_CONTINUE;
   //TL Connect settings
   public static String TL_SERVER, TL_APP_HASH;
@@ -59,6 +59,7 @@ public class Configs {
       IMG_LOGO_SIGN = props.getProperty("IMG_LOGO_SIGN", "res/img/logo.png");
       IMG_BTN_BG = props.getProperty("IMG_BTN_BG", "res/img/button-background.png");
       IMG_ICON_PHONE = props.getProperty("IMG_ICON_PHONE", "res/img/icon-phone.png");
+      IMG_DEFAULT_USER = ImageIO.read(new File("res/img/icon-default-user.png"));
 
       //ERRORS WARNINGS INFO texts
       ERR_NO_IMAGES = props.getProperty("ERR_NO_IMAGES", "Неудалось загрузить картинки!");
