@@ -12,7 +12,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
-import javagram.View.IView;
+import javagram.View.interfaces.IView;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;

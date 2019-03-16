@@ -19,18 +19,11 @@ public class Loader {
     Configs.read();
 
     //start app with first form with Phone enter
-
       WindowHandler.startFrame();
       /*ViewChat view = new ViewChat();
-      view.setPresenter(new PrChat(new ViewChat()));*/
+      view.setPresenter(new PrChat(view));*/
       ViewEnterPhone view = new ViewEnterPhone();
-      view.setPresenter(new PrEnterPhone(view));
-
-
-
-
-
-
+      //view.setPresenter(new PrEnterPhone(view));
   }
 
 }

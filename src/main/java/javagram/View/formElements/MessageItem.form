@@ -7,7 +7,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="48282" binding="mainPanel" layout-manager="FlowLayout" hgap="0" vgap="10" flow-align="2">
+      <grid id="48282" binding="mainPanel" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="2">
         <constraints>
           <card name="Card1"/>
         </constraints>
@@ -17,11 +17,11 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="5ddca" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="5ddca" binding="pnlMessage" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints/>
             <properties>
               <opaque value="false"/>
-              <preferredSize width="307" height="75"/>
+              <preferredSize width="307" height="80"/>
             </properties>
             <border type="none"/>
             <children>
@@ -48,34 +48,37 @@
                     <properties>
                       <font size="10"/>
                       <foreground color="-6049613"/>
+                      <opaque value="true"/>
                       <text value="5 минут назад"/>
+                    </properties>
+                  </component>
+                  <component id="3572a" class="javax.swing.JLabel" binding="txtMessage1">
+                    <constraints/>
+                    <properties>
+                      <foreground color="-1"/>
+                      <text value="&lt;html&gt;sdsdfsdfdgfdfgdfgdgfdfgdfg&#10;&lt;br&gt;sdsdfsdf&#10;&lt;br&gt;sdsdfsdf&#10;&lt;br&gt;2222&#10;&lt;/html&gt;"/>
+                      <visible value="false"/>
                     </properties>
                   </component>
                 </children>
               </grid>
-              <grid id="96a61" layout-manager="BorderLayout" hgap="0" vgap="0">
-                <constraints border-constraint="West"/>
+              <grid id="96a61" binding="pnlMessageText" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
+                <constraints border-constraint="Center"/>
                 <properties>
                   <background color="-11909976"/>
+                  <foreground color="-393226"/>
+                  <opaque value="true"/>
                   <preferredSize width="254" height="50"/>
                 </properties>
                 <border type="none"/>
                 <children>
-                  <grid id="59ec9" layout-manager="CardLayout" hgap="0" vgap="0">
-                    <constraints border-constraint="Center"/>
-                    <properties/>
-                    <border type="none"/>
-                    <children>
-                      <component id="fe35e" class="javax.swing.JTextPane" binding="sdfsdfsdfSdfsdfDsfDsfTextPane" default-binding="true">
-                        <constraints>
-                          <card name="Card1"/>
-                        </constraints>
-                        <properties>
-                          <text value="sdfsdfsdf&#10;sdfsdf&#10;dsf&#10;dsf&#10;sd&#10;fsd"/>
-                        </properties>
-                      </component>
-                    </children>
-                  </grid>
+                  <component id="5aea6" class="javax.swing.JTextPane" binding="txtMessage">
+                    <constraints/>
+                    <properties>
+                      <editable value="false"/>
+                      <text value="&lt;html&gt;ddd&lt;b&gt;2222&lt;/b&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
                 </children>
               </grid>
             </children>

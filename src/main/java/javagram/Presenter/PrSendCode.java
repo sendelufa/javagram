@@ -4,21 +4,16 @@
 package javagram.Presenter;
 
 import java.io.IOException;
-import javagram.Configs;
 import javagram.Model.TLHandler;
-import javagram.View.ViewChat;
-import javagram.View.IViewSendCode;
-import javagram.View.ViewEnterPhone;
-import javagram.WindowGUI.WindowHandler;
+import javagram.Presenter.interfaces.IPresenter;
+import javagram.View.interfaces.IViewSendCode;
 import org.telegram.api.engine.RpcException;
 
-public class PrSendCode {
-
+public class PrSendCode implements IPresenter {
   private IViewSendCode view;
 
   public PrSendCode(IViewSendCode view) {
     this.view = view;
-    WindowHandler.setViewOnFrame(this.view);
     view.setPhoneNumber(TLHandler.getInstance().getUserPhone());
     sendCode();
   }
@@ -42,12 +37,12 @@ public class PrSendCode {
           TLHandler.getInstance().checkCode(confirmCode);
         } catch (RpcException e) {
           if (e.getErrorTag().equals("PHONE_CODE_INVALID")) {
-            view.showError(Configs.ERR_WRONG_CODE);
+            view.showErrorWrongCode();
           } else if (e.getErrorTag().equals("PHONE_NUMBER_UNOCCUPIED")) {
             view.showInfo("PHONE_NUMBER_UNOCCUPIED go to SignUp");
 
           } else {
-            view.showError("Неизвестная ошибка!");
+            view.showErrorUnknown();
           }
           return;
         } catch (IOException e) {
@@ -58,8 +53,7 @@ public class PrSendCode {
         }
 
         //view chat if no exceptions
-        ViewChat chat = new ViewChat();
-        chat.setPresenter(new PrChat(chat));
+        view.callViewChat();
       }
     });
     thread.start();
@@ -67,10 +61,7 @@ public class PrSendCode {
   }
 
   public void goBackToPhoneInput() {
-    ViewEnterPhone viewEnterPhone = new ViewEnterPhone();
-    viewEnterPhone.fillPhoneNumberTextField(TLHandler.getInstance().getUserPhone());
-    viewEnterPhone.setPresenter(new PrEnterPhone(viewEnterPhone));
-    TLHandler.getInstance().clearApiBridge();
+    view.callViewEnterPhone(TLHandler.getInstance().getUserPhone());
   }
 
 

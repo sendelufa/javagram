@@ -3,20 +3,17 @@
  */
 package javagram.Presenter;
 
-import javagram.Configs;
 import javagram.Exceptions.PhoneFormatError;
 import javagram.Model.TLHandler;
-import javagram.View.IViewEnterPhone;
-import javagram.View.ViewSendCode;
-import javagram.WindowGUI.WindowHandler;
+import javagram.Presenter.interfaces.IPresenter;
+import javagram.View.interfaces.IViewEnterPhone;
 
-public class PrEnterPhone {
 
+public class PrEnterPhone implements IPresenter {
   IViewEnterPhone view;
 
   public PrEnterPhone(IViewEnterPhone view) {
     this.view = view;
-    WindowHandler.setViewOnFrame(this.view);
   }
 
   public void checkPhone(String phone) {
@@ -26,16 +23,15 @@ public class PrEnterPhone {
 
     //Check empty string
     if (phone_clean.isEmpty()){
-      view.showError(Configs.ERR_PHONE_EMPTY);
+      view.showErrorPhoneEmpty();
       return;
     }
 
     //check phone number to valid length
     try {
-      if (phone_clean.length() != Configs.SYS_PHONE_NUMBER_LENGTH) {
-
-        view.showError(Configs.ERR_PHONE_FORMAT);
-        throw new PhoneFormatError(Configs.ERR_PHONE_FORMAT);
+      if (phone_clean.length() != 10) {
+        view.showErrorPhoneFormat();
+        throw new PhoneFormatError("Phone Format Error");
 
       }
     } catch (PhoneFormatError ex) {
@@ -43,7 +39,7 @@ public class PrEnterPhone {
       return;
     }
 
-    view.showInfo(Configs.INFO_CONNECT_TELEGRAM);
+    view.showInfoConnecting();
     view.showLoadingProcess();
 
     Thread thread = new Thread(new Runnable() {
@@ -52,8 +48,7 @@ public class PrEnterPhone {
         //check phone on telegram server
         TLHandler.getInstance().checkPhoneRegistered(phone_clean);
         if (TLHandler.getInstance().isPhoneRegistered()) {
-          ViewSendCode view = new ViewSendCode();
-          view.setPresenter(new PrSendCode(view));
+            view.callViewSendCode();
         }
         view.hideLoadingProcess();
       }

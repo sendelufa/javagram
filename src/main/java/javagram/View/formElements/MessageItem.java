@@ -5,16 +5,49 @@ package javagram.View.formElements;
 
 import java.awt.Graphics;
 import javagram.Configs;
+import javagram.WindowGUI.WindowHandler;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import org.javagram.response.object.Message;
 
-public class MessageItem {
+public class MessageItem extends JFrame {
 
   private JPanel pnlMsgOutTop;
   private JPanel pnlMsgOutBottom;
   private JPanel pnlMsgTip;
   private JPanel mainPanel;
-  private JTextPane sdfsdfsdfSdfsdfDsfDsfTextPane;
+  private JTextPane txtMessage;
+  private JLabel txtMessage1;
+  private JPanel pnlMessageText;
+  private JPanel pnlMessage;
+  private JLabel lblMessageText;
+
+  public JPanel getMainPanel() {
+    return mainPanel;
+  }
+
+  public MessageItem(){
+      txtMessage.setText("sdfsdfsdfsd sdf sdfsdf sdf sdf sd sd sdsdf sdfsdf sd sdsd sd fsdsdfsd f");
+      txtMessage.revalidate();
+  }
+
+  public JTextPane getTxtMessage() {
+    return txtMessage;
+  }
+
+  public JPanel getPnlMessageText() {
+    return pnlMessageText;
+  }
+
+  public JPanel getPnlMessage() {
+    return pnlMessage;
+  }
+
+  public JLabel getLblMessageText() {
+    return lblMessageText;
+  }
 
   //Custom UI components create
   private void createUIComponents() {

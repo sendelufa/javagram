@@ -130,7 +130,7 @@
               </grid>
             </children>
           </grid>
-          <grid id="55345" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="55345" binding="pnlDialodMessages" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints border-constraint="Center"/>
             <properties>
               <opaque value="false"/>
@@ -563,7 +563,7 @@
               <text value="add msg incoming"/>
             </properties>
           </component>
-          <component id="37e6c" class="javax.swing.JButton" default-binding="true">
+          <component id="37e6c" class="javax.swing.JButton" binding="btnAddMsgOutgoing">
             <constraints/>
             <properties>
               <text value="add msg outgoing"/>

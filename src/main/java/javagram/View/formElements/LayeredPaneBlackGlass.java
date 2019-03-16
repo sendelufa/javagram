@@ -1,4 +1,4 @@
-package javagram; /**
+package javagram.View.formElements; /**
  * Project Javagram
  * Created by Shibkov Konstantin on 03.01.2019.
  */
@@ -16,9 +16,9 @@ import java.io.IOException;
 //create BlackGlass panel without content
 //Boxlayout with transparent Headline in NORTH
 abstract public class LayeredPaneBlackGlass {
-    MyGlassPanel panelBg; //skeleton
-    JPanel panel;
-    JPanel mainContent = new JPanel(); //content with main.java.formElements
+    protected MyGlassPanel panelBg; //skeleton
+    protected JPanel panel;
+    protected JPanel mainContent = new JPanel(); //content with main.java.formElements
     private JLabel lblTitle = new JLabel(); //title of content
     private BufferedImage imgBlackGlass;
 

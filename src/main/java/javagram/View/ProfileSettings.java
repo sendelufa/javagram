@@ -3,7 +3,6 @@ package javagram.View; /**
  * Created by Shibkov Konstantin on 24.12.2018.
  */
 
-import javagram.ProfileChangeData;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -128,9 +127,9 @@ public class ProfileSettings {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 WindowHandler.resetFrame();
-                ProfileChangeData pcd = null;
+                ViewUserChangeProfile pcd = null;
                 try {
-                    pcd = new ProfileChangeData(WindowHandler.getFrameSize(), "Настройки профиля");
+                    pcd = new ViewUserChangeProfile(WindowHandler.getFrameSize(), "Настройки профиля");
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 } catch (FontFormatException e1) {

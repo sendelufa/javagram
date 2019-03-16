@@ -1,8 +1,9 @@
-package javagram; /**
+package javagram.View; /**
  * Project Javagram
  * Created by Shibkov Konstantin on 03.01.2019.
  */
 
+import javagram.View.formElements.LayeredPaneBlackGlass;
 import javagram.View.formElements.MyPanelBgImage;
 import javagram.View.formElements.MyTransparentSpace;
 import javagram.View.formElements.MyUnderLineText;
@@ -14,9 +15,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-public class ProfileChangeContactData extends LayeredPaneBlackGlass {
+public class ViewContactChangeProfile extends LayeredPaneBlackGlass {
 
-    public ProfileChangeContactData(Dimension frameDim, String title) throws IOException, FontFormatException {
+    public ViewContactChangeProfile(Dimension frameDim, String title) throws IOException, FontFormatException {
         super(frameDim, title);
 
 

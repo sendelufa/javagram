@@ -4,8 +4,11 @@ package javagram.View; /**
 
 import java.text.ParseException;
 import javagram.Configs;
+import javagram.Presenter.interfaces.IPresenter;
 import javagram.Presenter.PrEnterPhone;
 import javagram.View.formElements.HeadLineForm;
+import javagram.View.interfaces.IViewEnterPhone;
+import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -43,8 +46,15 @@ public class ViewEnterPhone implements IViewEnterPhone {
   private BufferedImage imgIcoPhone;
   //inner params
 
+  public ViewEnterPhone(String phone){
+    this();
+    txtPhone.setText(phone);
+  }
 
   public ViewEnterPhone() {
+    //PRESENTER
+    setPresenter(new PrEnterPhone(this));
+    //set images
     try {
       bg = ImageIO.read(new File(Configs.IMG_BG));
       logo = ImageIO.read(new File(Configs.IMG_LOGO_SIGN));
@@ -75,8 +85,10 @@ public class ViewEnterPhone implements IViewEnterPhone {
     setTextFieldMask(txtPhone, Configs.INTERFACE_PHONE_MASK,
         Configs.INTERFACE_PHONE_MASK_PLACEHOLDER);
     //format phone text input field
-
     txtPhone.setText("9996624444");
+
+    //view set to windowframe
+    WindowHandler.setViewOnFrame(this);
 
   }
 
@@ -137,6 +149,22 @@ public class ViewEnterPhone implements IViewEnterPhone {
   }
 
   @Override
+  public void showErrorPhoneEmpty() {
+    showError(Configs.ERR_PHONE_EMPTY);
+  }
+
+  @Override
+  public void showErrorPhoneFormat() {
+    showError(Configs.ERR_PHONE_FORMAT);
+  }
+
+  @Override
+  public void showInfoConnecting() {
+    showInfo(Configs.INFO_CONNECT_TELEGRAM);
+
+  }
+
+  @Override
   public void showError(String strError) {
     clearError();
     lblError.setForeground(Color.RED);
@@ -170,8 +198,9 @@ public class ViewEnterPhone implements IViewEnterPhone {
 
   }
 
-  public void setPresenter(PrEnterPhone presenter) {
-    this.presenter = presenter;
+  @Override
+  public void setPresenter(IPresenter presenter) {
+    this.presenter = (PrEnterPhone) presenter;
   }
 
   @Override
@@ -183,6 +212,11 @@ public class ViewEnterPhone implements IViewEnterPhone {
   public void clearError() {
     lblError.setText("");
     lblError.setForeground(Color.WHITE);
+  }
+
+  @Override
+  public void callViewSendCode(){
+    new ViewSendCode();
   }
 
 

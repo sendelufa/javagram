@@ -1,8 +1,12 @@
-package javagram.View;
+package javagram.View.interfaces;
 
+import javagram.Presenter.interfaces.IPresenter;
 import javax.swing.JPanel;
 
 public interface IView {
+
+  //main method init View
+  void setPresenter(IPresenter presenter);
 
   //show various error
   void showError(String strError);

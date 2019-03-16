@@ -6,12 +6,12 @@ package javagram.View; /**
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javagram.Model.TgContact;
+import javagram.Presenter.interfaces.IPresenter;
 import javagram.Presenter.PrChat;
-import javagram.ProfileAddContact;
-import javagram.ProfileChangeContactData;
-import javagram.ProfileChangeData;
 import javagram.View.formElements.HeadLineForm;
 import javagram.View.formElements.ItemContactList;
+import javagram.View.formElements.MessageItem;
+import javagram.View.interfaces.IViewChat;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -63,6 +63,8 @@ public class ViewChat implements IViewChat {
   private JButton lblBtnClearContacts;
   private JLabel lblFullUserNameTopBar;
   private JLabel lblTitleBarUserPic;
+  private JPanel pnlDialodMessages;
+  private JButton btnAddMsgOutgoing;
   //Resources - Images
   private BufferedImage microLogo, imgTitleBarUserPic, imgTitleBarSettings;
   private BufferedImage imgChatsTitle, imgUserPhoto1, imgUserPhoto2, imgUserPhotoListSelected;
@@ -73,6 +75,9 @@ public class ViewChat implements IViewChat {
   private PrChat presenter;
 
   public ViewChat() {
+    //PRESENTER
+    setPresenter(new PrChat(this));
+    //set images
     try {
       microLogo = ImageIO.read(new File("res/img/logo-micro.png"));
       imgTitleBarUserPic = ImageIO.read(new File("res/img/mask-blue-mini.png"));
@@ -86,14 +91,21 @@ public class ViewChat implements IViewChat {
       imgTextInLeft = ImageIO.read(new File("res/img/text_in_left.png"));
       imgTextInCenter = ImageIO.read(new File("res/img/text_in_center.png"));
       imgTextInRight = ImageIO.read(new File("res/img/button-send.png"));
-      imgMsgOutTop = ImageIO.read(new File("res/img/message-out-top.png"));
-      imgMsgOutBottom = ImageIO.read(new File("res/img/message-out-bottom.png"));
-      imgMsgTip = ImageIO.read(new File("res/img/message-out-right.png"));
+
     } catch (IOException e) {
       System.err.println("Неудалось загрузить картинки!");
       e.printStackTrace();
     }
 
+    MessageItem msg = new MessageItem();
+    pnlDialodMessages.add(msg.getMainPanel());
+    System.out.println(msg.getTxtMessage().getPreferredSize());
+    msg.getPnlMessageText().setPreferredSize(
+        new Dimension((int) msg.getPnlMessageText().getPreferredSize().getWidth(),
+            (int) msg.getTxtMessage().getPreferredSize().getHeight()));
+    msg.getPnlMessage().setPreferredSize(
+        new Dimension((int) msg.getPnlMessage().getPreferredSize().getWidth(),
+            (int) msg.getTxtMessage().getPreferredSize().getHeight()+34));
     //add base elements to head panel with max/min buttons
     HeadLineForm headLine = new HeadLineForm(HeadLineForm.SHOW_MINMAX);
     panelTopBar.add(headLine.getPanelHeadline(), BorderLayout.NORTH);
@@ -109,7 +121,7 @@ public class ViewChat implements IViewChat {
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
         try {
-          ProfileChangeData glassPanel = new ProfileChangeData(WindowHandler.getFrameSize(),
+          ViewUserChangeProfile glassPanel = new ViewUserChangeProfile(WindowHandler.getFrameSize(),
               "Настройки профиля");
           WindowHandler.setModalFullScreenPanel(glassPanel.getForm(), glassPanel.getBgPanel());
           WindowHandler.repaintFrame();
@@ -126,7 +138,7 @@ public class ViewChat implements IViewChat {
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
         try {
-          ProfileAddContact GlassPanel = new ProfileAddContact(WindowHandler.getFrameSize(),
+          ViewContactAdd GlassPanel = new ViewContactAdd(WindowHandler.getFrameSize(),
               "Добавить пользователя");
           WindowHandler.setModalFullScreenPanel(GlassPanel.getForm(), GlassPanel.getBgPanel());
           WindowHandler.repaintFrame();
@@ -143,7 +155,7 @@ public class ViewChat implements IViewChat {
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
         try {
-          ProfileChangeContactData GlassPanel = new ProfileChangeContactData(
+          ViewContactChangeProfile GlassPanel = new ViewContactChangeProfile(
               WindowHandler.getFrameSize(), "Изменить пользователя");
           WindowHandler.setModalFullScreenPanel(GlassPanel.getForm(), GlassPanel.getBgPanel());
           WindowHandler.repaintFrame();
@@ -173,6 +185,17 @@ public class ViewChat implements IViewChat {
         WindowHandler.repaintFrame();
       }
     });
+    btnAddMsgOutgoing.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+      }
+    });
+
+    WindowHandler.makeFrameResizable();
+    WindowHandler.setViewOnFrame(this);
+
+
   }
 
   @Override
@@ -236,7 +259,7 @@ public class ViewChat implements IViewChat {
 
   @Override
   public void setUserPhotoTop(Image userPhoto, String userFirstName, String userLastName) {
-    if (userPhoto == null){
+    if (userPhoto == null) {
       lblTitleBarUserPic.setText(getFullNameInitiates(userFirstName, userLastName));
       return;
     }
@@ -248,9 +271,10 @@ public class ViewChat implements IViewChat {
     lblTitleBarUserPic.setIcon(icon);
   }
 
-  private String getFullNameInitiates(String userFirstName, String userLastName){
+  private String getFullNameInitiates(String userFirstName, String userLastName) {
     boolean hasLastName = (userLastName != null && userLastName != "");
-    return hasLastName ? userFirstName.substring(0,1) + userLastName.substring(0,1) : userFirstName.substring(0,1);
+    return hasLastName ? userFirstName.substring(0, 1) + userLastName.substring(0, 1)
+        : userFirstName.substring(0, 1);
   }
 
 
@@ -409,7 +433,7 @@ public class ViewChat implements IViewChat {
   }
 
   @Override
-  public void setPresenter(PrChat presenter) {
-    this.presenter = presenter;
+  public void setPresenter(IPresenter presenter) {
+    this.presenter = (PrChat)presenter;
   }
 }
