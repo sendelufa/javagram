@@ -1,11 +1,9 @@
 package javagram;
 
-import javagram.Presenter.PrChat;
-import javagram.Presenter.PrEnterPhone;
 import javagram.View.ViewChat;
 import javagram.View.ViewEnterPhone;
 import javagram.WindowGUI.WindowHandler;
-import javax.swing.SwingUtilities;
+
 
 
 /**
@@ -20,10 +18,9 @@ public class Loader {
 
     //start app with first form with Phone enter
       WindowHandler.startFrame();
-      /*ViewChat view = new ViewChat();
-      view.setPresenter(new PrChat(view));*/
-      ViewEnterPhone view = new ViewEnterPhone();
-      //view.setPresenter(new PrEnterPhone(view));
+      new ViewChat();
+      //new ViewEnterPhone();
+
   }
 
 }

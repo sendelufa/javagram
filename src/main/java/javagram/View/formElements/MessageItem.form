@@ -68,15 +68,22 @@
                   <background color="-11909976"/>
                   <foreground color="-393226"/>
                   <opaque value="true"/>
-                  <preferredSize width="254" height="50"/>
+                  <preferredSize width="307" height="50"/>
+                  <requestFocusEnabled value="false"/>
                 </properties>
                 <border type="none"/>
                 <children>
                   <component id="5aea6" class="javax.swing.JTextPane" binding="txtMessage">
                     <constraints/>
                     <properties>
+                      <background color="-4515295"/>
+                      <doubleBuffered value="true"/>
                       <editable value="false"/>
-                      <text value="&lt;html&gt;ddd&lt;b&gt;2222&lt;/b&gt;&lt;/html&gt;"/>
+                      <font size="16"/>
+                      <foreground color="-393226"/>
+                      <margin top="3" left="3" bottom="3" right="20"/>
+                      <opaque value="true"/>
+                      <text value="Когда теряет равновесие&#10;твоё сознание усталое,&#10;когда ступеньки этой лестницы&#10;уходят из под ног,&#10;как палуба,&#10;когда плюёт на человечество&#10;твоё ночное одиночество, —&#10;ты можешь&#10;размышлять о вечности"/>
                     </properties>
                   </component>
                 </children>

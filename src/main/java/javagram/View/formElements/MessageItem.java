@@ -3,14 +3,13 @@
  */
 package javagram.View.formElements;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import javagram.Configs;
-import javagram.WindowGUI.WindowHandler;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
-import org.javagram.response.object.Message;
 
 public class MessageItem extends JFrame {
 
@@ -29,8 +28,25 @@ public class MessageItem extends JFrame {
   }
 
   public MessageItem(){
-      txtMessage.setText("sdfsdfsdfsd sdf sdfsdf sdf sdf sd sd sdsdf sdfsdf sd sdsd sd fsdsdfsd f");
+      txtMessage.setText("Когда теряет равновесие\n"
+          + "твоё сознание усталое,\n"
+          + "когда ступеньки этой лестницы\n"
+          + "уходят из под ног,\n"
+          + "как палуба,\n"
+          + "когда плюёт на человечество\n"
+          + "твоё ночное одиночество, —\n"
+          + "ты можешь\n"
+          + "размышлять о вечности");
       txtMessage.revalidate();
+    //getTxtMessage().setPreferredSize(new Dimension(287, (int) getTxtMessage().getPreferredSize().getHeight()));
+    //getTxtMessage().revalidate();
+    System.out.println(getTxtMessage().getSize());
+    getPnlMessageText().setPreferredSize(
+        new Dimension((int) getTxtMessage().getPreferredSize().getWidth(),
+            (int) getTxtMessage().getPreferredSize().getHeight()));
+    getPnlMessage().setPreferredSize(
+        new Dimension((int) getTxtMessage().getPreferredSize().getWidth()+24,
+            (int) getTxtMessage().getPreferredSize().getHeight()+34));
   }
 
   public JTextPane getTxtMessage() {

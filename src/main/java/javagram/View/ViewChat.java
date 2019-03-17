@@ -97,15 +97,14 @@ public class ViewChat implements IViewChat {
       e.printStackTrace();
     }
 
+    //
+
     MessageItem msg = new MessageItem();
+
+
+
+
     pnlDialodMessages.add(msg.getMainPanel());
-    System.out.println(msg.getTxtMessage().getPreferredSize());
-    msg.getPnlMessageText().setPreferredSize(
-        new Dimension((int) msg.getPnlMessageText().getPreferredSize().getWidth(),
-            (int) msg.getTxtMessage().getPreferredSize().getHeight()));
-    msg.getPnlMessage().setPreferredSize(
-        new Dimension((int) msg.getPnlMessage().getPreferredSize().getWidth(),
-            (int) msg.getTxtMessage().getPreferredSize().getHeight()+34));
     //add base elements to head panel with max/min buttons
     HeadLineForm headLine = new HeadLineForm(HeadLineForm.SHOW_MINMAX);
     panelTopBar.add(headLine.getPanelHeadline(), BorderLayout.NORTH);

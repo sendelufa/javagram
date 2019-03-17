@@ -18,9 +18,9 @@ public class PrChat implements IPresenter {
   public PrChat(IViewChat view) {
     this.view = view;
     //set view to frame
-    this.view.setUserFullNameLabelTop(TLHandler.getInstance().getUserFullName());
-    this.view.setUserPhotoTop(TLHandler.getInstance().getUserPhoto(),
-        TLHandler.getInstance().getUserFirstName(), TLHandler.getInstance().getUserLastName());
+//    this.view.setUserFullNameLabelTop(TLHandler.getInstance().getUserFullName());
+  //  this.view.setUserPhotoTop(TLHandler.getInstance().getUserPhoto(),
+      //  TLHandler.getInstance().getUserFirstName(), TLHandler.getInstance().getUserLastName());
   }
 
   public void getContactList() {

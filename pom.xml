@@ -7,6 +7,13 @@
     <artifactId>Javagram</artifactId>
     <version>0.1-SNAPSHOT</version>
 	
+	<repositories>
+  <repository>
+  <id>my-local-repo</id>
+   <url>file://E:\DEV_HTML_PHP\maven_rep</url>
+  </repository>
+</repositories>
+
 	<properties>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 </properties>
@@ -22,6 +29,12 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+			
+			<plugin>
+                <groupId>org.javagram</groupId>
+                <artifactId>javagram.api</artifactId>
+				<version>2.0</version>
             </plugin>
         </plugins>
     </build>
