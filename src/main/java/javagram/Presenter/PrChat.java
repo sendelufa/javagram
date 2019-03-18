@@ -3,8 +3,8 @@
  */
 package javagram.Presenter;
 
-import javagram.Model.TLHandler;
 import javagram.Model.TgContact;
+import javagram.Model.TgMessage;
 import javagram.Presenter.interfaces.IPresenter;
 import javagram.View.interfaces.IViewChat;
 import javax.swing.DefaultListModel;
@@ -12,7 +12,8 @@ import javax.swing.DefaultListModel;
 
 public class PrChat implements IPresenter {
 
-  DefaultListModel<TgContact> contactsListModel = new DefaultListModel<>();
+  DefaultListModel<TgContact> contactsListModel;
+  DefaultListModel<TgMessage> messagesListModel;
   private IViewChat view;
 
   public PrChat(IViewChat view) {
@@ -32,9 +33,17 @@ public class PrChat implements IPresenter {
     view.showContactList(contactsListModel);
   }
 
-  public void clearModel() {
+  public void clearContactListModel() {
     contactsListModel.clear();
   }
 
+  public void getDialogMessages() {
+    messagesListModel = new DefaultListModel<>();
+    messagesListModel.ensureCapacity(20);
+    for (int i = 0; i < 8; i++) {
+      messagesListModel.addElement(new TgMessage(1552927340-60*2*(8-i),i));
+    }
+    view.showDialogMessages(messagesListModel);
+  }
 
 }
