@@ -24,7 +24,10 @@ public class Configs {
   //images for all formElement
   public static Image IMG_LOADING_GIF_100;
   public static BufferedImage IMG_BUTTON_BACK_35_35, IMG_DEFAULT_USER;
-  public static BufferedImage IMG_MESSAGE_OUTGOING_OUT_TOP, IMG_MESSAGE_OUTGOING_OUT_BOTTOM, IMG_MESSAGE_OUTGOING_TIP;
+  public static BufferedImage IMG_MESSAGE_OUTGOING_OUT_TOP_WEST, IMG_MESSAGE_OUTGOING_OUT_TOP_EAST;
+  public static BufferedImage IMG_MESSAGE_OUTGOING_TIP, IMG_MESSAGE_OUTGOING_OUT_BOTTOM_WEST;
+  public static BufferedImage IMG_MESSAGE_INCOMING_OUT_TOP_WEST, IMG_MESSAGE_INCOMING_OUT_TOP_EAST;
+  public static BufferedImage IMG_MESSAGE_INCOMING_OUT_BOTTOM_EAST, IMG_MESSAGE_INCOMING_TIP;
   public static String BTN_CONTINUE;
   //TL Connect settings
   public static String TL_SERVER, TL_APP_HASH;
@@ -62,9 +65,17 @@ public class Configs {
       IMG_ICON_PHONE = props.getProperty("IMG_ICON_PHONE", "res/img/icon-phone.png");
       IMG_DEFAULT_USER = ImageIO.read(new File("res/img/icon-default-user.png"));
 
-      IMG_MESSAGE_OUTGOING_OUT_TOP = ImageIO.read(new File("res/img/message-out-top.png"));
-      IMG_MESSAGE_OUTGOING_OUT_BOTTOM = ImageIO.read(new File("res/img/message-out-bottom.png"));
+      IMG_MESSAGE_OUTGOING_OUT_TOP_WEST = ImageIO.read(new File("res/img/message-out-top.png"));
+      IMG_MESSAGE_OUTGOING_OUT_TOP_EAST = ImageIO
+          .read(new File("res/img/message-out-top-east.png"));
+      IMG_MESSAGE_OUTGOING_OUT_BOTTOM_WEST = ImageIO.read(new File("res/img/message-out-bottom.png"));
       IMG_MESSAGE_OUTGOING_TIP = ImageIO.read(new File("res/img/message-out-right.png"));
+
+      IMG_MESSAGE_INCOMING_OUT_TOP_WEST = ImageIO.read(new File("res/img/message-in-top-west.png"));
+      IMG_MESSAGE_INCOMING_OUT_TOP_EAST = ImageIO
+          .read(new File("res/img/message-in-top-east.png"));
+      IMG_MESSAGE_INCOMING_OUT_BOTTOM_EAST = ImageIO.read(new File("res/img/message-in-bottom-east.png"));
+      IMG_MESSAGE_INCOMING_TIP = ImageIO.read(new File("res/img/message-in-left.png"));
 
       //ERRORS WARNINGS INFO texts
       ERR_NO_IMAGES = props.getProperty("ERR_NO_IMAGES", "Неудалось загрузить картинки!");

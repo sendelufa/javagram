@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="javagram.View.formElements.MessagesDialog.MessageTextItemIncoming">
+  <grid id="27dc6" binding="rootPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <enabled value="true"/>
+      <opaque value="false"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="48282" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints/>
+        <properties>
+          <minimumSize width="93" height="60"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="5ddca" binding="pnlMessage" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="East"/>
+            <properties>
+              <maximumSize width="307" height="2147483647"/>
+              <opaque value="false"/>
+              <preferredSize width="307" height="50"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="1ad73" binding="pnlMsgOutTop" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <opaque value="false"/>
+                  <preferredSize width="307" height="9"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <grid id="f9519" binding="pnlMsgOutTopWest" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="West"/>
+                    <properties>
+                      <background color="-11909976"/>
+                      <opaque value="false"/>
+                      <preferredSize width="9" height="9"/>
+                    </properties>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                  <grid id="3cd06" binding="pnlMsgOutTopEast" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints border-constraint="East"/>
+                    <properties>
+                      <background color="-11909976"/>
+                      <opaque value="false"/>
+                      <preferredSize width="9" height="9"/>
+                    </properties>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                  <grid id="86346" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <background color="-16733733"/>
+                    </properties>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                </children>
+              </grid>
+              <grid id="ad493" binding="pnlMsgOutBottom" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <minimumSize width="88" height="35"/>
+                  <opaque value="false"/>
+                  <preferredSize width="307" height="25"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="54668" class="javax.swing.JLabel" binding="lblMessageDate">
+                    <constraints border-constraint="South"/>
+                    <properties>
+                      <font size="10"/>
+                      <foreground color="-6049613"/>
+                      <opaque value="false"/>
+                      <text value="5 минут назад"/>
+                    </properties>
+                  </component>
+                  <grid id="ccf4" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="North"/>
+                    <properties>
+                      <opaque value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <grid id="c8553" binding="pnlMsgOutBottomWest" layout-manager="BorderLayout" hgap="0" vgap="0">
+                        <constraints border-constraint="West"/>
+                        <properties>
+                          <background color="-16733733"/>
+                          <opaque value="true"/>
+                          <preferredSize width="9" height="9"/>
+                          <visible value="true"/>
+                        </properties>
+                        <border type="none"/>
+                        <children/>
+                      </grid>
+                      <grid id="39898" binding="pnlMsgOutBottomEast" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+                        <constraints border-constraint="East"/>
+                        <properties>
+                          <background color="-16733733"/>
+                          <opaque value="false"/>
+                          <preferredSize width="9" height="9"/>
+                          <visible value="true"/>
+                        </properties>
+                        <border type="none"/>
+                        <children/>
+                      </grid>
+                      <grid id="74b1" layout-manager="CardLayout" hgap="0" vgap="0">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <background color="-16733733"/>
+                          <opaque value="true"/>
+                        </properties>
+                        <border type="none"/>
+                        <children/>
+                      </grid>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+              <grid id="96a61" binding="pnlMessageText" layout-manager="CardLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <background color="-16733733"/>
+                  <focusable value="false"/>
+                  <font size="18"/>
+                  <foreground color="-393226"/>
+                  <maximumSize width="307" height="32767"/>
+                  <minimumSize width="307" height="19"/>
+                  <opaque value="true"/>
+                  <preferredSize width="307" height="10"/>
+                  <requestFocusEnabled value="false"/>
+                </properties>
+                <border type="empty">
+                  <size top="0" left="10" bottom="0" right="10"/>
+                </border>
+                <children>
+                  <component id="2192f" class="javax.swing.JTextArea" binding="txtMessage">
+                    <constraints>
+                      <card name="Card1"/>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <font size="6"/>
+                      <foreground color="-393226"/>
+                      <maximumSize width="287" height="2147483647"/>
+                      <minimumSize width="287" height="17"/>
+                      <opaque value="false"/>
+                      <preferredSize width="287" height="100"/>
+                      <selectionColor color="-16731162"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="5711" binding="pnlMsgTip" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <opaque value="false"/>
+              <preferredSize width="8" height="8"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="5890b" binding="pnlTip" custom-create="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <opaque value="false"/>
+                  <preferredSize width="8" height="37"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

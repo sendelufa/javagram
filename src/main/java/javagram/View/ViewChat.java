@@ -6,11 +6,13 @@ package javagram.View; /**
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javagram.Model.TgContact;
+import javagram.Model.TgMessage;
 import javagram.Presenter.interfaces.IPresenter;
 import javagram.Presenter.PrChat;
 import javagram.View.formElements.HeadLineForm;
+import javagram.View.formElements.MessagesDialog.IMessageItemDialog;
 import javagram.View.formElements.ItemContactList;
-import javagram.View.formElements.MessageItem;
+import javagram.View.formElements.MessagesDialog.MessageFactory;
 import javagram.View.interfaces.IViewChat;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
@@ -65,6 +67,7 @@ public class ViewChat implements IViewChat {
   private JLabel lblTitleBarUserPic;
   private JPanel pnlDialodMessages;
   private JButton btnAddMsgOutgoing;
+  private JScrollPane messagesJScroll;
   //Resources - Images
   private BufferedImage microLogo, imgTitleBarUserPic, imgTitleBarSettings;
   private BufferedImage imgChatsTitle, imgUserPhoto1, imgUserPhoto2, imgUserPhotoListSelected;
@@ -99,12 +102,7 @@ public class ViewChat implements IViewChat {
 
     //
 
-    MessageItem msg = new MessageItem();
 
-
-
-
-    pnlDialodMessages.add(msg.getMainPanel());
     //add base elements to head panel with max/min buttons
     HeadLineForm headLine = new HeadLineForm(HeadLineForm.SHOW_MINMAX);
     panelTopBar.add(headLine.getPanelHeadline(), BorderLayout.NORTH);
@@ -176,18 +174,19 @@ public class ViewChat implements IViewChat {
         presenter.getContactList();
       }
     });
+
     lblBtnClearContacts.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         //contactsJScroll.remove(1);
-        presenter.clearModel();
+        presenter.clearContactListModel();
         WindowHandler.repaintFrame();
       }
     });
     btnAddMsgOutgoing.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-
+        presenter.getDialogMessages();
       }
     });
 
@@ -247,6 +246,24 @@ public class ViewChat implements IViewChat {
             tc.getTime() + " мин.", imgUser);
         cList.getMainPanel().setBackground(color);
         return cList.getMainPanel();
+      }
+    });
+  }
+
+  @Override
+  public void showDialogMessages(DefaultListModel<TgMessage> model) {
+    JList<TgMessage> list = new JList<>(model);
+    list.setLayoutOrientation(JList.VERTICAL);
+
+    messagesJScroll.setViewportView(list);
+    //set design form to item in JList
+    list.setCellRenderer(new DefaultListCellRenderer() {
+      public Component getListCellRendererComponent(JList list,
+          Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        TgMessage m = (TgMessage) value;
+        //add gui form TgMessage to item in list
+        IMessageItemDialog item = MessageFactory.render(m.isOut()?2:1, m.getMessage(),m.getDate() );
+        return item.getMainPanel();
       }
     });
   }

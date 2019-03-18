@@ -5,6 +5,7 @@ package javagram.View.interfaces;
 
     import java.awt.Image;
     import javagram.Model.TgContact;
+    import javagram.Model.TgMessage;
     import javax.swing.DefaultListModel;
 
 //view for window with phone input
@@ -15,5 +16,7 @@ public interface IViewChat extends IView {
   void setUserFullNameLabelTop(String fullName);
 
   void setUserPhotoTop(Image userPhoto, String userFirstName, String userLastName);
+
+  void showDialogMessages(DefaultListModel<TgMessage> tgMesssages);
 
 }
