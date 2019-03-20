@@ -4,6 +4,7 @@
 package javagram.Model;
 
 import java.awt.Image;
+import java.awt.TextArea;
 import java.io.IOException;
 import java.util.ArrayList;
 import javagram.MainContract;

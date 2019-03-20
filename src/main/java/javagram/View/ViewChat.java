@@ -14,103 +14,41 @@ import javagram.View.formElements.ItemContactList;
 import javagram.View.formElements.MessagesDialog.IMessageItemDialog;
 import javagram.View.formElements.MessagesDialog.MessageFactory;
 import javagram.WindowGUI.WindowHandler;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-public class ViewChat implements MainContract.IViewChat {
+public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
+
   //Presenter
   private PrChat presenter;
 
-  //inner params
-  private JPanel mainPanel;
-  private JPanel panelHeadline;
-  //Headline of Form
-  private JPanel pnlBtnExit;
-  private JPanel pnlBtnMinimize;
-  private JPanel pnlMicroLogo;
-  private JPanel pnlTitleBarUserPic;
-  private JPanel pnlTitleBarSettings;
-  private JPanel pnlChatsTitle;
-  private JTextPane поискTextPane;
-  private JPanel pnlContanctsId1;
-  private JPanel pnlUserPhoto1;
-  private JPanel pnlUserPhoto2;
-  private JPanel pnlChatList;
-  private JPanel pnlSearch;
-  private JPanel pnlContactsCol;
-  private JPanel pnlList;
-  private JPanel pnlNewChat;
-  private JPanel pnlMainCurrentChat;
-  private JPanel pnlCurrentChatUser;
-  private JPanel pnlCurrentChatUserPhoto;
-  private JPanel pnlCurrentChatUserEdit;
-  private JPanel pnlTextInLeft;
-  private JPanel pnlTextInCenter;
-  private JPanel pnlTextInRight;
-  private JPanel pnlMsgOutTop;
-  private JPanel pnlMsgOutBottom;
-  private JPanel pnlMsgTip;
-  private JTextPane txtEnterMessage;
-  private JPanel panelTopBar;
-  private JPanel pnlTestConsole;
-  private JButton LOGOUTButton;
-  private JPanel pnlContactsList;
-  private JButton setContactsJListButton;
-  private JScrollPane contactsJScroll;
-  private JButton lblBtnClearContacts;
-  private JLabel lblFullUserNameTopBar;
-  private JLabel lblTitleBarUserPic;
-  private JPanel pnlDialodMessages;
-  private JButton btnAddMsgOutgoing;
-  private JScrollPane messagesJScroll;
-  //Resources - Images
-  private BufferedImage microLogo, imgTitleBarUserPic, imgTitleBarSettings;
-  private BufferedImage imgChatsTitle, imgUserPhoto1, imgUserPhoto2, imgUserPhotoListSelected;
-  private BufferedImage imgNewChat, imgCurrentChatUserEdit, imgTextInLeft, imgTextInCenter;
-  private BufferedImage imgTextInRight, imgMsgOutTop, imgMsgOutBottom, imgMsgTip;
-
-
-
   public ViewChat() {
+    super();
     //PRESENTER
     setPresenter(new PrChat(this));
-    //set images
-    try {
-      microLogo = ImageIO.read(new File("res/img/logo-micro.png"));
-      imgTitleBarUserPic = ImageIO.read(new File("res/img/mask-blue-mini.png"));
-      imgTitleBarSettings = ImageIO.read(new File("res/img/icon-settings.png"));
-      imgChatsTitle = ImageIO.read(new File("res/img/icon-search.png"));
-      imgUserPhoto1 = ImageIO.read(new File("res/img/mask-white-online.png"));
-      imgUserPhoto2 = ImageIO.read(new File("res/img/mask-gray-online.png"));
-      imgUserPhotoListSelected = ImageIO.read(new File("res/img/mask-white-online-select.png"));
-      imgNewChat = ImageIO.read(new File("res/img/icon-plus.png"));
-      imgCurrentChatUserEdit = ImageIO.read(new File("res/img/icon-edit.png"));
-      imgTextInLeft = ImageIO.read(new File("res/img/text_in_left.png"));
-      imgTextInCenter = ImageIO.read(new File("res/img/text_in_center.png"));
-      imgTextInRight = ImageIO.read(new File("res/img/button-send.png"));
 
-    } catch (IOException e) {
-      System.err.println("Неудалось загрузить картинки!");
-      e.printStackTrace();
-    }
+    initFrameComponents();
 
-    //
+    setListeners();
 
+    WindowHandler.makeFrameResizable();
+    WindowHandler.setViewOnFrame(this);
+  }
+
+  private void initFrameComponents() {
     //add base elements to head panel with max/min buttons
     HeadLineForm headLine = new HeadLineForm(HeadLineForm.SHOW_MINMAX);
     panelTopBar.add(headLine.getPanelHeadline(), BorderLayout.NORTH);
-
     //TODO сделать чтобы плавающая кнопка меняла положени при ресайзе и при открытии других панелей
-
     //set Float Buttons to Form
     setFloatPanels();
+  }
 
+  private void setListeners() {
     //temp
     pnlTitleBarSettings.addMouseListener(new MouseAdapter() {
       @Override
@@ -167,13 +105,19 @@ public class ViewChat implements MainContract.IViewChat {
      блок тестовых кнопок
      */
 
+    LOGOUTButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        presenter.logOut();
+      }
+    });
+
     setContactsJListButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         presenter.getContactList();
       }
     });
-
     lblBtnClearContacts.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -188,16 +132,11 @@ public class ViewChat implements MainContract.IViewChat {
         presenter.getDialogMessages();
       }
     });
+  }
 
-    WindowHandler.makeFrameResizable();
-    WindowHandler.setViewOnFrame(this);
-
-    LOGOUTButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        presenter.logOut();
-      }
-    });
+  @Override
+  public void setPresenter(MainContract.IPresenter presenter) {
+    this.presenter = (PrChat) presenter;
   }
 
   @Override
@@ -318,149 +257,7 @@ public class ViewChat implements MainContract.IViewChat {
     WindowHandler.repaintFrame();
   }
 
-  //Custom UI components create
-  private void createUIComponents() {
 
-    pnlMicroLogo = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(microLogo, 5, 5, null);
-      }
-    };
-
-    pnlTitleBarUserPic = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgTitleBarUserPic, 0, 10, null);
-      }
-    };
-
-    pnlTitleBarSettings = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgTitleBarSettings, 0, 14, null);
-      }
-    };
-
-    pnlChatsTitle = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgChatsTitle, 10, 10, null);
-      }
-    };
-
-    pnlUserPhoto1 = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgUserPhoto1, 9, 14, null);
-      }
-    };
-
-    pnlUserPhoto2 = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgUserPhoto2, 9, 14, null);
-      }
-    };
-
-    pnlNewChat = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgNewChat, 20, 0, null);
-      }
-    };
-
-    pnlCurrentChatUserPhoto = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgUserPhoto1, 0, 0, 35, 35, null);
-      }
-    };
-
-    pnlCurrentChatUserEdit = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgCurrentChatUserEdit, 0, 0, null);
-      }
-    };
-
-    pnlTextInLeft = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgTextInLeft, 27, 5, null);
-      }
-    };
-
-    pnlTextInCenter = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgTextInCenter, 0, 5, 1920, 45, null);
-      }
-    };
-
-    pnlTextInRight = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgTextInRight, 0, 5, null);
-      }
-    };
-
-    pnlMsgOutTop = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgMsgOutTop, 0, 0, null);
-      }
-    };
-
-    pnlMsgOutBottom = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgMsgOutBottom, 0, 0, null);
-      }
-    };
-
-    pnlMsgTip = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgMsgTip, 0, 20, null);
-      }
-    };
-  }
-
-  @Override
-  public void setPresenter(MainContract.IPresenter presenter) {
-    this.presenter = (PrChat) presenter;
-  }
 }
 
 
