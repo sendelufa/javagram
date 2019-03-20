@@ -11,9 +11,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javagram.Configs;
 import javagram.MainContract;
-import javagram.Model.TLHandler;
-import javagram.Model.TgContact;
-import javagram.Model.TgMessage;
+import javagram.MainContract.Repository;
+import javagram.Model.TelegramProdFactory;
+import javagram.Model.objects.TgContact;
+import javagram.Model.objects.TgMessage;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import org.javagram.response.object.UserContact;
@@ -21,24 +22,27 @@ import org.javagram.response.object.UserContact;
 
 public class PrChat implements MainContract.IPresenter {
 
+  private Repository repository = new TelegramProdFactory().getModel();
+  private MainContract.IViewChat view;
+
   DefaultListModel<TgContact> contactsListModel;
   DefaultListModel<TgMessage> messagesListModel;
 
   //TelegramApiBridge
   ArrayList<UserContact> contactList = new ArrayList<>();
-  private MainContract.IViewChat view;
+
 
   public PrChat(MainContract.IViewChat view) {
     this.view = view;
     //set view to frame
-   /* this.view.setUserFullNameLabelTop(TLHandler.getInstance().getUserFullName());
-      this.view.setUserPhotoTop(TLHandler.getInstance().getUserPhoto(),
-     TLHandler.getInstance().getUserFirstName(), TLHandler.getInstance().getUserLastName());*/
+    this.view.setUserFullNameLabelTop(repository.getUserFullName());
+    this.view.setUserPhotoTop(repository.getUserPhoto(),
+        repository.getUserFirstName(), repository.getUserLastName());
   }
 
   public void getContactList() {
     try {
-      contactList = TLHandler.getInstance().getContactList();
+      contactList = repository.getContactList();
 
       contactsListModel = new DefaultListModel<>();
       contactsListModel.ensureCapacity(1);
@@ -52,7 +56,8 @@ int i=0;
         BufferedImage photoPath = getUserPhoto(contact);
         contactsListModel.addElement(new TgContact(contact.getId(), contact.toString(), photoPath));
         i++;
-      }*/}
+      }*/
+      }
       view.showContactList(contactsListModel);
     } catch (IOException e) {
       e.printStackTrace();
@@ -60,7 +65,7 @@ int i=0;
     }
   }
 
-  public BufferedImage getUserPhoto(UserContact user){
+  public BufferedImage getUserPhoto(UserContact user) {
     BufferedImage img = Configs.IMG_DEFAULT_USER_PHOTO_41_41;
     try {
       BufferedImage imgApi = ImageIO.read(new ByteArrayInputStream(user.getPhoto(true)));
@@ -73,12 +78,10 @@ int i=0;
       }
     } catch (IOException e) {
       e.printStackTrace();
-    }
-    catch (NullPointerException e){
+    } catch (NullPointerException e) {
       System.out.println("      -------     NullPointerException");
     }
     // Create a buffered image with transparency
-
 
     return img;
   }
@@ -96,8 +99,8 @@ int i=0;
     view.showDialogMessages(messagesListModel);
   }
 
-  public void logOut(){
-    TLHandler.getInstance().logOut();
+  public void logOut() {
+    repository.logOut();
   }
 
 }

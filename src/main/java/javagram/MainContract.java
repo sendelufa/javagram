@@ -4,14 +4,19 @@
 package javagram;
 
 import java.awt.Image;
-import javagram.Model.TgContact;
-import javagram.Model.TgMessage;
+import java.io.IOException;
+import java.util.ArrayList;
+import javagram.Model.objects.TgContact;
+import javagram.Model.objects.TgMessage;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
+import org.javagram.response.object.UserContact;
 
 public interface MainContract {
 
-  /** Views **/
+  /**
+   * Views
+   **/
   interface IView {
 
     //main method init View
@@ -43,14 +48,14 @@ public interface MainContract {
 
     void setUserPhotoTop(Image userPhoto, String userFirstName, String userLastName);
 
-    void showDialogMessages(DefaultListModel<TgMessage> tgMesssages);
+    void showDialogMessages(DefaultListModel<TgMessage> tgMessages);
 
   }
 
   interface IViewEnterPhone extends IView {
 
-    //set Phone, use if user go back from send code or registration screen
-    void fillPhoneNumberTextField(String phone);
+/*    //set Phone, use if user go back from send code or registration screen
+    void fillPhoneNumberTextField(String phone);*/
 
     //get View Send Code
     void callViewSendCode();
@@ -64,7 +69,9 @@ public interface MainContract {
   }
 
   interface IViewSendCode extends IView {
+
     void setPhoneNumber(String phone);
+
     //main panel with dialogs, contact list, messages
     void callViewChat();
 
@@ -78,12 +85,53 @@ public interface MainContract {
     void showErrorUnknown();
   }
 
-  /** Presenters **/
+  /**
+   * Presenters
+   **/
   interface IPresenter {
+
   }
 
-  /** Model **/
+  /**
+   * Model
+   **/
   interface Repository {
-    String loadMessage();
+
+    boolean isPhoneRegistered();
+
+    void checkPhoneRegistered(String phone);
+
+    void checkCode(String confirmCode) throws IOException;
+
+    void sendCode() throws IOException;
+
+    String getUserPhone();
+
+    void logOut();
+
+    Image getUserPhoto();
+
+    int getUserId();
+
+    String getUserLastName();
+
+    String getUserFirstName();
+
+    String getUserFullName();
+
+    ArrayList<UserContact> getContactList() throws IOException;
+
+    void getMessages();
+
+    void clearApiBridge();
+  }
+
+  /**
+   * Model Factory
+   **/
+
+  interface RepositoryFactory {
+
+    Repository getModel();
   }
 }

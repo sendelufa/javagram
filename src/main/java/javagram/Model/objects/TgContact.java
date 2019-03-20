@@ -1,7 +1,7 @@
 /**
  * Project Javagram Created by Shibkov Konstantin on 13.03.2019.
  */
-package javagram.Model;
+package javagram.Model.objects;
 
 import java.awt.image.BufferedImage;
 import javagram.Configs;

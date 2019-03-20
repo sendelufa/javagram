@@ -5,22 +5,24 @@ package javagram.Presenter;
 
 import java.io.IOException;
 import javagram.MainContract;
-import javagram.Model.TLHandler;
+import javagram.MainContract.Repository;
+import javagram.Model.TelegramProdFactory;
 import org.telegram.api.engine.RpcException;
 
 public class PrSendCode implements MainContract.IPresenter {
   private MainContract.IViewSendCode view;
+  private Repository repository = new TelegramProdFactory().getModel();
 
   public PrSendCode(MainContract.IViewSendCode view) {
     this.view = view;
-    view.setPhoneNumber(TLHandler.getInstance().getUserPhone());
+    view.setPhoneNumber(repository.getUserPhone());
     sendCode();
   }
 
   private void sendCode() {
     view.clearError();
     try {
-      TLHandler.getInstance().sendCode();
+      repository.sendCode();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -33,7 +35,7 @@ public class PrSendCode implements MainContract.IPresenter {
       public void run() {
         try {
           //check confirm code
-          TLHandler.getInstance().checkCode(confirmCode);
+          repository.checkCode(confirmCode);
         } catch (RpcException e) {
           if (e.getErrorTag().equals("PHONE_CODE_INVALID")) {
             view.showErrorWrongCode();
@@ -60,7 +62,7 @@ public class PrSendCode implements MainContract.IPresenter {
   }
 
   public void goBackToPhoneInput() {
-    view.callViewEnterPhone(TLHandler.getInstance().getUserPhone());
+    view.callViewEnterPhone(repository.getUserPhone());
   }
 
 

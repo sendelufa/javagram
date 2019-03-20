@@ -6,8 +6,8 @@ package javagram.View; /**
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javagram.MainContract;
-import javagram.Model.TgContact;
-import javagram.Model.TgMessage;
+import javagram.Model.objects.TgContact;
+import javagram.Model.objects.TgMessage;
 import javagram.Presenter.PrChat;
 import javagram.View.formElements.HeadLineForm;
 import javagram.View.formElements.ItemContactList;
@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class ViewChat implements MainContract.IViewChat {
+  //Presenter
+  private PrChat presenter;
 
   //inner params
   private JPanel mainPanel;
@@ -73,8 +75,7 @@ public class ViewChat implements MainContract.IViewChat {
   private BufferedImage imgNewChat, imgCurrentChatUserEdit, imgTextInLeft, imgTextInCenter;
   private BufferedImage imgTextInRight, imgMsgOutTop, imgMsgOutBottom, imgMsgTip;
 
-  //Presenter
-  private PrChat presenter;
+
 
   public ViewChat() {
     //PRESENTER

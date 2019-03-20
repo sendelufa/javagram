@@ -16,8 +16,6 @@ import javax.imageio.ImageIO;
 
 public class Configs {
 
-  //TODO set check for 11 for RELEASE!!!!
-  public static final int SYS_PHONE_NUMBER_LENGTH = 10;
   public static String IMG_BG, IMG_LOGO_SIGN, IMG_BTN_BG, IMG_ICON_PHONE;
   public static String ERR_NO_IMAGES, ERR_PHONE_FORMAT, INFO_CONNECT_TELEGRAM, ERR_WRONG_CODE,
       ERR_PHONE_EMPTY;
@@ -32,9 +30,9 @@ public class Configs {
   //TL Connect settings
   public static String TL_SERVER, TL_APP_HASH;
   //System
-  public static String INTERFACE_PHONE_MASK;
+  public static String INTERFACE_PHONE_MASK, REPOSITORY;
   public static char INTERFACE_PHONE_MASK_PLACEHOLDER;
-  public static int TL_APP_ID;
+  public static int TL_APP_ID, TL_REQUIRED_PHONE_LENGTH;
   private static Properties props = new Properties();
 
   public static void read() {
@@ -47,6 +45,12 @@ public class Configs {
       TL_SERVER = props.getProperty("TL_SERVER");
       TL_APP_HASH = props.getProperty("TL_APP_HASH");
       TL_APP_ID = Integer.parseInt(props.getProperty("TL_APP_ID"));
+      TL_REQUIRED_PHONE_LENGTH = Integer.parseInt(props.getProperty("TL_REQUIRED_PHONE_LENGTH"));
+
+      REPOSITORY = props.getProperty("REPOSITORY");
+
+      //REPOSITORY = "TLProd";
+      //REPOSITORY = "TLProd";
 
       //System settings
 
@@ -68,13 +72,15 @@ public class Configs {
       IMG_MESSAGE_OUTGOING_OUT_TOP_WEST = ImageIO.read(new File("res/img/message-out-top.png"));
       IMG_MESSAGE_OUTGOING_OUT_TOP_EAST = ImageIO
           .read(new File("res/img/message-out-top-east.png"));
-      IMG_MESSAGE_OUTGOING_OUT_BOTTOM_WEST = ImageIO.read(new File("res/img/message-out-bottom.png"));
+      IMG_MESSAGE_OUTGOING_OUT_BOTTOM_WEST = ImageIO
+          .read(new File("res/img/message-out-bottom.png"));
       IMG_MESSAGE_OUTGOING_TIP = ImageIO.read(new File("res/img/message-out-right.png"));
 
       IMG_MESSAGE_INCOMING_OUT_TOP_WEST = ImageIO.read(new File("res/img/message-in-top-west.png"));
       IMG_MESSAGE_INCOMING_OUT_TOP_EAST = ImageIO
           .read(new File("res/img/message-in-top-east.png"));
-      IMG_MESSAGE_INCOMING_OUT_BOTTOM_EAST = ImageIO.read(new File("res/img/message-in-bottom-east.png"));
+      IMG_MESSAGE_INCOMING_OUT_BOTTOM_EAST = ImageIO
+          .read(new File("res/img/message-in-bottom-east.png"));
       IMG_MESSAGE_INCOMING_TIP = ImageIO.read(new File("res/img/message-in-left.png"));
 
       //ERRORS WARNINGS INFO texts

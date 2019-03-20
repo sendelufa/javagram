@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import javagram.Configs;
+import javagram.MainContract;
 import javax.imageio.ImageIO;
 import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
@@ -22,27 +23,17 @@ import org.telegram.api.engine.TelegramApi;
  * Singleton Concurrency Pattern
  */
 
-public class TLHandler implements IMessenger {
+public class TLRepositoryProd extends TLAbsRepository implements MainContract.Repository {
 
-  private static volatile TLHandler instance;
+
   private static Logger l = Logger.getLogger("1");
-  ArrayList<UserContact> contactList = new ArrayList<>();
+  private ArrayList<UserContact> contactList = new ArrayList<>();
   private TelegramApiBridge bridge;
-  private String userPhone;
-  private boolean isPhoneRegistered = false;
-  private String userFullName;
-  private String userFirstName;
-  private String userLastName;
-  private int userId;
+
   private TelegramApi tlApi;
   private AuthAuthorization authorization;
 
-  @Override
-  public void drive() {
-    System.out.println("Drive");
-  }
-
-  private TLHandler() {
+  private TLRepositoryProd() {
     //Подключаемся к API телеграмм
     try {
       bridge = new TelegramApiBridge(Configs.TL_SERVER, Configs.TL_APP_ID, Configs.TL_APP_HASH);
@@ -56,14 +47,14 @@ public class TLHandler implements IMessenger {
     }
   }
 
-  public static TLHandler getInstance() {
-    TLHandler localInstance = instance;
+  static TLRepositoryProd getInstance() {
+    TLRepositoryProd localInstance = instance;
 
-    if (localInstance == null){
-      synchronized (TLHandler.class){
+    if (localInstance == null) {
+      synchronized (TLRepositoryProd.class) {
         localInstance = instance;
-        if (localInstance == null){
-          instance = localInstance = new TLHandler();
+        if (localInstance == null) {
+          instance = localInstance = new TLRepositoryProd();
         }
       }
     }
@@ -103,7 +94,7 @@ public class TLHandler implements IMessenger {
     //получаем имя, фамилию юзера и записываем
     userFirstName = authorization.getUser().getFirstName();
     userLastName = authorization.getUser().getLastName();
-    userFullName = authorization.getUser().toString();
+    userFullName = userFirstName + " " + userLastName;
     userId = authorization.getUser().getId();
   }
 
@@ -154,7 +145,7 @@ public class TLHandler implements IMessenger {
     return img;
   }
 
-  public void logOut(){
+  public void logOut() {
     try {
       bridge.authLogOut();
     } catch (IOException e) {

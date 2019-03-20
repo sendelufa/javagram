@@ -52,7 +52,7 @@ public class ViewEnterPhone implements MainContract.IViewEnterPhone {
 
   public ViewEnterPhone() {
     //PRESENTER
-    setPresenter(new PrEnterPhone(this));
+    setPresenter(new PrEnterPhone(this, Configs.TL_REQUIRED_PHONE_LENGTH));
     //set images
     try {
       bg = ImageIO.read(new File(Configs.IMG_BG));
@@ -202,10 +202,10 @@ public class ViewEnterPhone implements MainContract.IViewEnterPhone {
     this.presenter = (PrEnterPhone) presenter;
   }
 
-  @Override
-  public void fillPhoneNumberTextField(String phone) {
-    txtPhone.setText(phone);
-  }
+//  @Override
+//  public void fillPhoneNumberTextField(String phone) {
+//    txtPhone.setText(phone);
+//  }
 
   @Override
   public void clearError() {
