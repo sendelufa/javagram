@@ -13,6 +13,7 @@ import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import javagram.CommonInterfaces.HumanableDate;
 import javagram.Configs;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -34,6 +35,7 @@ public class MessageTextItemIncoming implements IMessageItemDialog, HumanableDat
   private JPanel pnlMsgOutBottomEast;
   private JLabel lblMessageDate;
   private JPanel rootPanel;
+  private JCheckBox checkBox1;
 
   private int maxLineLength;
 

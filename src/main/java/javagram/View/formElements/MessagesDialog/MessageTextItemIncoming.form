@@ -81,6 +81,8 @@
                     <properties>
                       <font size="10"/>
                       <foreground color="-6049613"/>
+                      <horizontalAlignment value="4"/>
+                      <horizontalTextPosition value="4"/>
                       <opaque value="false"/>
                       <text value="5 минут назад"/>
                     </properties>
@@ -149,7 +151,7 @@
                       <card name="Card1"/>
                     </constraints>
                     <properties>
-                      <editable value="false"/>
+                      <editable value="true"/>
                       <font size="6"/>
                       <foreground color="-393226"/>
                       <maximumSize width="287" height="2147483647"/>
@@ -184,6 +186,12 @@
           </grid>
         </children>
       </grid>
+      <component id="83a11" class="javax.swing.JCheckBox" binding="checkBox1" default-binding="true">
+        <constraints/>
+        <properties>
+          <text value="CheckBox"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

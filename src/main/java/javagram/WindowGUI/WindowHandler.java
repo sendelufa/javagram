@@ -12,7 +12,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
-import javagram.View.interfaces.IView;
+import javagram.MainContract;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -65,7 +65,7 @@ public class WindowHandler {
 
   }
 
-  public static void setViewOnFrame(IView view) {
+  public static void setViewOnFrame(MainContract.IView view) {
     ur = new UndecoratedResize();
     frame.setContentPane(view.getMainPanel());
     repaintFrame();
@@ -186,5 +186,9 @@ public class WindowHandler {
 
   public static void setLocation(int px, int py) {
     frame.setLocation(px, py);
+  }
+
+  public static void pack(){
+    frame.pack();
   }
 }

@@ -144,6 +144,7 @@
                   <card name="Card1"/>
                 </constraints>
                 <properties>
+                  <doubleBuffered value="true"/>
                   <opaque value="false"/>
                 </properties>
                 <border type="empty"/>
@@ -483,12 +484,6 @@
               <text value="SetContactsJList"/>
             </properties>
           </component>
-          <component id="440e4" class="javax.swing.JButton" binding="addMsgIncomingButton" default-binding="true">
-            <constraints/>
-            <properties>
-              <text value="add msg incoming"/>
-            </properties>
-          </component>
           <component id="37e6c" class="javax.swing.JButton" binding="btnAddMsgOutgoing">
             <constraints/>
             <properties>
@@ -515,6 +510,14 @@
             <constraints/>
             <properties>
               <text value="clr contact list"/>
+            </properties>
+          </component>
+          <component id="440e4" class="javax.swing.JButton" binding="LOGOUTButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <font size="18" style="1"/>
+              <foreground color="-4515295"/>
+              <text value="LOGOUT"/>
             </properties>
           </component>
         </children>

@@ -4,15 +4,14 @@
 package javagram.Presenter;
 
 import java.io.IOException;
+import javagram.MainContract;
 import javagram.Model.TLHandler;
-import javagram.Presenter.interfaces.IPresenter;
-import javagram.View.interfaces.IViewSendCode;
 import org.telegram.api.engine.RpcException;
 
-public class PrSendCode implements IPresenter {
-  private IViewSendCode view;
+public class PrSendCode implements MainContract.IPresenter {
+  private MainContract.IViewSendCode view;
 
-  public PrSendCode(IViewSendCode view) {
+  public PrSendCode(MainContract.IViewSendCode view) {
     this.view = view;
     view.setPhoneNumber(TLHandler.getInstance().getUserPhone());
     sendCode();

@@ -5,15 +5,14 @@ package javagram.View; /**
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javagram.MainContract;
 import javagram.Model.TgContact;
 import javagram.Model.TgMessage;
-import javagram.Presenter.interfaces.IPresenter;
 import javagram.Presenter.PrChat;
 import javagram.View.formElements.HeadLineForm;
-import javagram.View.formElements.MessagesDialog.IMessageItemDialog;
 import javagram.View.formElements.ItemContactList;
+import javagram.View.formElements.MessagesDialog.IMessageItemDialog;
 import javagram.View.formElements.MessagesDialog.MessageFactory;
-import javagram.View.interfaces.IViewChat;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,7 +23,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ViewChat implements IViewChat {
+public class ViewChat implements MainContract.IViewChat {
 
   //inner params
   private JPanel mainPanel;
@@ -58,7 +57,7 @@ public class ViewChat implements IViewChat {
   private JTextPane txtEnterMessage;
   private JPanel panelTopBar;
   private JPanel pnlTestConsole;
-  private JButton addMsgIncomingButton;
+  private JButton LOGOUTButton;
   private JPanel pnlContactsList;
   private JButton setContactsJListButton;
   private JScrollPane contactsJScroll;
@@ -101,7 +100,6 @@ public class ViewChat implements IViewChat {
     }
 
     //
-
 
     //add base elements to head panel with max/min buttons
     HeadLineForm headLine = new HeadLineForm(HeadLineForm.SHOW_MINMAX);
@@ -193,7 +191,12 @@ public class ViewChat implements IViewChat {
     WindowHandler.makeFrameResizable();
     WindowHandler.setViewOnFrame(this);
 
-
+    LOGOUTButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        presenter.logOut();
+      }
+    });
   }
 
   @Override
@@ -239,11 +242,11 @@ public class ViewChat implements IViewChat {
         TgContact tc = (TgContact) value;
         //select color and img mask for selected item
         Color color = isSelected ? new Color(213, 245, 255) : new Color(255, 255, 255);
-        BufferedImage imgUser = isSelected ? imgUserPhotoListSelected : imgUserPhoto1;
+        BufferedImage imgMask = isSelected ? imgUserPhotoListSelected : imgUserPhoto1;
         //add gui form ItemContactList to item in list
         ItemContactList cList = new ItemContactList(tc.getName(),
             tc.getLastMessage(),
-            tc.getTime() + " мин.", imgUser);
+            tc.getTime() + " мин.", imgMask, tc.getPhoto());
         cList.getMainPanel().setBackground(color);
         return cList.getMainPanel();
       }
@@ -254,7 +257,8 @@ public class ViewChat implements IViewChat {
   public void showDialogMessages(DefaultListModel<TgMessage> model) {
     JList<TgMessage> list = new JList<>(model);
     list.setLayoutOrientation(JList.VERTICAL);
-
+    list.setDragEnabled(true);
+    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     messagesJScroll.setViewportView(list);
     //set design form to item in JList
     list.setCellRenderer(new DefaultListCellRenderer() {
@@ -262,10 +266,13 @@ public class ViewChat implements IViewChat {
           Object value, int index, boolean isSelected, boolean cellHasFocus) {
         TgMessage m = (TgMessage) value;
         //add gui form TgMessage to item in list
-        IMessageItemDialog item = MessageFactory.render(m.isOut()?2:1, m.getMessage(),m.getDate() );
+        IMessageItemDialog item = MessageFactory
+            .render(m.isOut() ? 2 : 1, m.getMessage(), m.getDate());
         return item.getMainPanel();
       }
     });
+
+    WindowHandler.pack();
   }
 
   @Override
@@ -280,7 +287,8 @@ public class ViewChat implements IViewChat {
       return;
     }
     userPhoto = userPhoto
-        .getScaledInstance(lblTitleBarUserPic.getWidth(), lblTitleBarUserPic.getWidth(),
+        .getScaledInstance(lblTitleBarUserPic.getPreferredSize().width,
+            lblTitleBarUserPic.getPreferredSize().width,
             Image.SCALE_SMOOTH);
     ImageIcon icon = new ImageIcon(userPhoto);
 
@@ -449,7 +457,9 @@ public class ViewChat implements IViewChat {
   }
 
   @Override
-  public void setPresenter(IPresenter presenter) {
-    this.presenter = (PrChat)presenter;
+  public void setPresenter(MainContract.IPresenter presenter) {
+    this.presenter = (PrChat) presenter;
   }
 }
+
+

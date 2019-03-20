@@ -4,10 +4,9 @@ package javagram.View; /**
 
 import java.text.ParseException;
 import javagram.Configs;
-import javagram.Presenter.interfaces.IPresenter;
+import javagram.MainContract;
 import javagram.Presenter.PrEnterPhone;
 import javagram.View.formElements.HeadLineForm;
-import javagram.View.interfaces.IViewEnterPhone;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,7 +18,7 @@ import java.io.IOException;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
-public class ViewEnterPhone implements IViewEnterPhone {
+public class ViewEnterPhone implements MainContract.IViewEnterPhone {
 
   //Presenter
   private PrEnterPhone presenter;
@@ -199,7 +198,7 @@ public class ViewEnterPhone implements IViewEnterPhone {
   }
 
   @Override
-  public void setPresenter(IPresenter presenter) {
+  public void setPresenter(MainContract.IPresenter presenter) {
     this.presenter = (PrEnterPhone) presenter;
   }
 

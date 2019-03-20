@@ -1,9 +1,10 @@
 package javagram;
 
+import javagram.Model.IMessenger;
+import javagram.Model.TLHandler;
 import javagram.View.ViewChat;
 import javagram.View.ViewEnterPhone;
 import javagram.WindowGUI.WindowHandler;
-
 
 
 /**
@@ -16,9 +17,10 @@ public class Loader {
     //Read config parameters and text strings
     Configs.read();
     //start app with first form with Phone enter
-      WindowHandler.startFrame();
-      //new ViewChat();
-      new ViewEnterPhone();
+    WindowHandler.startFrame();
+    IMessenger messengerModel = TLHandler.getInstance();
+    //new ViewChat();
+    new ViewEnterPhone();
 
   }
 

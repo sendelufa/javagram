@@ -4,15 +4,14 @@
 package javagram.Presenter;
 
 import javagram.Exceptions.PhoneFormatError;
+import javagram.MainContract;
 import javagram.Model.TLHandler;
-import javagram.Presenter.interfaces.IPresenter;
-import javagram.View.interfaces.IViewEnterPhone;
 
 
-public class PrEnterPhone implements IPresenter {
-  IViewEnterPhone view;
+public class PrEnterPhone implements MainContract.IPresenter {
+  MainContract.IViewEnterPhone view;
 
-  public PrEnterPhone(IViewEnterPhone view) {
+  public PrEnterPhone(MainContract.IViewEnterPhone view) {
     this.view = view;
   }
 

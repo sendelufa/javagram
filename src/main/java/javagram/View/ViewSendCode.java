@@ -4,10 +4,9 @@ package javagram.View; /**
 
 import java.awt.event.ComponentAdapter;
 import javagram.Configs;
-import javagram.Presenter.interfaces.IPresenter;
+import javagram.MainContract;
 import javagram.Presenter.PrSendCode;
 import javagram.View.formElements.HeadLineForm;
-import javagram.View.interfaces.IViewSendCode;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,7 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ViewSendCode implements IViewSendCode {
+public class ViewSendCode implements MainContract.IViewSendCode {
 
   private JPanel mainPanel;
   private JButton btnMinimize;
@@ -245,7 +244,7 @@ public class ViewSendCode implements IViewSendCode {
   }
 
   @Override
-  public void setPresenter(IPresenter presenter) {
+  public void setPresenter(MainContract.IPresenter presenter) {
     this.presenter = (PrSendCode) presenter;
   }
 

@@ -5,29 +5,31 @@ package javagram.View.formElements;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ItemContactList {
 
   private JPanel mainPanel;
-  private JPanel pnlUserPhoto1;
+  private JPanel pnlUserPhoto;
   private JLabel lblName;
   private JLabel lblLastMessage;
   private JLabel lblTime;
+  private JLabel lblUserPhoto;
 
   private String name;
   private String lastMessage;
   private String time;
 
-  private BufferedImage profilePhoto;
+  private BufferedImage maskPhoto;
+  private BufferedImage userPhoto;
 
-  public ItemContactList(String name, String lastMessage, String time, BufferedImage profilePhoto){
+  public ItemContactList(String name, String lastMessage, String time, BufferedImage maskPhoto, BufferedImage userPhoto){
     this.name = name;
     this.lastMessage = lastMessage;
     this.time = time;
-    this.profilePhoto = profilePhoto;
+    this.maskPhoto = maskPhoto;
+    this.userPhoto = userPhoto;
 
     lblName.setText(name);
     lblLastMessage.setText(lastMessage);
@@ -40,12 +42,12 @@ public class ItemContactList {
 
   private void createUIComponents() {
     // TODO: place custom component creation code here
-    pnlUserPhoto1 = new JPanel() {
+    lblUserPhoto = new JLabel() {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         //Draw Image on panel
-        g.drawImage(profilePhoto, 9, 14, null);
+        g.drawImage(userPhoto, 0, 0, null);
       }
     };
   }

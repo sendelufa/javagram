@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import javagram.Configs;
 import javax.imageio.ImageIO;
@@ -14,16 +15,18 @@ import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
 import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.AuthSentCode;
+import org.javagram.response.object.UserContact;
 import org.telegram.api.engine.TelegramApi;
 
 /**
  * Singleton Concurrency Pattern
  */
 
-public class TLHandler {
+public class TLHandler implements IMessenger {
 
   private static volatile TLHandler instance;
   private static Logger l = Logger.getLogger("1");
+  ArrayList<UserContact> contactList = new ArrayList<>();
   private TelegramApiBridge bridge;
   private String userPhone;
   private boolean isPhoneRegistered = false;
@@ -33,6 +36,11 @@ public class TLHandler {
   private int userId;
   private TelegramApi tlApi;
   private AuthAuthorization authorization;
+
+  @Override
+  public void drive() {
+    System.out.println("Drive");
+  }
 
   private TLHandler() {
     //Подключаемся к API телеграмм
@@ -49,12 +57,17 @@ public class TLHandler {
   }
 
   public static TLHandler getInstance() {
-    synchronized (TLHandler.class) {
-      if (instance == null) {
-        instance = new TLHandler();
+    TLHandler localInstance = instance;
+
+    if (localInstance == null){
+      synchronized (TLHandler.class){
+        localInstance = instance;
+        if (localInstance == null){
+          instance = localInstance = new TLHandler();
+        }
       }
     }
-    return instance;
+    return localInstance;
   }
 
   public void clearApiBridge() {
@@ -94,8 +107,15 @@ public class TLHandler {
     userId = authorization.getUser().getId();
   }
 
-  public void getMessages(){
+  public void getMessages() {
 
+  }
+
+  public ArrayList<UserContact> getContactList() throws IOException {
+    if (contactList.isEmpty()) {
+      contactList = bridge.contactsGetContacts();
+    }
+    return contactList;
   }
 
 
@@ -132,6 +152,14 @@ public class TLHandler {
       l.warning("НЕ ЗАГРУЗИЛАСЬ ФОТО ПОЛЬЗОВАТЕЛЯ!");
     }
     return img;
+  }
+
+  public void logOut(){
+    try {
+      bridge.authLogOut();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
  /* public static void getCurrentUser(){
