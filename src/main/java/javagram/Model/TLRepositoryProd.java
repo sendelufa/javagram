@@ -14,8 +14,10 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javagram.Configs;
+import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
+import javagram.Model.objects.InputContact;
 import javagram.Model.objects.TgContact;
 import javax.imageio.ImageIO;
 import org.javagram.TelegramApiBridge;
@@ -23,7 +25,12 @@ import org.javagram.response.AuthAuthorization;
 import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.AuthSentCode;
 import org.javagram.response.object.UserContact;
+import org.telegram.api.TLImportedContact;
+import org.telegram.api.TLInputContact;
+import org.telegram.api.contacts.TLImportedContacts;
 import org.telegram.api.engine.TelegramApi;
+import org.telegram.api.requests.TLRequestContactsImportContacts;
+import org.telegram.tl.TLVector;
 
 /**
  * Singleton Concurrency Pattern
@@ -39,12 +46,15 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   private TelegramApi tlApi;
   private AuthAuthorization authorization;
 
+  //смс код прошедший проверку
+  private String smsCodeChecked = "";
+
   private TLRepositoryProd() {
     //Подключаемся к API телеграмм
     try {
       bridge = new TelegramApiBridge(Configs.TL_SERVER, Configs.TL_APP_ID, Configs.TL_APP_HASH);
       //получаем доступ и ссылку на параметр api TelegramApiBridge
-      getTlApiReflection();
+     getTlApiReflection();
 
       l.warning("tlApi.getState()" + tlApi.getState());
 
@@ -94,14 +104,16 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     }
   }
 
-  public void checkCode(String confirmCode) throws IOException {
+  public void signIn(String confirmCode) throws IOException {
     //проверка кода
+    smsCodeChecked = confirmCode;
     authorization = bridge.authSignIn(confirmCode);
     //получаем имя, фамилию юзера и записываем
     userFirstName = authorization.getUser().getFirstName();
     userLastName = authorization.getUser().getLastName();
     userFullName = userFirstName + " " + userLastName;
     userId = authorization.getUser().getId();
+
   }
 
   public void getMessages() {
@@ -115,11 +127,11 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     ArrayList<IContact> contactListJavaGram = new ArrayList<>();
     for (UserContact user : contactList){
       contactListJavaGram.add(new TgContact(user, Configs.IMG_DEFAULT_USER_PHOTO_41_41, null));
-/*      try {
+      try {
         sleep(200);
       } catch (InterruptedException e) {
         e.printStackTrace();
-      }*/
+      }
     }
     return contactListJavaGram;
   }
@@ -157,7 +169,30 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
       e.printStackTrace();
       l.warning("НЕ ЗАГРУЗИЛАСЬ ФОТО ПОЛЬЗОВАТЕЛЯ!");
     }
+    catch (NullPointerException e) {
+      e.printStackTrace();
+      l.warning("Ошибка загрузки изображения!");
+    }
     return img;
+  }
+
+  public String getSmsCodeChecked() {
+    return smsCodeChecked;
+  }
+
+  @Override
+  public Integer addContact(InputContact inputContact) throws IOException {
+    boolean replace = false;
+    TLVector<TLInputContact> inputContacts = new TLVector();
+    inputContacts.add(inputContact.createTLInputContact());
+    TLRequestContactsImportContacts tlRequestContactsImportContacts = new TLRequestContactsImportContacts(inputContacts, replace);
+    TLImportedContacts tlImportedContacts = (TLImportedContacts)tlApi.doRpcCall(tlRequestContactsImportContacts);
+    if (tlImportedContacts.getImported().size() == 0) {
+      return null;
+    } else {
+      TLImportedContact tlImportedContact = (TLImportedContact)tlImportedContacts.getImported().get(0);
+      return tlImportedContact.getClientId() == inputContact.getClientId() ? tlImportedContact.getUserId() : null;
+    }
   }
 
   public void logOut() {
@@ -168,23 +203,26 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     }
   }
 
- /* public static void getCurrentUser(){
+  @Override
+  public void signUp(String smsCode, String firstName, String lastName) throws IOException {
+    AuthAuthorization auth = bridge.authSignUp(smsCode, firstName, lastName);
+  }
 
-    TLInputContact contact = new TLInputContact(0,"9996624443", "1", "1");
+  //добавление юзера в контакт лист, дурацоке название
+  @Override
+  public void getCurrentUser() throws IOException {
+
+    InputContact contact = new InputContact(80879,"79659363762", "1", "1");
     TLVector<TLInputContact> v = new TLVector();
-    v.add(contact);
-    TLRequestContactsImportContacts ci = new TLRequestContactsImportContacts(v, true);
-    TLImportedContacts ic = new TLImportedContacts();
-    try {
-      ic = (TLImportedContacts) tlApi.doRpcCall(ci);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    v.add(contact.createTLInputContact());
+    TLRequestContactsImportContacts ci = new TLRequestContactsImportContacts(v, false);
+    TLImportedContacts ic = this.tlApi.doRpcCall(ci);
+    Log.info(ic.getUsers().size() + " ic.getUsers()");
 
     TLVector<TLImportedContact> listIC = ic.getImported();
 
     System.out.println(listIC.isEmpty());
-  }*/
+  }
 
   //получаем доступ к приватной переменной api из TelegramApiBridge
   private void getTlApiReflection() {

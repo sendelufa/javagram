@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-public class ScrollBarUI extends BasicScrollBarUI {
+public class ScrollBarUIActive extends BasicScrollBarUI {
 
   @Override
   protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
@@ -23,7 +23,7 @@ public class ScrollBarUI extends BasicScrollBarUI {
   @Override
   protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
     // super.paintTrack(g, c, trackBounds);
-    g.setColor(Color.GRAY);
+    g.setColor(new Color(200,200,200));
     //  g.drawRect();
     g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height);
   }

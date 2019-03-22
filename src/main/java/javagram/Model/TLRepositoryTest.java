@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
+import javagram.Model.objects.InputContact;
 import javagram.Model.objects.TgContact;
 import org.javagram.response.object.UserContact;
 import org.telegram.api.TLUserContact;
@@ -50,7 +51,7 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
-  public void checkCode(String confirmCode) throws IOException {
+  public void signIn(String confirmCode) throws IOException {
     if (this.confirmCode.equals(confirmCode)) {
       userFirstName = "Константин";
       userLastName = "Васильевич";
@@ -130,7 +131,27 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
+  public Integer addContact(InputContact inputContact) throws IOException {
+    return null;
+  }
+
+  @Override
+  public void signUp(String smsCode, String firstName, String lastName) {
+
+  }
+
+  @Override
+  public void getCurrentUser() {
+
+  }
+
+  @Override
   public void clearApiBridge() {
 
+  }
+
+  @Override
+  public String getSmsCodeChecked() {
+    return null;
   }
 }

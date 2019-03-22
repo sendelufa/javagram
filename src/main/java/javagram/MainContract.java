@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import javagram.Model.objects.InputContact;
 import javagram.Presenter.objects.TgMessage;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
@@ -79,17 +80,40 @@ public interface MainContract {
 
     void callViewEnterPhone(String phone);
 
+    void callViewSignUp();
+
     //SHOW ERRORS AND INFO
     void showErrorWrongCode();
 
     void showErrorUnknown();
   }
 
+  interface IViewSignUp extends IView {
+
+    //main panel with dialogs, contact list, messages
+    void callViewChat();
+    void callViewEnterPhone(String phone);
+
+
+    //SHOW ERRORS AND INFO
+    void showErrorEmptyFirstLast();
+
+    void showErrorEmptyFirst();
+
+    void showErrorUnknown();
+
+    void setPhoneNumber(String phone);
+  }
+
   /**
    * Presenters
    **/
   interface IPresenter {
+  }
 
+  interface IPresenterSignUp extends IPresenter{
+    void goBackToPhoneInput();
+    void signUp(String firstName, String lastName);
   }
 
   /**
@@ -101,9 +125,14 @@ public interface MainContract {
 
     void checkPhoneRegistered(String phone);
 
-    void checkCode(String confirmCode) throws IOException;
+    void signIn(String confirmCode) throws IOException;
 
     void sendCode() throws IOException;
+
+    void signUp(String smsCode, String firstName, String lastName) throws IOException;
+
+    //temp
+    void getCurrentUser() throws IOException;
 
     String getUserPhone();
 
@@ -119,11 +148,15 @@ public interface MainContract {
 
     String getUserFullName();
 
+    String getSmsCodeChecked();
+
     ArrayList<IContact> getContactList() throws IOException;
 
     void getMessages();
 
     void clearApiBridge();
+
+    Integer addContact(InputContact inputContact) throws IOException;
   }
 
   /**

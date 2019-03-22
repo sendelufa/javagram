@@ -31,14 +31,11 @@ public class WindowHandler {
   private static final int INDEX_OF_MODAL_BG_FC = 0;
   private static final int INDEX_OF_MODAL_CONTENT_FC = 1;
   private static JFrame frame = new JFrame("Javagram");
-  private static Point point = new Point();
   private static File fontFile = new File("res/font/OpenSansRegular.ttf");
   private static JLayeredPane lp = frame.getLayeredPane();
   private static Component floatComponents;
   private static UndecoratedResize ur;
   private static Logger l = Logger.getLogger("WindowHandler");
-  private static int indexModalPanelBg;
-  private static int indexModalPanelContent;
 
 
   public static synchronized void startFrame() {
@@ -136,16 +133,14 @@ public class WindowHandler {
     //удаляем все панели что были в Модальном слое, чтобы не было наслоения
     lp.removeAll();
     frame.setContentPane(c);
-    //constraints управляем пордяком, чем больше значение тем выше элемент
+    //отступ чтобы не закрывать заголовок окна
     layeredBg.setBounds(0, 30, (int) getFrameSize().getWidth(), (int) getFrameSize().getHeight());
+    //вставляем в JLayeredPane нужные формы
+    //constraints управляем пордяком, чем больше значение тем выше элемент
     lp.add(layeredBg, JLayeredPane.MODAL_LAYER, INDEX_OF_MODAL_BG_FC);
     lp.add(layered, JLayeredPane.MODAL_LAYER + 1, INDEX_OF_MODAL_CONTENT_FC);
 
-    indexModalPanelContent = lp.getIndexOf(layered);
-    indexModalPanelBg = lp.getIndexOf(layeredBg);
-    System.out.println(indexModalPanelContent + " " + indexModalPanelBg);
-
-    //TODO заблокировать ContentPane от доступа сквозь LayeredPanel
+    //обновляем frame
     frame.repaint();
     frame.setVisible(true);
 

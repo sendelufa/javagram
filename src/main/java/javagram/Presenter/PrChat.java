@@ -17,6 +17,7 @@ import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.MainContract.Repository;
 import javagram.Model.TelegramProdFactory;
+import javagram.Model.objects.InputContact;
 import javagram.Model.objects.TgContact;
 import javagram.Presenter.objects.TgMessage;
 import javax.imageio.ImageIO;
@@ -40,6 +41,22 @@ public class PrChat implements MainContract.IPresenter {
     this.view.setUserFullNameLabelTop(repository.getUserFullName());
     this.view.setUserPhotoTop(repository.getUserPhoto(),
         repository.getUserFirstName(), repository.getUserLastName());
+    Log.info("id user:" + repository.getUserId());
+  }
+
+  public void addContact(){
+   /* try {
+      //int i = repository.addContact(new InputContact(80879, "9996622222", "New", "Contact"));
+
+      //Log.info("addContact() id = " + i);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }*/
+    try {
+      repository.getCurrentUser();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public void getContactList() {
@@ -49,6 +66,7 @@ public class PrChat implements MainContract.IPresenter {
       public void run() {
         try {
           contactList = repository.getContactList();
+          Log.info("contactList.size() = " + contactList.size());
 /*
       contactsListModel = new DefaultListModel<>();
       contactsListModel.ensureCapacity(1);
@@ -79,30 +97,6 @@ public class PrChat implements MainContract.IPresenter {
 
     th.start();
   }
-
-  /*public BufferedImage getUserPhoto(IContact user) {
-    BufferedImage img = Configs.IMG_DEFAULT_USER_PHOTO_41_41;
-    try {
-      BufferedImage imgApi = ImageIO.read(new ByteArrayInputStream(user.getPhoto(true)));
-      if (imgApi != null) {
-        Image i = imgApi.getScaledInstance(41, 41, Image.SCALE_SMOOTH);
-        img = new BufferedImage(i.getWidth(null), i.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D bGr = img.createGraphics();
-        bGr.drawImage(i, 0, 0, null);
-        bGr.dispose();
-        sleep(1000);
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    // Create a buffered image with transparency
-
-    return img;
-  }*/
 
   public void clearContactListModel() {
     contactsListModel.clear();

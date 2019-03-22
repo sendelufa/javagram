@@ -130,7 +130,7 @@
               </grid>
             </children>
           </grid>
-          <grid id="55345" binding="pnlDialodMessages" layout-manager="CardLayout" hgap="0" vgap="0">
+          <grid id="55345" binding="pnlDialogMessages" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints border-constraint="Center"/>
             <properties>
               <opaque value="false"/>
@@ -359,7 +359,7 @@
                       <maximumSize width="254" height="32767"/>
                       <minimumSize width="254" height="15"/>
                       <opaque value="false"/>
-                      <preferredSize width="254" height="0"/>
+                      <preferredSize width="259" height="0"/>
                       <verticalScrollBarPolicy value="22"/>
                     </properties>
                     <border type="empty"/>

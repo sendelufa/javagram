@@ -3,6 +3,7 @@
  */
 package javagram.View;
 
+import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -57,9 +58,11 @@ public abstract class ViewChatAbs {
   protected JButton lblBtnClearContacts;
   protected JLabel lblFullUserNameTopBar;
   protected JLabel lblTitleBarUserPic;
-  protected JPanel pnlDialodMessages;
+  protected JPanel pnlDialogMessages;
   protected JButton btnAddMsgOutgoing;
   protected JScrollPane messagesJScroll;
+
+  protected JPanel pnlFloatAddContactButton = new JPanel();
 
   //Resources - Images
   private BufferedImage microLogo, imgTitleBarUserPic, imgTitleBarSettings;
@@ -88,7 +91,8 @@ public abstract class ViewChatAbs {
       System.err.println("Неудалось загрузить картинки!");
       e.printStackTrace();
     }
-
+    lblFullUserNameTopBar.addMouseListener(new MouseAdapter() {
+    });
   }
 
   //Custom UI components create

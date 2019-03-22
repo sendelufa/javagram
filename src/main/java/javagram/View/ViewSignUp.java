@@ -2,72 +2,75 @@ package javagram.View; /**
  * Project Javagram Created by Shibkov Konstantin on 24.12.2018.
  */
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
-import javagram.Configs;
-import javagram.MainContract;
-import javagram.Presenter.PrSendCode;
-import javagram.View.formElements.HeadLineForm;
-import javagram.WindowGUI.WindowHandler;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javagram.Configs;
+import javagram.MainContract;
+import javagram.Presenter.PrSendCode;
+import javagram.Presenter.PrSignUp;
+import javagram.View.formElements.HeadLineForm;
+import javagram.WindowGUI.WindowHandler;
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
-public class ViewSendCode implements MainContract.IViewSendCode {
+public class ViewSignUp implements MainContract.IViewSignUp {
 
   private JPanel mainPanel;
-  private JButton btnMinimize;
-  private JButton btnExit;
   private JPanel panelLogo;
   private JTextPane lbpDescPhone;
-  private JButton btnSendCode;
-  private JPanel pnlBtnSend;
-  //Headline of Form
-  private JPanel pnlBtnExit;
-  private JPanel pnlBtnMinimize;
-  private JPanel pnlIcoPhone;
-  private JTextPane txtCode;
+  private JButton btnSignUp;
+  private JPanel pnlSignUp;
   private JLabel lblBtnSend;
   private JLabel lblDescription;
   private JLabel lblPhoneNumber;
   private JLabel lblError;
   private JLabel buttonBackToPhoneInput;
+  private JTextField txtFirstName;
+  private JTextField txtLastName;
   //Resources - Images
   private BufferedImage bg;
   private BufferedImage logo;
   private BufferedImage imgBtn;
-  private BufferedImage imgHeadClose;
-  private BufferedImage imgHeadMin;
-  private BufferedImage imgIcoPhone;
   //inner params
 
   //Presenter
-  private PrSendCode presenter;
+  private PrSignUp presenter;
 
-  public ViewSendCode() {
+  public ViewSignUp() {
     //PRESENTER
-    setPresenter(new PrSendCode(this));
+    setPresenter(new PrSignUp(this));
     //set images
     try {
       bg = ImageIO.read(new File("res/img/background.jpg"));
-      logo = ImageIO.read(new File("res/img/logo.png"));
+      logo = ImageIO.read(new File("res/img/logo-micro.png"));
       imgBtn = ImageIO.read(new File("res/img/button-background.png"));
-      imgHeadClose = ImageIO.read(new File("res/img/icon-close.png"));
-      imgHeadMin = ImageIO.read(new File("res/img/icon-hide.png"));
-      imgIcoPhone = ImageIO.read(new File("res/img/icon-lock.png"));
     } catch (IOException e) {
       System.err.println("Неудалось загрузить картинки!");
       e.printStackTrace();
     }
 
+    txtFirstName.setBorder(null);
+    txtLastName.setBorder(null);
+
     //Set Fonts
     lblDescription.setFont(WindowHandler.getMainFont(14));
     lblBtnSend.setFont(WindowHandler.getMainFont(30));
     lblPhoneNumber.setFont(WindowHandler.getMainFont(40));
+
+    txtLastName.setFont(WindowHandler.getMainFont(30));
+    txtFirstName.setFont(WindowHandler.getMainFont(30));
 
     //change Layout to mainPanel fo Y axis position
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -81,8 +84,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        presenter.checkCode(txtCode.getText());
-
+      presenter.signUp(txtFirstName.getText().trim(), txtLastName.getText().trim());
       }
     });
 
@@ -108,19 +110,11 @@ public class ViewSendCode implements MainContract.IViewSendCode {
   }
 
   @Override
-  public void callViewEnterPhone() {
-    new ViewEnterPhone();
-  }
-
-  @Override
   public void callViewEnterPhone(String phone) {
     new ViewEnterPhone(phone);
   }
 
-  @Override
-  public void callViewSignUp() {
-    new ViewSignUp();
-  }
+
 
   @Override
   public void showError(String strError) {
@@ -130,8 +124,13 @@ public class ViewSendCode implements MainContract.IViewSendCode {
   }
 
   @Override
-  public void showErrorWrongCode() {
-    showError(Configs.ERR_WRONG_CODE);
+  public void showErrorEmptyFirstLast() {
+    showError("Введите, пожалуйста, Имя и Фамилию");
+  }
+
+  @Override
+  public void showErrorEmptyFirst() {
+    showError("Пожалуйста, введите Имя");
   }
 
   @Override
@@ -140,9 +139,9 @@ public class ViewSendCode implements MainContract.IViewSendCode {
   }
 
   @Override
-  public void showInfo(String strError) {
+  public void showInfo(String strInfo) {
     clearError();
-    lblError.setText(strError);
+    lblError.setText(strInfo);
   }
 
   @Override
@@ -153,7 +152,8 @@ public class ViewSendCode implements MainContract.IViewSendCode {
 
   @Override
   public void showLoadingProcess() {
-    txtCode.setEnabled(false);
+    txtFirstName.setEnabled(false);
+    txtLastName.setEnabled(false);
     lblBtnSend.setText("");
     lblBtnSend.setEnabled(false);
     ImageIcon imageIcon = new ImageIcon(Configs.IMG_LOADING_GIF_100);
@@ -167,7 +167,8 @@ public class ViewSendCode implements MainContract.IViewSendCode {
   public void hideLoadingProcess() {
     lblBtnSend.setIcon(null);
     lblBtnSend.setText(Configs.BTN_CONTINUE);
-    txtCode.setEnabled(true);
+    txtFirstName.setEnabled(true);
+    txtLastName.setEnabled(true);
     lblBtnSend.setEnabled(true);
 
   }
@@ -197,7 +198,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
       }
     };
 
-    btnSendCode = new JButton() {
+    btnSignUp = new JButton() {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -205,7 +206,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
       }
     };
 
-    pnlBtnSend = new JPanel() {
+    pnlSignUp = new JPanel() {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -213,29 +214,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
       }
     };
 
-    pnlBtnExit = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(imgHeadClose, 0, 0, null);
-      }
-    };
 
-    pnlBtnMinimize = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(imgHeadMin, 0, 0, null);
-      }
-    };
-
-    pnlIcoPhone = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(imgIcoPhone, 0, 0, null);
-      }
-    };
 
     buttonBackToPhoneInput = new JLabel() {
       @Override
@@ -250,7 +229,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
 
   @Override
   public void setPresenter(MainContract.IPresenter presenter) {
-    this.presenter = (PrSendCode) presenter;
+    this.presenter = (PrSignUp) presenter;
   }
 
   @Override

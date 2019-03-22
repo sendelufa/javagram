@@ -5,6 +5,8 @@ package javagram.View; /**
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Ellipse2D;
+import javagram.Configs;
 import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
@@ -26,6 +28,7 @@ import javax.swing.border.Border;
 
 public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
+  JList<IContact> list = new JList<>();
   //Presenter
   private PrChat presenter;
 
@@ -107,6 +110,34 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       }
     });
 
+    list.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseEntered(MouseEvent e) {
+        GUIHelper.decorateScrollBarActive(contactsJScroll.getVerticalScrollBar());
+        Log.info("contactsJScroll mouseEntered");
+        //contactsJScroll.revalidate();
+
+      }
+    });
+
+    list.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseExited(MouseEvent e) {
+        GUIHelper.decorateScrollBarInactive(contactsJScroll.getVerticalScrollBar());
+        //contactsJScroll.revalidate();
+        Log.info("contactsJScroll mouseExited");
+
+      }
+    });
+
+    pnlFloatAddContactButton.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        Log.info("pnlFloatAddContactButton clicked");
+        presenter.addContact();
+      }
+    });
+
     /**
      блок тестовых кнопок
      */
@@ -117,6 +148,8 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         presenter.logOut();
       }
     });
+
+
 
     setContactsJListButton.addActionListener(new ActionListener() {
       @Override
@@ -177,7 +210,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   @Override
   public void showContactList(DefaultListModel<IContact> model) {
-    JList<IContact> list = new JList<>(model);
+    list.setModel(model);
     list.setLayoutOrientation(JList.VERTICAL);
 
     contactsJScroll.setViewportView(list);
@@ -198,26 +231,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       }
     });
 
-    list.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseEntered(MouseEvent e) {
-        contactsJScroll.setBorder(BorderFactory.createLineBorder(Color.RED, 20));
-        contactsJScroll.getHorizontalScrollBar().setVisible(true);
-        contactsJScroll.getVerticalScrollBar().setVisible(true);
-        contactsJScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-        Log.info("contactsJScroll mouseEntered");
-      }
-    });
 
-    list.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseExited(MouseEvent e) {
-        contactsJScroll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 20));
-        contactsJScroll.getHorizontalScrollBar().setVisible(false);
-        contactsJScroll.getVerticalScrollBar().setVisible(false);
-        Log.info("contactsJScroll mouseExited");
-      }
-    });
   }
 
   @Override
@@ -263,7 +277,10 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   }
 
   private String getFullNameInitiates(String userFirstName, String userLastName) {
-    boolean hasLastName = (userLastName != null && userLastName != "");
+    if (userFirstName == null || userLastName == null || userFirstName.equals("")) {
+      return "n/a error";
+    }
+    boolean hasLastName = (userLastName != null && !userLastName.equals(""));
     return hasLastName ? userFirstName.substring(0, 1) + userLastName.substring(0, 1)
         : userFirstName.substring(0, 1);
   }
@@ -271,15 +288,29 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   //set Float Buttons to Form
   private void setFloatPanels() {
-    JPanel p = new JPanel(new CardLayout(100, 100));
-    p.setBorder(BorderFactory.createCompoundBorder(
-        BorderFactory.createLineBorder(new Color(249, 255, 246), 3),
-        BorderFactory.createEmptyBorder(25, 25, 25, 25)));
-    p.setBackground(Color.GREEN);
-    Dimension frameDimension = WindowHandler.getFrameSize();
-    p.setBounds(20, (int) frameDimension.getHeight() - 70, 26, 26);
+    pnlFloatAddContactButton = new JPanel() {
+      @Override
+      protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        Shape circle = new Ellipse2D.Double(1, 1, 46, 46);
+        g2d.setColor(new Color(0,179,230));
+        g2d.fill(circle);
+        g2d.draw(circle);
 
-    WindowHandler.setFloatComponents(p);
+        Font exFont = WindowHandler.getMainFont(50);
+        g2d.setFont(exFont);
+        g2d.setColor(new Color(250,250,250));
+        g2d.drawString("+",10.0f,41.0f);
+      }
+    };
+
+    Dimension frameDimension = WindowHandler.getFrameSize();
+    pnlFloatAddContactButton.setBounds(20, (int) frameDimension.getHeight() - 70, 50, 50);
+
+    WindowHandler.setFloatComponents(pnlFloatAddContactButton);
     WindowHandler.showLayeredFloatButtons();
     WindowHandler.repaintFrame();
   }

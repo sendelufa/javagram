@@ -1,6 +1,8 @@
 package javagram;
 
+import javagram.View.ViewChat;
 import javagram.View.ViewEnterPhone;
+import javagram.View.ViewSignUp;
 import javagram.WindowGUI.WindowHandler;
 
 
@@ -18,6 +20,7 @@ public class Loader {
     //IMessenger messengerModel = TLRepositoryProd.getInstance();
     //new ViewChat();
     new ViewEnterPhone();
+    //new ViewSignUp();
 
   }
 

@@ -35,13 +35,13 @@ public class PrSendCode implements MainContract.IPresenter {
       public void run() {
         try {
           //check confirm code
-          repository.checkCode(confirmCode);
+          repository.signIn(confirmCode);
         } catch (RpcException e) {
           if (e.getErrorTag().equals("PHONE_CODE_INVALID")) {
             view.showErrorWrongCode();
           } else if (e.getErrorTag().equals("PHONE_NUMBER_UNOCCUPIED")) {
             view.showInfo("PHONE_NUMBER_UNOCCUPIED go to SignUp");
-
+            view.callViewSignUp();
           } else {
             view.showErrorUnknown();
           }

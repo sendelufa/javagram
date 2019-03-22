@@ -3,6 +3,8 @@
  */
 package javagram;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -26,6 +28,7 @@ public class Configs {
   public static BufferedImage IMG_MESSAGE_OUTGOING_TIP, IMG_MESSAGE_OUTGOING_OUT_BOTTOM_WEST;
   public static BufferedImage IMG_MESSAGE_INCOMING_OUT_TOP_WEST, IMG_MESSAGE_INCOMING_OUT_TOP_EAST;
   public static BufferedImage IMG_MESSAGE_INCOMING_OUT_BOTTOM_EAST, IMG_MESSAGE_INCOMING_TIP;
+  public static Font MAIN_FONT;
   public static String BTN_CONTINUE;
   //TL Connect settings
   public static String TL_SERVER, TL_APP_HASH;
@@ -56,6 +59,15 @@ public class Configs {
 
       INTERFACE_PHONE_MASK = "+# (###) #######";
       INTERFACE_PHONE_MASK_PLACEHOLDER = '_';
+
+      MAIN_FONT = Font.getFont(Font.SANS_SERIF);
+      try {
+        MAIN_FONT = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/OpenSansRegular.ttf")).deriveFont((float) 14);
+      } catch (FontFormatException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
 
       //images file
       //for gif constructor
