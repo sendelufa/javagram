@@ -3,26 +3,15 @@
  */
 package javagram.Presenter;
 
-import static java.lang.Thread.sleep;
-
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import javagram.Configs;
 import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.MainContract.Repository;
 import javagram.Model.TelegramProdFactory;
-import javagram.Model.objects.InputContact;
-import javagram.Model.objects.TgContact;
 import javagram.Presenter.objects.TgMessage;
-import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
-import org.javagram.response.object.UserContact;
 
 
 public class PrChat implements MainContract.IPresenter {
@@ -60,7 +49,6 @@ public class PrChat implements MainContract.IPresenter {
   }
 
   public void getContactList() {
-
     Thread th = new Thread(new Runnable() {
       @Override
       public void run() {
