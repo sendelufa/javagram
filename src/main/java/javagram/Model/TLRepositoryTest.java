@@ -4,25 +4,28 @@
 package javagram.Model;
 
 import java.awt.Image;
-import java.awt.TextArea;
 import java.io.IOException;
 import java.util.ArrayList;
 import javagram.MainContract;
+import javagram.MainContract.IContact;
+import javagram.Model.objects.TgContact;
 import org.javagram.response.object.UserContact;
+import org.telegram.api.TLUserContact;
+import org.telegram.api.TLUserProfilePhoto;
 import org.telegram.api.engine.RpcException;
 
 public class TLRepositoryTest extends TLAbsRepository implements MainContract.Repository {
-   private String confirmCode;
 
   private static volatile TLRepositoryTest instance;
+  private String confirmCode;
 
   static TLRepositoryTest getInstance() {
     TLRepositoryTest localInstance = instance;
 
-    if (localInstance == null){
-      synchronized (TLRepositoryTest.class){
+    if (localInstance == null) {
+      synchronized (TLRepositoryTest.class) {
         localInstance = instance;
-        if (localInstance == null){
+        if (localInstance == null) {
           instance = localInstance = new TLRepositoryTest();
         }
       }
@@ -48,17 +51,16 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
 
   @Override
   public void checkCode(String confirmCode) throws IOException {
-      if (this.confirmCode.equals(confirmCode)){
-        userFirstName = "Константин";
-        userLastName = "Васильевич";
-        userFullName = "Константин Васильевич";
-        userId = 5555;
-      }
-      else
-      {
-        throw new RpcException(400, "PHONE_CODE_INVALID");
-      }
+    if (this.confirmCode.equals(confirmCode)) {
+      userFirstName = "Константин";
+      userLastName = "Васильевич";
+      userFullName = "Константин Васильевич";
+      userId = 5555;
+    } else {
+      throw new RpcException(400, "PHONE_CODE_INVALID");
+    }
   }
+
   @Override
   public String getUserPhone() {
     return userPhone;
@@ -95,8 +97,31 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
-  public ArrayList<UserContact> getContactList() throws IOException {
-    return null;
+  public ArrayList<IContact> getContactList() throws IOException {
+    String[] firstNames = {"Саша", "Маша", "Иннокентий", "Судья Дредд", "Котик", "Явист", "Хирург",
+        "Паша", "Алексей", "Василий"};
+    String[] lastNames = {"Шар", "Круг", "Квадрат", "Треугольник", "Додекаэдр", "Шестигранник",
+        "Многогранник", "Звезда", "Цилиндр", "Ромб"};
+    String[] phones = {"+78881111111", "+78881111112", "+78881111113", "+78881111114",
+        "+78881111115", "+78881111116",
+        "+78881111117", "+78881111118", "+78881111119", "+78881111110"};
+
+    ArrayList<IContact> userContacts = new ArrayList<>();
+    int numberContacts = (int) (Math.random() * 50) + 150;
+    System.out.println(numberContacts);
+    for (int i = 0; i < numberContacts; i++) {
+
+      //TLUserProfilePhoto userPhoto = new TLUserProfilePhoto(1, );
+      int intFName = (int) (Math.random() * 10);
+      int intLName = (int) (Math.random() * 10);
+
+
+      TLUserContact u = new TLUserContact(i, firstNames[intFName],
+          lastNames[intLName], 111, phones[intLName], null, null);
+      UserContact c = new UserContact(u);
+      userContacts.add(new TgContact("test", c));
+    }
+    return userContacts;
   }
 
   @Override

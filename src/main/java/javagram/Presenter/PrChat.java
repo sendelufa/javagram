@@ -3,6 +3,8 @@
  */
 package javagram.Presenter;
 
+import static java.lang.Thread.sleep;
+
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -10,11 +12,13 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import javagram.Configs;
+import javagram.Log;
 import javagram.MainContract;
+import javagram.MainContract.IContact;
 import javagram.MainContract.Repository;
 import javagram.Model.TelegramProdFactory;
 import javagram.Model.objects.TgContact;
-import javagram.Model.objects.TgMessage;
+import javagram.Presenter.objects.TgMessage;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import org.javagram.response.object.UserContact;
@@ -22,14 +26,12 @@ import org.javagram.response.object.UserContact;
 
 public class PrChat implements MainContract.IPresenter {
 
+  //TelegramApiBridge
+  ArrayList<IContact> contactList = new ArrayList<>();
   private Repository repository = new TelegramProdFactory().getModel();
   private MainContract.IViewChat view;
-
-  DefaultListModel<TgContact> contactsListModel;
-  DefaultListModel<TgMessage> messagesListModel;
-
-  //TelegramApiBridge
-  ArrayList<UserContact> contactList = new ArrayList<>();
+  private DefaultListModel<IContact> contactsListModel = new DefaultListModel<>();
+  private DefaultListModel<TgMessage> messagesListModel;
 
 
   public PrChat(MainContract.IViewChat view) {
@@ -41,31 +43,44 @@ public class PrChat implements MainContract.IPresenter {
   }
 
   public void getContactList() {
-    try {
-      contactList = repository.getContactList();
 
+    Thread th = new Thread(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          contactList = repository.getContactList();
+/*
       contactsListModel = new DefaultListModel<>();
       contactsListModel.ensureCapacity(1);
       for (int i = 0; i < 100; i++) {
         contactsListModel.addElement(new TgContact("test"));
-      /*
-int i=0;
+        }*/
+          contactsListModel.clear();
+          view.showContactList(contactsListModel);
+          int i = 0;
 
-      for (UserContact contact:contactList){
-        if (i > 10) break;
-        BufferedImage photoPath = getUserPhoto(contact);
-        contactsListModel.addElement(new TgContact(contact.getId(), contact.toString(), photoPath));
-        i++;
-      }*/
+          for (IContact contact : contactList) {
+            Log.info("add IContact contact " + contact.getId() + ":" + contact.getFullName());
+            if (i > 30) {
+              break;
+            }
+            contactsListModel.addElement(contact);
+            i++;
+          }
+
+        } catch (
+            Exception e) {
+          e.printStackTrace();
+          view.showError("Ошибка при получении списка контактов! IOException getContactList()");
+        }
       }
-      view.showContactList(contactsListModel);
-    } catch (IOException e) {
-      e.printStackTrace();
-      view.showError("Ошибка при получении списка контактов! IOException getContactList()");
-    }
+
+    });
+
+    th.start();
   }
 
-  public BufferedImage getUserPhoto(UserContact user) {
+  /*public BufferedImage getUserPhoto(IContact user) {
     BufferedImage img = Configs.IMG_DEFAULT_USER_PHOTO_41_41;
     try {
       BufferedImage imgApi = ImageIO.read(new ByteArrayInputStream(user.getPhoto(true)));
@@ -75,16 +90,19 @@ int i=0;
         Graphics2D bGr = img.createGraphics();
         bGr.drawImage(i, 0, 0, null);
         bGr.dispose();
+        sleep(1000);
       }
     } catch (IOException e) {
       e.printStackTrace();
     } catch (NullPointerException e) {
-      System.out.println("      -------     NullPointerException");
+
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
     // Create a buffered image with transparency
 
     return img;
-  }
+  }*/
 
   public void clearContactListModel() {
     contactsListModel.clear();

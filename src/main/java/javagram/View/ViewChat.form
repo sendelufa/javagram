@@ -360,6 +360,7 @@
                       <minimumSize width="254" height="15"/>
                       <opaque value="false"/>
                       <preferredSize width="254" height="0"/>
+                      <verticalScrollBarPolicy value="22"/>
                     </properties>
                     <border type="empty"/>
                     <children/>

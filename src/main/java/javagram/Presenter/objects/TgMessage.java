@@ -1,7 +1,7 @@
 /**
  * Project Javagram Created by Shibkov Konstantin on 18.03.2019.
  */
-package javagram.Model.objects;
+package javagram.Presenter.objects;
 
 public class TgMessage {
   private int id;

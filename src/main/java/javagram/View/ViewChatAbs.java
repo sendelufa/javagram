@@ -4,9 +4,12 @@
 package javagram.View;
 
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javagram.Log;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -85,6 +88,7 @@ public abstract class ViewChatAbs {
       System.err.println("Неудалось загрузить картинки!");
       e.printStackTrace();
     }
+
   }
 
   //Custom UI components create

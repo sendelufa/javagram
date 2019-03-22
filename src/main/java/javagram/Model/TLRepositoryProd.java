@@ -3,14 +3,20 @@
  */
 package javagram.Model;
 
+import static java.lang.Thread.sleep;
+
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javagram.Configs;
 import javagram.MainContract;
+import javagram.MainContract.IContact;
+import javagram.Model.objects.TgContact;
 import javax.imageio.ImageIO;
 import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
@@ -102,11 +108,20 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
 
   }
 
-  public ArrayList<UserContact> getContactList() throws IOException {
+  public ArrayList<IContact> getContactList() throws IOException {
     if (contactList.isEmpty()) {
       contactList = bridge.contactsGetContacts();
     }
-    return contactList;
+    ArrayList<IContact> contactListJavaGram = new ArrayList<>();
+    for (UserContact user : contactList){
+      contactListJavaGram.add(new TgContact(user, Configs.IMG_DEFAULT_USER_PHOTO_41_41, null));
+/*      try {
+        sleep(200);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }*/
+    }
+    return contactListJavaGram;
   }
 
 

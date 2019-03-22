@@ -4,10 +4,10 @@
 package javagram;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import javagram.Model.objects.TgContact;
-import javagram.Model.objects.TgMessage;
+import javagram.Presenter.objects.TgMessage;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import org.javagram.response.object.UserContact;
@@ -42,7 +42,7 @@ public interface MainContract {
 
   interface IViewChat extends IView {
 
-    void showContactList(DefaultListModel<TgContact> tgContacts);
+    void showContactList(DefaultListModel<IContact> tgContacts);
 
     void setUserFullNameLabelTop(String fullName);
 
@@ -119,7 +119,7 @@ public interface MainContract {
 
     String getUserFullName();
 
-    ArrayList<UserContact> getContactList() throws IOException;
+    ArrayList<IContact> getContactList() throws IOException;
 
     void getMessages();
 
@@ -133,5 +133,21 @@ public interface MainContract {
   interface RepositoryFactory {
 
     Repository getModel();
+  }
+
+  /**
+   * Objects
+   **/
+
+  interface IContact{
+    String getFullName();
+    String getFirstName();
+    String getLastName();
+    String getTime();
+    int getId();
+    String getLastMessage();
+    BufferedImage getSmallPhoto();
+    BufferedImage getBigPhoto();
+    boolean isOnline();
   }
 }

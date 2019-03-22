@@ -1,5 +1,3 @@
-
-
 package javagram.Presenter;
 
 import javagram.Exceptions.PhoneFormatError;

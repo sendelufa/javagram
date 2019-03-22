@@ -5,14 +5,16 @@ package javagram.View; /**
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javagram.Log;
 import javagram.MainContract;
-import javagram.Model.objects.TgContact;
-import javagram.Model.objects.TgMessage;
+import javagram.MainContract.IContact;
+import javagram.Presenter.objects.TgMessage;
 import javagram.Presenter.PrChat;
 import javagram.View.formElements.HeadLineForm;
 import javagram.View.formElements.ItemContactList;
 import javagram.View.formElements.MessagesDialog.IMessageItemDialog;
 import javagram.View.formElements.MessagesDialog.MessageFactory;
+import javagram.WindowGUI.GUIHelper;
 import javagram.WindowGUI.WindowHandler;
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import javax.swing.border.Border;
 
 public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
@@ -34,6 +37,9 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     initFrameComponents();
 
     setListeners();
+
+    GUIHelper.decorateScrollPane(contactsJScroll);
+    GUIHelper.decorateScrollPane(messagesJScroll);
 
     WindowHandler.makeFrameResizable();
     WindowHandler.setViewOnFrame(this);
@@ -170,8 +176,8 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   }
 
   @Override
-  public void showContactList(DefaultListModel<TgContact> model) {
-    JList<TgContact> list = new JList<>(model);
+  public void showContactList(DefaultListModel<IContact> model) {
+    JList<IContact> list = new JList<>(model);
     list.setLayoutOrientation(JList.VERTICAL);
 
     contactsJScroll.setViewportView(list);
@@ -179,16 +185,37 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     list.setCellRenderer(new DefaultListCellRenderer() {
       public Component getListCellRendererComponent(JList list,
           Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        TgContact tc = (TgContact) value;
+        IContact tc = (IContact) value;
         //select color and img mask for selected item
         Color color = isSelected ? new Color(213, 245, 255) : new Color(255, 255, 255);
         BufferedImage imgMask = isSelected ? imgUserPhotoListSelected : imgUserPhoto1;
         //add gui form ItemContactList to item in list
-        ItemContactList cList = new ItemContactList(tc.getName(),
-            tc.getLastMessage(),
-            tc.getTime() + " мин.", imgMask, tc.getPhoto());
+        ItemContactList cList = new ItemContactList(tc.getFullName(),
+            String.valueOf(tc.getId()),
+            tc.getTime() + " мин.", imgMask, tc.getSmallPhoto());
         cList.getMainPanel().setBackground(color);
         return cList.getMainPanel();
+      }
+    });
+
+    list.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseEntered(MouseEvent e) {
+        contactsJScroll.setBorder(BorderFactory.createLineBorder(Color.RED, 20));
+        contactsJScroll.getHorizontalScrollBar().setVisible(true);
+        contactsJScroll.getVerticalScrollBar().setVisible(true);
+        contactsJScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        Log.info("contactsJScroll mouseEntered");
+      }
+    });
+
+    list.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseExited(MouseEvent e) {
+        contactsJScroll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 20));
+        contactsJScroll.getHorizontalScrollBar().setVisible(false);
+        contactsJScroll.getVerticalScrollBar().setVisible(false);
+        Log.info("contactsJScroll mouseExited");
       }
     });
   }
