@@ -121,7 +121,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   }
 
   public ArrayList<IContact> getContactList() throws IOException {
-    if (contactList.isEmpty()) {
+    if (contactList.isEmpty()  || true) {
       contactList = bridge.contactsGetContacts();
     }
     ArrayList<IContact> contactListJavaGram = new ArrayList<>();
@@ -212,7 +212,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   @Override
   public void getCurrentUser() throws IOException {
 
-    InputContact contact = new InputContact(80879,"79659363762", "1", "1");
+    InputContact contact = new InputContact(0,"79659363762","Yota" , "79659363762");
     TLVector<TLInputContact> v = new TLVector();
     v.add(contact.createTLInputContact());
     TLRequestContactsImportContacts ci = new TLRequestContactsImportContacts(v, false);
@@ -220,7 +220,9 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     Log.info(ic.getUsers().size() + " ic.getUsers()");
 
     TLVector<TLImportedContact> listIC = ic.getImported();
-
+    for (TLImportedContact c : listIC){
+        Log.info("TLImportedContact" + c.getUserId());
+    }
     System.out.println(listIC.isEmpty());
   }
 
