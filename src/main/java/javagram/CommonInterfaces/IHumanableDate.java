@@ -5,7 +5,7 @@ package javagram.CommonInterfaces;
 
 import java.util.Calendar;
 
-public interface HumanableDate {
+public interface IHumanableDate {
 
   static String convertDate(int dateMessageInSeconds) {
     StringBuilder dateString = new StringBuilder();

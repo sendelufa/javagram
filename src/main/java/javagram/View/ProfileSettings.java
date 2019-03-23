@@ -135,7 +135,7 @@ public class ProfileSettings {
                 } catch (FontFormatException e1) {
                     e1.printStackTrace();
                 }
-                WindowHandler.setModalFullScreenPanel(pcd.getForm(), pcd.getBgPanel());
+                WindowHandler.setModalFullScreenPanel(pcd.getContent(), pcd.getBgPanel());
                 //main.java.Loader.frameSetContent(new EnterCode().getMainPanel(), );
             }
         });

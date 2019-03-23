@@ -11,13 +11,13 @@ import java.awt.font.LineBreakMeasurer;
 import java.awt.font.TextAttribute;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
-import javagram.CommonInterfaces.HumanableDate;
+import javagram.CommonInterfaces.IHumanableDate;
 import javagram.Configs;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class MessageTextItemOutgoing implements IMessageItemDialog, HumanableDate{
+public class MessageTextItemOutgoing implements IMessageItemDialog, IHumanableDate {
 
   private static Font f = new Font("Helvetica", Font.PLAIN, 14);
   private JPanel pnlMsgOutTop;
@@ -38,7 +38,7 @@ public class MessageTextItemOutgoing implements IMessageItemDialog, HumanableDat
   public MessageTextItemOutgoing(String text, int date) {
     getTxtMessage().setFont(f);
     resizeMessageTextPanels(text);
-    lblMessageDate.setText(HumanableDate.convertDate(date));
+    lblMessageDate.setText(IHumanableDate.convertDate(date));
  }
 
   private int countWrappedLinesInString(String text, JTextArea textArea) {

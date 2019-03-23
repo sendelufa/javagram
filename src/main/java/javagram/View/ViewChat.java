@@ -79,7 +79,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         try {
           ViewUserChangeProfile glassPanel = new ViewUserChangeProfile(WindowHandler.getFrameSize(),
               "Настройки профиля");
-          WindowHandler.setModalFullScreenPanel(glassPanel.getForm(), glassPanel.getBgPanel());
+          WindowHandler.setModalFullScreenPanel(glassPanel.getContent(), glassPanel.getBgPanel());
           WindowHandler.repaintFrame();
         } catch (IOException e1) {
           e1.printStackTrace();
@@ -94,8 +94,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
         try {
-          ViewContactAdd viewAddContact = new ViewContactAdd(WindowHandler.getFrameSize(),
-              "Добавить новый контакт");
+          ViewContactAdd viewAddContact = new ViewContactAdd(WindowHandler.getFrameSize());
          WindowHandler
               .setModalFullScreenPanel(viewAddContact.getMainPanel(), viewAddContact.getBgPanel());
           //WindowHandler.frameSetContent(viewAddContact.getMainPanel());
@@ -107,7 +106,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 //        try {
         // ViewContactAdd GlassPanel = new ViewContactAdd(WindowHandler.getFrameSize(),
         //     "Добавить пользователя");
-        //  WindowHandler.setModalFullScreenPanel(GlassPanel.getForm(), GlassPanel.getBgPanel());
+        //  WindowHandler.setModalFullScreenPanel(GlassPanel.getContent(), GlassPanel.getBgPanel());
         //  WindowHandler.repaintFrame();
 //        } catch (IOException e1) {
 //          e1.printStackTrace();
@@ -124,7 +123,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         try {
           ViewContactChangeProfile GlassPanel = new ViewContactChangeProfile(
               WindowHandler.getFrameSize(), "Изменить пользователя");
-          WindowHandler.setModalFullScreenPanel(GlassPanel.getForm(), GlassPanel.getBgPanel());
+          WindowHandler.setModalFullScreenPanel(GlassPanel.getContent(), GlassPanel.getBgPanel());
           WindowHandler.repaintFrame();
         } catch (IOException e1) {
           e1.printStackTrace();

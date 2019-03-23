@@ -2,21 +2,27 @@ package javagram.View; /**
  * Project Javagram Created by Shibkov Konstantin on 24.12.2018.
  */
 
-import java.text.ParseException;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javagram.CommonInterfaces.IFormattedText;
 import javagram.Configs;
 import javagram.MainContract;
 import javagram.Presenter.PrEnterPhone;
 import javagram.View.formElements.HeadLineForm;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
 
 public class ViewEnterPhone implements MainContract.IViewEnterPhone {
 
@@ -81,7 +87,7 @@ public class ViewEnterPhone implements MainContract.IViewEnterPhone {
       }
     });
 
-    setTextFieldMask(txtPhone, Configs.INTERFACE_PHONE_MASK,
+    IFormattedText.setTextFieldMask(txtPhone, Configs.INTERFACE_PHONE_MASK,
         Configs.INTERFACE_PHONE_MASK_PLACEHOLDER);
     //format phone text input field
     txtPhone.setText("9996624444");
@@ -89,19 +95,6 @@ public class ViewEnterPhone implements MainContract.IViewEnterPhone {
     //view set to windowframe
     WindowHandler.setViewOnFrame(this);
 
-  }
-
-  //format phone text input field
-  private void setTextFieldMask(JFormattedTextField field, String mask, char placeholder) {
-    MaskFormatter maskFormatter;
-    try {
-      maskFormatter = new MaskFormatter(mask);
-      maskFormatter.setPlaceholder(null);
-      maskFormatter.setPlaceholderCharacter(placeholder);
-      field.setFormatterFactory(new DefaultFormatterFactory(maskFormatter));
-    } catch (ParseException e) {
-      e.printStackTrace();
-    }
   }
 
   //Custom UI components create

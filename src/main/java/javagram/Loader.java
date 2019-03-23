@@ -1,8 +1,7 @@
 package javagram;
 
-import javagram.View.ViewChat;
-import javagram.View.ViewEnterPhone;
-import javagram.View.ViewSignUp;
+import java.awt.Color;
+import javagram.View.ViewAddContact;
 import javagram.WindowGUI.WindowHandler;
 
 
@@ -19,8 +18,13 @@ public class Loader {
     WindowHandler.startFrame();
     //IMessenger messengerModel = TLRepositoryProd.getInstance();
     //new ViewChat();
-    new ViewEnterPhone();
-    //new ViewSignUp();
+    //new ViewEnterPhone();
+
+    ViewAddContact vca = new ViewAddContact();
+    vca.getMainPanel().setBackground(Color.black);
+    vca.getMainPanel().setOpaque(true);
+    WindowHandler.frameSetContent(vca.getMainPanel());    //new ViewSignUp();
+
 
   }
 

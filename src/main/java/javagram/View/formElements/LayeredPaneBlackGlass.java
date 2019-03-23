@@ -3,15 +3,17 @@ package javagram.View.formElements; /**
  * Created by Shibkov Konstantin on 03.01.2019.
  */
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javagram.View.formElements.MyGlassPanel;
-
-import javagram.WindowGUI.WindowHandler;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import javagram.WindowGUI.WindowHandler;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 //create BlackGlass panel without content
 //Boxlayout with transparent Headline in NORTH
@@ -22,7 +24,7 @@ abstract public class LayeredPaneBlackGlass {
     private JLabel lblTitle = new JLabel(); //title of content
     private BufferedImage imgBlackGlass;
 
-    public LayeredPaneBlackGlass(Dimension frameDim, String title) throws IOException, FontFormatException {
+    public LayeredPaneBlackGlass(Dimension frameDim, String title) {
 
         //Bg panel for glass effect
         panelBg = new MyGlassPanel();
@@ -56,17 +58,15 @@ abstract public class LayeredPaneBlackGlass {
         lblTitle.setText(title);
         lblTitle.setVerticalAlignment(JLabel.BOTTOM);
         lblTitle.setHorizontalTextPosition(JLabel.CENTER);
+        lblTitle.setHorizontalAlignment(JLabel.CENTER);
         lblTitle.setOpaque(false);
         System.setProperty("TitleColor", "0X00b5ea");
         lblTitle.setForeground(Color.getColor("TitleColor"));
 
         mainContent.setOpaque(false);//set layout for content
         mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
-        //mainContent.setAlignmentX(0.5F);
-        //mainContent.add(lblTitle);
 
         panelNorthTransp.add(lblTitle);
-
         //construct layouts in skeleton panel
         panel.add(panelNorthTransp, BorderLayout.NORTH);
         panel.add(mainContent, BorderLayout.CENTER);
@@ -74,10 +74,12 @@ abstract public class LayeredPaneBlackGlass {
 
     }
 
-    public JPanel getForm() {
+    //get JPanel where content will setup
+    public JPanel getContent() {
         return panel;
     }
 
+    //get BgPanel with semitransparent background
     public JPanel getBgPanel() {
         return panelBg;
     }

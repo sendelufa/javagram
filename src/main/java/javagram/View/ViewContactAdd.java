@@ -2,6 +2,7 @@ package javagram.View; /**
  * Project Javagram Created by Shibkov Konstantin on 03.01.2019.
  */
 
+import javagram.Log;
 import javagram.MainContract.IPresenter;
 import javagram.MainContract.IView;
 import javagram.View.formElements.LayeredPaneBlackGlass;
@@ -17,12 +18,16 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class ViewContactAdd extends LayeredPaneBlackGlass implements IView {
+
   private Dimension frameDim;
+  private int frameWidth, frameHeight;
   private JPanel mainPanel;
 
-  public ViewContactAdd(Dimension frameDim, String title) throws IOException, FontFormatException {
-    super(frameDim, title);
+  public ViewContactAdd(Dimension frameDim) throws IOException, FontFormatException {
+    super(frameDim, "Добавить контакт");
     this.frameDim = frameDim;
+    frameWidth = this.frameDim.width;
+    frameHeight = this.frameDim.height;
     initViewGUI();
   }
 
@@ -37,12 +42,15 @@ public class ViewContactAdd extends LayeredPaneBlackGlass implements IView {
     //панель основная
     JPanel pnlMainBlock = new JPanel();
     pnlMainBlock.setLayout(new BoxLayout(pnlMainBlock, BoxLayout.Y_AXIS));
+    //pnlMainBlock.setPreferredSize(new Dimension(500, 500));
+    Log.info(pnlMainBlock.getPreferredSize().toString());
     pnlMainBlock.setOpaque(false);
 
     JLabel lblDesc = new JLabel("<html>Введите номер мобильного<br>телефона пользователя</html>");
-    lblDesc.setOpaque(false);
+    lblDesc.setOpaque(true);
     lblDesc.setFont(WindowHandler.getMainFont(18));
     lblDesc.setForeground(Color.WHITE);
+    lblDesc.setHorizontalAlignment(JLabel.CENTER);
     lblDesc.setPreferredSize(new Dimension(400, 100));
 
     JLabel lblFindUserTitle = new JLabel("Найден пользователь:");
@@ -55,12 +63,12 @@ public class ViewContactAdd extends LayeredPaneBlackGlass implements IView {
     lblFindUserName.setOpaque(false);
     lblFindUserName.setFont(WindowHandler.getMainFont(18));
     lblFindUserName.setForeground(Color.WHITE);
-    lblFindUserName.setPreferredSize(new Dimension(400, 20));
+    lblFindUserName.setPreferredSize(new Dimension(250, 50));
 
-    //панель с полями имя и фамиилия
-    JPanel pnlNameSur = new JPanel();
-    pnlNameSur.setLayout(new BoxLayout(pnlNameSur, BoxLayout.Y_AXIS));
-    pnlNameSur.setOpaque(false);
+    //панель с вертикальным BoxLayout содержащий все элементы
+    JPanel pnlElementsGroup = new JPanel();
+    pnlElementsGroup.setLayout(new BoxLayout(pnlElementsGroup, BoxLayout.Y_AXIS));
+    pnlElementsGroup.setOpaque(false);
 
     //Текстовое поле Фамилия
     JTextPane txtPhoneNumber = new JTextPane();
@@ -90,13 +98,13 @@ public class ViewContactAdd extends LayeredPaneBlackGlass implements IView {
     pnlBtnBack.setPreferredSize(new Dimension(35, 35));
     pnlBtnBack.setOpaque(false);
 
-    pnlNameSur.add(new MyTransparentSpace(50));
-    pnlNameSur.add(txtPhoneNumber);
-    pnlNameSur.add(new MyUnderLineText());
-    pnlNameSur.add(new MyTransparentSpace(50));
+    pnlElementsGroup.add(new MyTransparentSpace(50));
+    pnlElementsGroup.add(txtPhoneNumber);
+    pnlElementsGroup.add(new MyUnderLineText());
+    pnlElementsGroup.add(new MyTransparentSpace(50));
 
     pnlMainBlock.add(lblDesc);
-    pnlMainBlock.add(pnlNameSur);
+    pnlMainBlock.add(pnlElementsGroup);
     pnlMainBlock.add(lblFindUserTitle);
     pnlMainBlock.add(lblFindUserName);
     pnlMainBlock.add(pnlBtnSave);
@@ -156,6 +164,6 @@ public class ViewContactAdd extends LayeredPaneBlackGlass implements IView {
 
   @Override
   public JPanel getMainPanel() {
-    return getForm();
+    return getContent();
   }
 }
