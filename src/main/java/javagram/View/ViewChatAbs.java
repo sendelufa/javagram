@@ -3,14 +3,11 @@
  */
 package javagram.View;
 
-import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javagram.Log;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -21,16 +18,11 @@ import javax.swing.JTextPane;
 public abstract class ViewChatAbs {
   //inner params
   protected JPanel mainPanel;
-  protected JPanel panelHeadline;
-  //Headline of Form
-  protected JPanel pnlBtnExit;
-  protected JPanel pnlBtnMinimize;
   protected JPanel pnlMicroLogo;
   protected JPanel pnlTitleBarUserPic;
   protected JPanel pnlTitleBarSettings;
   protected JPanel pnlChatsTitle;
-  protected JTextPane поискTextPane;
-  protected JPanel pnlContanctsId1;
+  protected JTextPane txtSearch;
   protected JPanel pnlUserPhoto1;
   protected JPanel pnlUserPhoto2;
   protected JPanel pnlChatList;
@@ -66,11 +58,11 @@ public abstract class ViewChatAbs {
 
   //Resources - Images
   private BufferedImage microLogo, imgTitleBarUserPic, imgTitleBarSettings;
-  protected BufferedImage imgChatsTitle, imgUserPhoto1, imgUserPhoto2, imgUserPhotoListSelected;
+  BufferedImage imgChatsTitle, imgUserPhoto1, imgUserPhoto2, imgUserPhotoListSelected;
   private BufferedImage imgNewChat, imgCurrentChatUserEdit, imgTextInLeft, imgTextInCenter;
   private BufferedImage imgTextInRight, imgMsgOutTop, imgMsgOutBottom, imgMsgTip;
 
-  public ViewChatAbs() {
+  ViewChatAbs() {
     //set images
     try {
       microLogo = ImageIO.read(new File("res/img/logo-micro.png"));

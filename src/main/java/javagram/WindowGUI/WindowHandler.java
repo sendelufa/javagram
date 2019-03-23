@@ -133,6 +133,7 @@ public class WindowHandler {
     //удаляем все панели что были в Модальном слое, чтобы не было наслоения
     lp.removeAll();
     frame.setContentPane(c);
+    showLayeredFloatButtons();
     //отступ чтобы не закрывать заголовок окна
     layeredBg.setBounds(0, 30, (int) getFrameSize().getWidth(), (int) getFrameSize().getHeight());
     //вставляем в JLayeredPane нужные формы
@@ -161,7 +162,7 @@ public class WindowHandler {
     if (floatComponents != null) {
       lp.add(floatComponents, JLayeredPane.MODAL_LAYER, INDEX_OF_LAYER_FLOAT_BUTTONS);
     } else {
-      l.warning("Не устанолены плавающие компоненты формы! floatComponents не заданы!");
+      l.info("Не устанолены плавающие компоненты формы! floatComponents не заданы!");
     }
   }
 

@@ -3,28 +3,41 @@ package javagram.View; /**
  */
 
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
-import javagram.Configs;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
-import javagram.Presenter.objects.TgMessage;
 import javagram.Presenter.PrChat;
+import javagram.Presenter.objects.TgMessage;
 import javagram.View.formElements.HeadLineForm;
 import javagram.View.formElements.ItemContactList;
 import javagram.View.formElements.MessagesDialog.IMessageItemDialog;
 import javagram.View.formElements.MessagesDialog.MessageFactory;
 import javagram.WindowGUI.GUIHelper;
 import javagram.WindowGUI.WindowHandler;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.swing.border.Border;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 
 public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
@@ -76,20 +89,31 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       }
     });
 
-    pnlNewChat.addMouseListener(new MouseAdapter() {
+    pnlFloatAddContactButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
         try {
-          ViewContactAdd GlassPanel = new ViewContactAdd(WindowHandler.getFrameSize(),
-              "Добавить пользователя");
-          WindowHandler.setModalFullScreenPanel(GlassPanel.getForm(), GlassPanel.getBgPanel());
-          WindowHandler.repaintFrame();
+          ViewContactAdd viewAddContact = new ViewContactAdd(WindowHandler.getFrameSize(),
+              "Добавить новый контакт");
+         WindowHandler
+              .setModalFullScreenPanel(viewAddContact.getMainPanel(), viewAddContact.getBgPanel());
+          //WindowHandler.frameSetContent(viewAddContact.getMainPanel());
         } catch (IOException e1) {
           e1.printStackTrace();
         } catch (FontFormatException e1) {
           e1.printStackTrace();
         }
+//        try {
+        // ViewContactAdd GlassPanel = new ViewContactAdd(WindowHandler.getFrameSize(),
+        //     "Добавить пользователя");
+        //  WindowHandler.setModalFullScreenPanel(GlassPanel.getForm(), GlassPanel.getBgPanel());
+        //  WindowHandler.repaintFrame();
+//        } catch (IOException e1) {
+//          e1.printStackTrace();
+//        } catch (FontFormatException e1) {
+//          e1.printStackTrace();
+//        }
       }
     });
 
@@ -130,13 +154,13 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       }
     });
 
-    pnlFloatAddContactButton.addMouseListener(new MouseAdapter() {
+  /*  pnlFloatAddContactButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
         Log.info("pnlFloatAddContactButton clicked");
         presenter.addContact();
       }
-    });
+    });*/
 
     /**
      блок тестовых кнопок
@@ -148,8 +172,6 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         presenter.logOut();
       }
     });
-
-
 
     setContactsJListButton.addActionListener(new ActionListener() {
       @Override
@@ -296,14 +318,14 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
         Shape circle = new Ellipse2D.Double(1, 1, 46, 46);
-        g2d.setColor(new Color(0,179,230));
+        g2d.setColor(new Color(0, 179, 230));
         g2d.fill(circle);
         g2d.draw(circle);
 
         Font exFont = WindowHandler.getMainFont(50);
         g2d.setFont(exFont);
-        g2d.setColor(new Color(250,250,250));
-        g2d.drawString("+",10.0f,41.0f);
+        g2d.setColor(new Color(250, 250, 250));
+        g2d.drawString("+", 10.0f, 41.0f);
       }
     };
 
