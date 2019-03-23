@@ -136,7 +136,6 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     return contactListJavaGram;
   }
 
-
   public String getUserPhone() {
     return userPhone;
   }
@@ -208,6 +207,9 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     AuthAuthorization auth = bridge.authSignUp(smsCode, firstName, lastName);
   }
 
+  public TgContact searchUserWorlWide(String phone){
+   return null;
+  }
   //добавление юзера в контакт лист, дурацоке название
   @Override
   public void getCurrentUser() throws IOException {

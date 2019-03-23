@@ -29,6 +29,7 @@ public class PrAddContact implements MainContract.IPresenter {
       view.showErrorPhoneFormat();
       return;
     }
+    //repository.
     view.showError("запуск поиска контакта");
   }
 
