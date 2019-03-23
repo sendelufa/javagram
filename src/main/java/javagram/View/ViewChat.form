@@ -238,7 +238,7 @@
             <properties>
               <opaque value="false"/>
               <preferredSize width="525" height="40"/>
-              <visible value="true"/>
+              <visible value="false"/>
             </properties>
             <border type="none"/>
             <children/>

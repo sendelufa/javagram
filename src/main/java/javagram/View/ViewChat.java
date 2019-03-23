@@ -93,16 +93,11 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        try {
-          ViewContactAdd viewAddContact = new ViewContactAdd(WindowHandler.getFrameSize());
-         WindowHandler
-              .setModalFullScreenPanel(viewAddContact.getMainPanel(), viewAddContact.getBgPanel());
+
+          ViewAddContact viewAddContact = new ViewAddContact();
+
           //WindowHandler.frameSetContent(viewAddContact.getMainPanel());
-        } catch (IOException e1) {
-          e1.printStackTrace();
-        } catch (FontFormatException e1) {
-          e1.printStackTrace();
-        }
+
 //        try {
         // ViewContactAdd GlassPanel = new ViewContactAdd(WindowHandler.getFrameSize(),
         //     "Добавить пользователя");

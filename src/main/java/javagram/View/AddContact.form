@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="javagram.View.ViewAddContact">
-  <grid id="27dc6" binding="mainPanel" custom-create="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
     <constraints>
       <xy x="20" y="20" width="839" height="600"/>
     </constraints>
@@ -212,7 +212,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="5c861" binding="pnlSignUp" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="5c861" binding="pnlBtnAddContact" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints/>
             <properties>
               <alignmentX value="0.5"/>

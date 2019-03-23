@@ -24,7 +24,7 @@ public class ViewContactAdd extends LayeredPaneBlackGlass implements IView {
   private JPanel mainPanel;
 
   public ViewContactAdd(Dimension frameDim) throws IOException, FontFormatException {
-    super(frameDim, "Добавить контакт");
+    super(frameDim);
     this.frameDim = frameDim;
     frameWidth = this.frameDim.width;
     frameHeight = this.frameDim.height;

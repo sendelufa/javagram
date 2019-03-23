@@ -160,9 +160,9 @@ public class WindowHandler {
   //set float buttons to frame
   public static void showLayeredFloatButtons() {
     if (floatComponents != null) {
-      lp.add(floatComponents, JLayeredPane.MODAL_LAYER, INDEX_OF_LAYER_FLOAT_BUTTONS);
+      lp.add(floatComponents, JLayeredPane.MODAL_LAYER-1, INDEX_OF_LAYER_FLOAT_BUTTONS);
     } else {
-      l.info("Не устанолены плавающие компоненты формы! floatComponents не заданы!");
+      l.info("Не установлены плавающие компоненты формы! floatComponents не заданы!");
     }
   }
 

@@ -105,6 +105,17 @@ public interface MainContract {
     void setPhoneNumber(String phone);
   }
 
+  interface IViewAddContact extends IView{
+    void closeModalView();
+
+    //SHOW ERRORS AND INFO
+    void showErrorUserNotFound();
+
+    void showErrorPhoneEmpty();
+
+    void showErrorPhoneFormat();
+  }
+
   /**
    * Presenters
    **/

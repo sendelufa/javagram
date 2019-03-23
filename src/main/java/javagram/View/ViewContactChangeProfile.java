@@ -18,7 +18,7 @@ import java.io.IOException;
 public class ViewContactChangeProfile extends LayeredPaneBlackGlass {
 
     public ViewContactChangeProfile(Dimension frameDim, String title) throws IOException, FontFormatException {
-        super(frameDim, title);
+        super(frameDim);
 
 
         //Панель с основной формой для редактирования

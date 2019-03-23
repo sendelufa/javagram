@@ -19,7 +19,7 @@ public class ViewUserChangeProfile extends LayeredPaneBlackGlass {
 
     public ViewUserChangeProfile(Dimension frameDim, String title)
         throws IOException, FontFormatException {
-        super(frameDim, title);
+        super(frameDim);
 
 
         //Панель с основной формой для редактирования

@@ -11,54 +11,49 @@ import java.io.File;
 import java.io.IOException;
 import javagram.CommonInterfaces.IFormattedText;
 import javagram.Configs;
+import javagram.Log;
 import javagram.MainContract;
+import javagram.Presenter.PrAddContact;
 import javagram.Presenter.PrSignUp;
-import javagram.View.formElements.HeadLineForm;
 import javagram.View.formElements.LayeredPaneBlackGlass;
+import javagram.View.formElements.MyGlassPanel;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-public class ViewAddContact extends LayeredPaneBlackGlass implements MainContract.IViewSignUp,
+public class ViewAddContact extends LayeredPaneBlackGlass implements MainContract.IViewAddContact,
     IFormattedText {
 
   private JPanel mainPanel;
   private JPanel panelLogo;
   private JTextPane lbpDescPhone;
-  private JButton btnSignUp;
-  private JPanel pnlSignUp;
+  private JPanel pnlBtnAddContact;
   private JLabel lblBtnAddContact;
   private JLabel lblDescription;
   private JLabel lblTitle;
   private JLabel lblError;
   private JLabel buttonBackToPhoneInput;
-  private JTextField txtFirstName;
   private JLabel lblFindedResult;
   private JFormattedTextField txtPhone;
-  private JTextField txtLastName;
   //Resources - Images
-  private BufferedImage bg;
   private BufferedImage logo;
   private BufferedImage imgBtn;
   //inner params
 
   //Presenter
-  private PrSignUp presenter;
+  private PrAddContact presenter;
 
   public ViewAddContact() {
-    super(WindowHandler.getFrameSize(), "Добавить контакт");
+    super(WindowHandler.getFrameSize());
     //PRESENTER
-    //setPresenter(new PrSignUp(this));
+    setPresenter(new PrAddContact(this));
     //set images
     try {
-      bg = ImageIO.read(new File("res/img/background.jpg"));
       logo = ImageIO.read(new File("res/img/logo-micro.png"));
       imgBtn = ImageIO.read(new File("res/img/button-background.png"));
     } catch (IOException e) {
@@ -81,15 +76,12 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
     //change Layout to mainPanel fo Y axis position
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-    //add base elements to head panel with max/min buttons
-    HeadLineForm headLineForm = new HeadLineForm(HeadLineForm.DONT_SHOW_MINMAX);
-    getMainPanel().add(headLineForm.getPanelHeadline(), 0);
-
     //check confirm code
     lblBtnAddContact.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
+        presenter.addContact(txtPhone.getText().trim());
       }
     });
 
@@ -98,24 +90,15 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        WindowHandler.removeModalFullScreenPanel();
+        closeModalView();
       }
     });
 
-    WindowHandler.setViewOnFrame(this);
+   // !!! ADD mainPanel to getContent() for right render
+    getContent().add(getMainPanel());
+    WindowHandler
+        .setModalFullScreenPanel(getContent(), getBgPanel());
   }
-
-  @Override
-  public void callViewChat() {
-
-  }
-
-  @Override
-  public void callViewEnterPhone(String phone) {
-    new ViewEnterPhone(phone);
-  }
-
-
 
   @Override
   public void showError(String strError) {
@@ -124,20 +107,6 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
     lblError.setText(strError);
   }
 
-  @Override
-  public void showErrorEmptyFirstLast() {
-    showError("Введите, пожалуйста, Имя и Фамилию");
-  }
-
-  @Override
-  public void showErrorEmptyFirst() {
-    showError("Пожалуйста, введите Имя");
-  }
-
-  @Override
-  public void showErrorUnknown() {
-    showError("Неизвестная ошибка!");
-  }
 
   @Override
   public void showInfo(String strInfo) {
@@ -153,24 +122,14 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
 
   @Override
   public void showLoadingProcess() {
-    txtFirstName.setEnabled(false);
-    txtLastName.setEnabled(false);
-    lblBtnAddContact.setText("");
-    lblBtnAddContact.setEnabled(false);
-    ImageIcon imageIcon = new ImageIcon(Configs.IMG_LOADING_GIF_100);
-    imageIcon.setImageObserver(lblBtnAddContact);
-    lblBtnAddContact.setDisabledIcon(imageIcon);
+
 
 
   }
 
   @Override
   public void hideLoadingProcess() {
-    lblBtnAddContact.setIcon(null);
-    lblBtnAddContact.setText(Configs.BTN_CONTINUE);
-    txtFirstName.setEnabled(true);
-    txtLastName.setEnabled(true);
-    lblBtnAddContact.setEnabled(true);
+
 
   }
 
@@ -179,17 +138,32 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
     return mainPanel;
   }
 
+  @Override
+  public void closeModalView() {
+    WindowHandler.removeModalFullScreenPanel();
+  }
+
+  @Override
+  public void showErrorUserNotFound() {
+    showError("Пользователь не найден!");
+  }
+
+  @Override
+  public void showErrorPhoneEmpty() {
+    showError(Configs.ERR_PHONE_EMPTY);
+
+  }
+
+  @Override
+  public void showErrorPhoneFormat() {
+    showError(Configs.ERR_PHONE_FORMAT);
+
+  }
+
   //Custom UI components create
   private void createUIComponents() {
 
-    mainPanel = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(bg, 0, 0, 800, 600, null);
-      }
-    };
+
 
     panelLogo = new JPanel() {
       @Override
@@ -199,15 +173,7 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
       }
     };
 
-    btnSignUp = new JButton() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(imgBtn, 0, 0, null);
-      }
-    };
-
-    pnlSignUp = new JPanel() {
+    pnlBtnAddContact = new JPanel() {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -230,13 +196,6 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
 
   @Override
   public void setPresenter(MainContract.IPresenter presenter) {
-    this.presenter = (PrSignUp) presenter;
-  }
-
-  @Override
-  public void setPhoneNumber(String phone) {
-    String phoneFormat =
-        "+" + phone.substring(0, 1) + " (" + phone.substring(1, 4) + ") " + phone.substring(4);
-    lblTitle.setText(phoneFormat);
+    this.presenter = (PrAddContact) presenter;
   }
 }

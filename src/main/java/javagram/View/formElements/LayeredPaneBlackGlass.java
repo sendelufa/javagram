@@ -24,7 +24,7 @@ abstract public class LayeredPaneBlackGlass {
     private JLabel lblTitle = new JLabel(); //title of content
     private BufferedImage imgBlackGlass;
 
-    public LayeredPaneBlackGlass(Dimension frameDim, String title) {
+    public LayeredPaneBlackGlass(Dimension frameDim) {
 
         //Bg panel for glass effect
         panelBg = new MyGlassPanel();
@@ -48,14 +48,14 @@ abstract public class LayeredPaneBlackGlass {
         //Headline
         JPanel panelNorthTransp = new JPanel();
         panelNorthTransp.setLayout(new FlowLayout());
-        panelNorthTransp.setPreferredSize(new Dimension(800, 130));
+        panelNorthTransp.setPreferredSize(new Dimension(800, 30));
         panelNorthTransp.setOpaque(false);
 
         //Title
         lblTitle.setPreferredSize(new Dimension((int)frameDim.getWidth(), 100));
         lblTitle.setSize(new Dimension((int)frameDim.getWidth(), 100));
         lblTitle.setFont(WindowHandler.getMainFont(36));
-        lblTitle.setText(title);
+        //lblTitle.setText(title);
         lblTitle.setVerticalAlignment(JLabel.BOTTOM);
         lblTitle.setHorizontalTextPosition(JLabel.CENTER);
         lblTitle.setHorizontalAlignment(JLabel.CENTER);
@@ -66,7 +66,7 @@ abstract public class LayeredPaneBlackGlass {
         mainContent.setOpaque(false);//set layout for content
         mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
 
-        panelNorthTransp.add(lblTitle);
+        //panelNorthTransp.add(lblTitle);
         //construct layouts in skeleton panel
         panel.add(panelNorthTransp, BorderLayout.NORTH);
         panel.add(mainContent, BorderLayout.CENTER);
