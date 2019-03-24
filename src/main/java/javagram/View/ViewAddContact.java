@@ -2,6 +2,7 @@ package javagram.View; /**
  * Project Javagram Created by Shibkov Konstantin on 24.12.2018.
  */
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
@@ -24,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 public class ViewAddContact extends LayeredPaneBlackGlass implements MainContract.IViewAddContact,
@@ -38,8 +40,9 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
   private JLabel lblTitle;
   private JLabel lblError;
   private JLabel buttonBackToPhoneInput;
-  private JLabel lblFindedResult;
   private JFormattedTextField txtPhone;
+  private JTextField txtFirstName;
+  private JTextField txtLastName;
   //Resources - Images
   private BufferedImage logo;
   private BufferedImage imgBtn;
@@ -62,12 +65,16 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
     }
 
     txtPhone.setBorder(null);
+    txtFirstName.setBorder(null);
+    txtLastName.setBorder(null);
 
     //Set Fonts
     lblDescription.setFont(WindowHandler.getMainFont(14));
     lblBtnAddContact.setFont(WindowHandler.getMainFont(30));
     lblTitle.setFont(WindowHandler.getMainFont(32));
     txtPhone.setFont(WindowHandler.getMainFont(30));
+    txtFirstName.setFont(WindowHandler.getMainFont(30));
+    txtLastName.setFont(WindowHandler.getMainFont(30));
 
     //format text filed, example "+7(999)9999999"
     IFormattedText.setTextFieldMask(txtPhone, Configs.INTERFACE_PHONE_MASK,
@@ -81,7 +88,8 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        presenter.addContact(txtPhone.getText().trim());
+        presenter.addContact(txtPhone.getText().trim(), txtFirstName.getText().trim(),
+            txtLastName.getText().trim());
       }
     });
 
@@ -95,7 +103,7 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
     });
 
    // !!! ADD mainPanel to getContent() for right render
-    getContent().add(getMainPanel());
+    getContent().add(getMainPanel(), BorderLayout.CENTER);
     WindowHandler
         .setModalFullScreenPanel(getContent(), getBgPanel());
   }
@@ -143,6 +151,7 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
     WindowHandler.removeModalFullScreenPanel();
   }
 
+
   @Override
   public void showErrorUserNotFound() {
     showError("Пользователь не найден!");
@@ -158,6 +167,16 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
   public void showErrorPhoneFormat() {
     showError(Configs.ERR_PHONE_FORMAT);
 
+  }
+
+  @Override
+  public void showErrorEmptyFirstLast() {
+    showError("Введите, пожалуйста, Имя и Фамилию");
+  }
+
+  @Override
+  public void showErrorEmptyFirst() {
+    showError("Пожалуйста, введите Имя");
   }
 
   //Custom UI components create

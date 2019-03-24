@@ -33,21 +33,6 @@ public class PrChat implements MainContract.IPresenter {
     Log.info("id user:" + repository.getUserId());
   }
 
-  public void addContact(){
-   /* try {
-      //int i = repository.addContact(new InputContact(80879, "9996622222", "New", "Contact"));
-
-      //Log.info("addContact() id = " + i);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }*/
-    try {
-      repository.getCurrentUser();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
   public void getContactList() {
     Thread th = new Thread(new Runnable() {
       @Override

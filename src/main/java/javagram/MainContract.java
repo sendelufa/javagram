@@ -114,6 +114,10 @@ public interface MainContract {
     void showErrorPhoneEmpty();
 
     void showErrorPhoneFormat();
+
+    void showErrorEmptyFirstLast();
+
+    void showErrorEmptyFirst();
   }
 
   /**
@@ -142,9 +146,6 @@ public interface MainContract {
 
     void signUp(String smsCode, String firstName, String lastName) throws IOException;
 
-    //temp
-    void getCurrentUser() throws IOException;
-
     String getUserPhone();
 
     void logOut();
@@ -163,11 +164,16 @@ public interface MainContract {
 
     ArrayList<IContact> getContactList() throws IOException;
 
+    ArrayList<IContact> getContactListForceReload() throws IOException;
+
+    ArrayList<IContact> getContactList(boolean forceReload) throws IOException;
+
     void getMessages();
 
     void clearApiBridge();
 
-    Integer addContact(InputContact inputContact) throws IOException;
+    //return number of added contacts, must be one
+    int addContact(String phone, String firstname, String lastName) throws IOException;
   }
 
   /**

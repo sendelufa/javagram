@@ -69,7 +69,7 @@ abstract public class LayeredPaneBlackGlass {
         //panelNorthTransp.add(lblTitle);
         //construct layouts in skeleton panel
         panel.add(panelNorthTransp, BorderLayout.NORTH);
-        panel.add(mainContent, BorderLayout.CENTER);
+      //panel.add(mainContent, BorderLayout.CENTER);
 
 
     }

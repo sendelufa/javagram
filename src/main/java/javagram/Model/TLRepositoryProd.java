@@ -120,8 +120,9 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
 
   }
 
-  public ArrayList<IContact> getContactList() throws IOException {
-    if (contactList.isEmpty()  || true) {
+  @Override
+  public ArrayList<IContact> getContactList(boolean forceReload) throws IOException {
+    if (contactList.isEmpty() || forceReload) {
       contactList = bridge.contactsGetContacts();
     }
     ArrayList<IContact> contactListJavaGram = new ArrayList<>();
@@ -134,6 +135,16 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
       }
     }
     return contactListJavaGram;
+  }
+
+  @Override
+  public ArrayList<IContact> getContactList() throws IOException {
+    return getContactList(false);
+  }
+
+  @Override
+  public ArrayList<IContact> getContactListForceReload() throws IOException {
+    return getContactList(true);
   }
 
   public String getUserPhone() {
@@ -179,21 +190,6 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     return smsCodeChecked;
   }
 
-  @Override
-  public Integer addContact(InputContact inputContact) throws IOException {
-    boolean replace = false;
-    TLVector<TLInputContact> inputContacts = new TLVector();
-    inputContacts.add(inputContact.createTLInputContact());
-    TLRequestContactsImportContacts tlRequestContactsImportContacts = new TLRequestContactsImportContacts(inputContacts, replace);
-    TLImportedContacts tlImportedContacts = (TLImportedContacts)tlApi.doRpcCall(tlRequestContactsImportContacts);
-    if (tlImportedContacts.getImported().size() == 0) {
-      return null;
-    } else {
-      TLImportedContact tlImportedContact = (TLImportedContact)tlImportedContacts.getImported().get(0);
-      return tlImportedContact.getClientId() == inputContact.getClientId() ? tlImportedContact.getUserId() : null;
-    }
-  }
-
   public void logOut() {
     try {
       bridge.authLogOut();
@@ -210,11 +206,22 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   public TgContact searchUserWorlWide(String phone){
    return null;
   }
-  //добавление юзера в контакт лист, дурацоке название
-  @Override
-  public void getCurrentUser() throws IOException {
 
-    InputContact contact = new InputContact(0,"79659363762","Yota" , "79659363762");
+  //добавление юзера в контакт лист
+  //возврат количество добавленных пользователей
+  //при удачном добавлении = 1
+  //если контакт уже есть в списке = -1
+  @Override
+  public int addContact(String phone, String firstname, String lastName) throws IOException {
+
+    //check if contact already exist
+    for (UserContact userContact : contactList) {
+      if (userContact.getPhone().equals(phone)) {
+        return -1;
+      }
+    }
+
+    InputContact contact = new InputContact(0, phone, firstname, lastName);
     TLVector<TLInputContact> v = new TLVector();
     v.add(contact.createTLInputContact());
     TLRequestContactsImportContacts ci = new TLRequestContactsImportContacts(v, false);
@@ -226,6 +233,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
         Log.info("TLImportedContact" + c.getUserId());
     }
     System.out.println(listIC.isEmpty());
+    return listIC.size();
   }
 
   //получаем доступ к приватной переменной api из TelegramApiBridge

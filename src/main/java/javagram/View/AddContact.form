@@ -13,13 +13,13 @@
     </properties>
     <border type="empty"/>
     <children>
-      <grid id="d32c4" layout-manager="FlowLayout" hgap="0" vgap="20" flow-align="1">
+      <grid id="d32c4" layout-manager="FlowLayout" hgap="0" vgap="10" flow-align="1">
         <constraints/>
         <properties>
           <background color="-4514764"/>
           <foreground color="-4514764"/>
           <opaque value="false"/>
-          <preferredSize width="170" height="90"/>
+          <preferredSize width="170" height="60"/>
         </properties>
         <border type="none"/>
         <children>
@@ -28,8 +28,8 @@
             <constraints/>
             <properties>
               <background color="-6439704"/>
-              <maximumSize width="165" height="168"/>
-              <minimumSize width="165" height="168"/>
+              <maximumSize width="165" height="40"/>
+              <minimumSize width="165" height="40"/>
               <opaque value="false"/>
               <preferredSize width="170" height="40"/>
             </properties>
@@ -38,59 +38,46 @@
           </grid>
         </children>
       </grid>
-      <grid id="7397b" layout-manager="CardLayout" hgap="0" vgap="0">
+      <grid id="7397b" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
         <constraints/>
         <properties>
           <background color="-11345318"/>
-          <maximumSize width="800" height="60"/>
-          <minimumSize width="500" height="60"/>
+          <maximumSize width="800" height="50"/>
+          <minimumSize width="500" height="50"/>
           <opaque value="false"/>
           <preferredSize width="500" height="50"/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="582bd" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
-            <constraints>
-              <card name="Card1"/>
-            </constraints>
+          <component id="e60e7" class="javax.swing.JLabel" binding="buttonBackToPhoneInput" custom-create="true">
+            <constraints/>
             <properties>
-              <maximumSize width="347" height="30"/>
-              <minimumSize width="347" height="30"/>
-              <opaque value="false"/>
-              <preferredSize width="317" height="30"/>
+              <preferredSize width="35" height="35"/>
+              <text value=""/>
             </properties>
-            <border type="none"/>
-            <children>
-              <component id="e60e7" class="javax.swing.JLabel" binding="buttonBackToPhoneInput" custom-create="true">
-                <constraints/>
-                <properties>
-                  <preferredSize width="35" height="35"/>
-                  <text value=""/>
-                </properties>
-              </component>
-              <component id="71061" class="javax.swing.JLabel" binding="lblTitle">
-                <constraints/>
-                <properties>
-                  <foreground color="-1710618"/>
-                  <horizontalAlignment value="0"/>
-                  <horizontalTextPosition value="0"/>
-                  <minimumSize width="400" height="50"/>
-                  <preferredSize width="400" height="50"/>
-                  <text value="Добавление контакта"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
+          </component>
+          <component id="71061" class="javax.swing.JLabel" binding="lblTitle">
+            <constraints/>
+            <properties>
+              <foreground color="-1710618"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <minimumSize width="400" height="50"/>
+              <preferredSize width="400" height="50"/>
+              <text value="Добавление контакта"/>
+              <verticalAlignment value="1"/>
+            </properties>
+          </component>
         </children>
       </grid>
-      <grid id="918c" layout-manager="FlowLayout" hgap="5" vgap="15" flow-align="1">
+      <grid id="918c" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
         <constraints/>
         <properties>
           <background color="-11345318"/>
-          <maximumSize width="800" height="80"/>
-          <minimumSize width="500" height="80"/>
+          <maximumSize width="800" height="50"/>
+          <minimumSize width="500" height="50"/>
           <opaque value="false"/>
-          <preferredSize width="500" height="80"/>
+          <preferredSize width="500" height="50"/>
         </properties>
         <border type="none"/>
         <children>
@@ -101,8 +88,8 @@
               <foreground color="-393226"/>
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="0"/>
-              <preferredSize width="400" height="60"/>
-              <text value="&lt;html&gt;&lt;center&gt;Введите номер для добавления контакта&lt;/center&gt;&lt;html&gt;"/>
+              <preferredSize width="400" height="50"/>
+              <text value="&lt;html&gt;&lt;center&gt;Введите номер телефона, Имя и Фамилию для добавления контакта&lt;/center&gt;&lt;html&gt;"/>
               <verticalTextPosition value="0"/>
             </properties>
           </component>
@@ -115,29 +102,31 @@
           <maximumSize width="800" height="60"/>
           <minimumSize width="500" height="60"/>
           <opaque value="false"/>
-          <preferredSize width="500" height="95"/>
+          <preferredSize width="500" height="80"/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="c4aa7" layout-manager="FlowLayout" hgap="15" vgap="5" flow-align="1">
+          <grid id="c4aa7" layout-manager="FlowLayout" hgap="15" vgap="0" flow-align="1">
             <constraints border-constraint="North"/>
             <properties>
               <maximumSize width="347" height="55"/>
               <minimumSize width="347" height="55"/>
               <opaque value="false"/>
-              <preferredSize width="500" height="85"/>
+              <preferredSize width="500" height="65"/>
             </properties>
             <border type="none"/>
             <children>
               <component id="59c92" class="javax.swing.JLabel">
                 <constraints/>
                 <properties>
+                  <alignmentX value="0.0"/>
                   <font size="16"/>
                   <foreground color="-1710618"/>
                   <horizontalAlignment value="0"/>
-                  <preferredSize width="500" height="25"/>
+                  <labelFor value="c771"/>
+                  <preferredSize width="500" height="30"/>
                   <text value="Номер телефона"/>
-                  <verticalAlignment value="1"/>
+                  <verticalAlignment value="3"/>
                   <verticalTextPosition value="1"/>
                 </properties>
               </component>
@@ -149,7 +138,7 @@
                   <foreground color="-1710618"/>
                   <horizontalAlignment value="0"/>
                   <opaque value="false"/>
-                  <preferredSize width="300" height="50"/>
+                  <preferredSize width="300" height="35"/>
                 </properties>
               </component>
             </children>
@@ -175,27 +164,157 @@
           </grid>
         </children>
       </grid>
-      <grid id="5b57" layout-manager="BorderLayout" hgap="0" vgap="0">
+      <grid id="a774a" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints/>
         <properties>
           <background color="-11345318"/>
           <maximumSize width="800" height="60"/>
           <minimumSize width="500" height="60"/>
           <opaque value="false"/>
-          <preferredSize width="500" height="60"/>
+          <preferredSize width="500" height="80"/>
         </properties>
         <border type="none"/>
         <children>
-          <component id="ead5b" class="javax.swing.JLabel" binding="lblFindedResult">
+          <grid id="103fc" layout-manager="FlowLayout" hgap="15" vgap="0" flow-align="1">
             <constraints border-constraint="North"/>
             <properties>
-              <font size="16"/>
-              <foreground color="-1710618"/>
+              <maximumSize width="347" height="55"/>
+              <minimumSize width="347" height="55"/>
+              <opaque value="false"/>
+              <preferredSize width="500" height="65"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="88b8c" class="javax.swing.JLabel">
+                <constraints/>
+                <properties>
+                  <font size="16"/>
+                  <foreground color="-1710618"/>
+                  <horizontalAlignment value="0"/>
+                  <preferredSize width="500" height="30"/>
+                  <text value="Имя"/>
+                  <verticalAlignment value="3"/>
+                  <verticalTextPosition value="3"/>
+                </properties>
+              </component>
+              <component id="593a4" class="javax.swing.JTextField" binding="txtFirstName">
+                <constraints/>
+                <properties>
+                  <caretColor color="-1710618"/>
+                  <foreground color="-1710618"/>
+                  <opaque value="false"/>
+                  <preferredSize width="300" height="35"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="1bb64" layout-manager="FlowLayout" hgap="5" vgap="0" flow-align="1">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="a6209" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints/>
+                <properties>
+                  <background color="-393226"/>
+                  <preferredSize width="300" height="2"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="fb273" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints/>
+        <properties>
+          <background color="-11345318"/>
+          <maximumSize width="800" height="60"/>
+          <minimumSize width="500" height="60"/>
+          <opaque value="false"/>
+          <preferredSize width="500" height="80"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="c4942" layout-manager="FlowLayout" hgap="15" vgap="0" flow-align="1">
+            <constraints border-constraint="North"/>
+            <properties>
+              <maximumSize width="347" height="55"/>
+              <minimumSize width="347" height="55"/>
+              <opaque value="false"/>
+              <preferredSize width="500" height="65"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="e0c65" class="javax.swing.JLabel">
+                <constraints/>
+                <properties>
+                  <font size="16"/>
+                  <foreground color="-1710618"/>
+                  <horizontalAlignment value="0"/>
+                  <preferredSize width="500" height="30"/>
+                  <text value="Фамилия"/>
+                  <verticalAlignment value="3"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+              <component id="8558a" class="javax.swing.JTextField" binding="txtLastName">
+                <constraints/>
+                <properties>
+                  <caretColor color="-1710618"/>
+                  <foreground color="-1710618"/>
+                  <opaque value="false"/>
+                  <preferredSize width="300" height="35"/>
+                  <text value=""/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="a3986" layout-manager="FlowLayout" hgap="5" vgap="0" flow-align="1">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="3daf7" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints/>
+                <properties>
+                  <background color="-393226"/>
+                  <preferredSize width="300" height="2"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="5b57" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints/>
+        <properties>
+          <background color="-11345318"/>
+          <maximumSize width="800" height="50"/>
+          <minimumSize width="500" height="50"/>
+          <opaque value="false"/>
+          <preferredSize width="500" height="50"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="b8e62" class="javax.swing.JLabel" binding="lblError">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <font size="20"/>
+              <foreground color="-393226"/>
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="0"/>
-              <preferredSize width="400" height="40"/>
-              <text value="Найденный контакт"/>
-              <verticalAlignment value="3"/>
+              <preferredSize width="300" height="50"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
@@ -242,27 +361,6 @@
               </component>
             </children>
           </grid>
-        </children>
-      </grid>
-      <grid id="f95c9" layout-manager="BorderLayout" hgap="0" vgap="0">
-        <constraints/>
-        <properties>
-          <opaque value="false"/>
-          <preferredSize width="600" height="50"/>
-        </properties>
-        <border type="none"/>
-        <children>
-          <component id="b8e62" class="javax.swing.JLabel" binding="lblError">
-            <constraints border-constraint="Center"/>
-            <properties>
-              <font size="20"/>
-              <foreground color="-393226"/>
-              <horizontalAlignment value="0"/>
-              <horizontalTextPosition value="0"/>
-              <preferredSize width="300" height="50"/>
-              <text value=""/>
-            </properties>
-          </component>
         </children>
       </grid>
     </children>

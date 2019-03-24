@@ -131,18 +131,13 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
-  public Integer addContact(InputContact inputContact) throws IOException {
-    return null;
-  }
-
-  @Override
   public void signUp(String smsCode, String firstName, String lastName) {
 
   }
 
   @Override
-  public void getCurrentUser() {
-
+  public int addContact(String phone, String firstname, String lastName) throws IOException {
+    return 0;
   }
 
   @Override
@@ -154,4 +149,16 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
   public String getSmsCodeChecked() {
     return null;
   }
+
+  @Override
+  public ArrayList<IContact> getContactListForceReload() throws IOException {
+    return null;
+  }
+
+  @Override
+  public ArrayList<IContact> getContactList(boolean forceReload) throws IOException {
+    return null;
+  }
 }
+
+
