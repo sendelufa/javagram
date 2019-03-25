@@ -220,11 +220,8 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   @Override
   public void showContactList(DefaultListModel<IContact> model) {
-
     list.setModel(model);
-
-
-
+    WindowHandler.repaintFrame();
   }
 
   @Override

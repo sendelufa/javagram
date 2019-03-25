@@ -78,6 +78,12 @@ public class PrChat implements MainContract.IPresenter {
     th.start();
   }
 
+  private synchronized void refreshUserPhotos() {
+    for (int i = 0; i < contactsListModel.getSize(); i++) {
+      int id = contactsListModel.get(i).getId();
+    }
+  }
+
   public void clearContactListModel() {
     contactsListModel.clear();
   }
