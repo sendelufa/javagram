@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javagram.Configs;
 import javagram.Log;
+import javagram.MainContract.IContact;
 import javagram.View.ViewUtils;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,41 +27,49 @@ public class ItemContactList {
   private String lastMessage;
   private String time;
   private String initiates;
+  private int contactId;
 
   private BufferedImage maskPhoto;
   private BufferedImage userPhoto;
 
-  public ItemContactList(String firstName, String lastName, String lastMessage, String time,
-      BufferedImage maskPhoto, BufferedImage userPhoto, BufferedImage defaultPhoto) {
+  public ItemContactList(IContact contact, BufferedImage maskPhoto) {
     //set parameters
-    this.fullName = firstName + " " + lastName;
-    this.lastMessage = lastMessage;
-    this.time = time;
+    this.fullName = contact.getFullName();
+    this.lastMessage = contact.getLastMessage();
+    this.time = contact.getTime() + " мин.";
     this.maskPhoto = maskPhoto;
+    this.contactId = contact.getId();
 
-    this.initiates = ViewUtils.getFullNameInitiates(firstName, lastName);
+    this.initiates = ViewUtils.getFullNameInitiates(contact.getFirstName(), contact.getLastName());
 
-    if (userPhoto == null) {
+    if (contact.getSmallPhoto() == null) {
       //this.userPhoto = defaultPhoto;
       lblUserPhoto.setText(initiates);
-      pnlUserPhoto.setBackground(getRandomColor());
+      pnlUserPhoto.setBackground(getColor());
     } else {
       lblUserPhoto.setText("");
-      this.userPhoto = userPhoto;
+      this.userPhoto = contact.getSmallPhoto();
     }
     Log.info("name=" + this.fullName + " userPhoto null=  " + (userPhoto == null));
 
     //setUI
     lblName.setText(this.fullName);
-    lblLastMessage.setText(lastMessage);
-    lblTime.setText(time);
+    lblLastMessage.setText(this.lastMessage);
+    lblTime.setText(this.time);
 
 
   }
 
-  private Color getRandomColor() {
-    int colorIndex = (int) (Math.random() * Configs.COLORS_BG.length);
+  private Color getColor() {
+    int colorIndex = 0;
+    try {
+      colorIndex = (contactId % Configs.COLORS_BG.length);
+    } catch (ArithmeticException e) {
+      e.printStackTrace();
+      return new Color(181, 240, 240);
+    }
     return Configs.COLORS_BG[colorIndex];
+
   }
 
   public JPanel getMainPanel() {

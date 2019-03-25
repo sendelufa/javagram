@@ -32,11 +32,12 @@ public class PrChat implements MainContract.IPresenter {
     this.view.setUserFullNameLabelTop(repository.getUserFullName());
     this.view.setUserPhotoTop(repository.getUserPhoto(),
         repository.getUserFirstName(), repository.getUserLastName());
+
     Log.info("id user:" + repository.getUserId());
   }
 
-  public void getContactList() {
-    view.showContactList(contactsListModel);
+  public synchronized void getContactList() {
+
     Thread th = new Thread(new Runnable() {
       @Override
       public void run() {
@@ -57,9 +58,9 @@ public class PrChat implements MainContract.IPresenter {
               break;
             }
             contactsListModel.addElement(contact);
-
-            sleep(2000);
           }
+
+          view.showContactList(contactsListModel);
 
         } catch (
             Exception e) {

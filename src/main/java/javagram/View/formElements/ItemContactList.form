@@ -16,6 +16,7 @@
         </constraints>
         <properties>
           <background color="-393226"/>
+          <doubleBuffered value="false"/>
           <preferredSize width="245" height="70"/>
         </properties>
         <border type="none"/>

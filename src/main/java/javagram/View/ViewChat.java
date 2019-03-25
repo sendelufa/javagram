@@ -89,25 +89,33 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       }
     });
 
+    //CONTACTLIST
+
+    list.setLayoutOrientation(JList.VERTICAL);
+
+    contactsJScroll.setViewportView(list);
+    //set design form to item in JList
+    list.setCellRenderer(new DefaultListCellRenderer() {
+      public Component getListCellRendererComponent(JList list,
+          Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        IContact tc = (IContact) value;
+        //select color and img mask for selected item
+        Color color = isSelected ? new Color(213, 245, 255) : new Color(255, 255, 255);
+        BufferedImage imgMask = isSelected ? imgUserPhotoListSelected : imgUserPhotoListNotSelected;
+        //add gui form ItemContactList to item in list
+        ItemContactList cList = new ItemContactList(tc, imgMask);
+        cList.getMainPanel().setBackground(color);
+        return cList.getMainPanel();
+      }
+    });
+
+    //CONTACTLIST
+
     pnlFloatAddContactButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-
           ViewAddContact viewAddContact = new ViewAddContact();
-
-          //WindowHandler.frameSetContent(viewAddContact.getMainPanel());
-
-//        try {
-        // ViewContactAdd GlassPanel = new ViewContactAdd(WindowHandler.getFrameSize(),
-        //     "Добавить пользователя");
-        //  WindowHandler.setModalFullScreenPanel(GlassPanel.getContent(), GlassPanel.getBgPanel());
-        //  WindowHandler.repaintFrame();
-//        } catch (IOException e1) {
-//          e1.printStackTrace();
-//        } catch (FontFormatException e1) {
-//          e1.printStackTrace();
-//        }
       }
     });
 
@@ -212,27 +220,9 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   @Override
   public void showContactList(DefaultListModel<IContact> model) {
-    list.setModel(model);
-    list.setLayoutOrientation(JList.VERTICAL);
 
-    contactsJScroll.setViewportView(list);
-    //set design form to item in JList
-    list.setCellRenderer(new DefaultListCellRenderer() {
-      public Component getListCellRendererComponent(JList list,
-          Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        IContact tc = (IContact) value;
-        //select color and img mask for selected item
-        Color color = isSelected ? new Color(213, 245, 255) : new Color(255, 255, 255);
-        BufferedImage imgMask = isSelected ? imgUserPhotoListSelected : imgUserPhotoListNotSelected;
-        //add gui form ItemContactList to item in list
-        ItemContactList cList = new ItemContactList(tc.getFirstName(), tc.getLastName(),
-            String.valueOf(tc.getId()),
-            tc.getTime() + " мин.", imgMask, tc.getSmallPhoto(),
-            Configs.IMG_DEFAULT_USER_PHOTO_41_41);
-        cList.getMainPanel().setBackground(color);
-        return cList.getMainPanel();
-      }
-    });
+    list.setModel(model);
+
 
 
   }
