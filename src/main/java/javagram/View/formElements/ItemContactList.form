@@ -20,7 +20,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="e0b8f" binding="pnlUserPhoto" layout-manager="FlowLayout" hgap="5" vgap="14" flow-align="1">
+          <grid id="e0b8f" binding="pnlUserPhotoContainer" layout-manager="FlowLayout" hgap="5" vgap="14" flow-align="1">
             <constraints/>
             <properties>
               <opaque value="false"/>
@@ -28,19 +28,33 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="5c4cc" class="javax.swing.JLabel" binding="lblUserPhoto" custom-create="true">
+              <grid id="fb279" binding="pnlUserPhoto" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
                 <constraints/>
                 <properties>
-                  <background color="-4515295"/>
-                  <font size="18"/>
-                  <foreground color="-12828863"/>
-                  <horizontalAlignment value="0"/>
-                  <horizontalTextPosition value="0"/>
-                  <opaque value="false"/>
-                  <preferredSize width="41" height="41"/>
-                  <text value="ШШ"/>
+                  <background color="-48283"/>
+                  <opaque value="true"/>
                 </properties>
-              </component>
+                <border type="none"/>
+                <children>
+                  <component id="5c4cc" class="javax.swing.JLabel" binding="lblUserPhoto" custom-create="true">
+                    <constraints>
+                      <card name="Card1"/>
+                    </constraints>
+                    <properties>
+                      <alignmentX value="0.5"/>
+                      <background color="-4515295"/>
+                      <font size="18"/>
+                      <foreground color="-12828863"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="0"/>
+                      <iconTextGap value="0"/>
+                      <opaque value="false"/>
+                      <preferredSize width="41" height="41"/>
+                      <text value="YS"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
             </children>
           </grid>
           <grid id="81c65" layout-manager="FlowLayout" hgap="10" vgap="0" flow-align="0">

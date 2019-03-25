@@ -7,10 +7,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import javagram.Configs;
 import javagram.MainContract.IContact;
 import javax.imageio.ImageIO;
 import org.javagram.response.object.UserContact;
-import org.telegram.api.TLUserContact;
 
 
 public class TgContact implements IContact {
@@ -19,10 +19,10 @@ public class TgContact implements IContact {
   private BufferedImage photoSmall = null;
   private UserContact contact;
 
-  public TgContact(UserContact contact, BufferedImage defPhotoSmall, BufferedImage defPhotoBig) {
+  public TgContact(UserContact contact) {
     this.contact = contact;
     //this.photoSmall = initSmallPhoto(defPhotoSmall);
-    this.photoSmall = defPhotoSmall;
+    //this.photoSmall = defPhotoSmall;
     time = String.valueOf((int) (Math.random() * 9));
     lastMessage = String.valueOf(Math.random() * 1000000);
   }

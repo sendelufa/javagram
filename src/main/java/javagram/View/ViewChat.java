@@ -21,7 +21,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javagram.Log;
+import javagram.Configs;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.Presenter.PrChat;
@@ -132,9 +132,6 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       @Override
       public void mouseEntered(MouseEvent e) {
         GUIHelper.decorateScrollBarActive(contactsJScroll.getVerticalScrollBar());
-        Log.info("contactsJScroll mouseEntered");
-        //contactsJScroll.revalidate();
-
       }
     });
 
@@ -142,19 +139,8 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       @Override
       public void mouseExited(MouseEvent e) {
         GUIHelper.decorateScrollBarInactive(contactsJScroll.getVerticalScrollBar());
-        //contactsJScroll.revalidate();
-        Log.info("contactsJScroll mouseExited");
-
       }
     });
-
-  /*  pnlFloatAddContactButton.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        Log.info("pnlFloatAddContactButton clicked");
-        presenter.addContact();
-      }
-    });*/
 
     /**
      блок тестовых кнопок
@@ -237,11 +223,12 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         IContact tc = (IContact) value;
         //select color and img mask for selected item
         Color color = isSelected ? new Color(213, 245, 255) : new Color(255, 255, 255);
-        BufferedImage imgMask = isSelected ? imgUserPhotoListSelected : imgUserPhoto1;
+        BufferedImage imgMask = isSelected ? imgUserPhotoListSelected : imgUserPhotoListNotSelected;
         //add gui form ItemContactList to item in list
-        ItemContactList cList = new ItemContactList(tc.getFullName(),
+        ItemContactList cList = new ItemContactList(tc.getFirstName(), tc.getLastName(),
             String.valueOf(tc.getId()),
-            tc.getTime() + " мин.", imgMask, tc.getSmallPhoto());
+            tc.getTime() + " мин.", imgMask, tc.getSmallPhoto(),
+            Configs.IMG_DEFAULT_USER_PHOTO_41_41);
         cList.getMainPanel().setBackground(color);
         return cList.getMainPanel();
       }
@@ -293,12 +280,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   }
 
   private String getFullNameInitiates(String userFirstName, String userLastName) {
-    if (userFirstName == null || userLastName == null || userFirstName.equals("")) {
-      return "n/a error";
-    }
-    boolean hasLastName = (userLastName != null && !userLastName.equals(""));
-    return hasLastName ? userFirstName.substring(0, 1) + userLastName.substring(0, 1)
-        : userFirstName.substring(0, 1);
+    return ViewUtils.getFullNameInitiates(userFirstName, userLastName);
   }
 
 

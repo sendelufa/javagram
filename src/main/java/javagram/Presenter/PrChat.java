@@ -38,25 +38,25 @@ public class PrChat implements MainContract.IPresenter {
       @Override
       public void run() {
         try {
+          //get from Telegram Api
           contactList = repository.getContactList();
           Log.info("contactList.size() = " + contactList.size());
-/*
-      contactsListModel = new DefaultListModel<>();
-      contactsListModel.ensureCapacity(1);
-      for (int i = 0; i < 100; i++) {
-        contactsListModel.addElement(new TgContact("test"));
-        }*/
+
+          //clear
           contactsListModel.clear();
           view.showContactList(contactsListModel);
           int i = 0;
 
           for (IContact contact : contactList) {
+
             Log.info("add IContact contact " + contact.getId() + ":" + contact.getFullName());
-            if (i > 30) {
+            if (i > 100) {
               break;
             }
             contactsListModel.addElement(contact);
             i++;
+
+
           }
 
         } catch (

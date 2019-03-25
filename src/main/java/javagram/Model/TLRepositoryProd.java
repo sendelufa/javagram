@@ -7,7 +7,13 @@ import static java.lang.Thread.sleep;
 
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +33,17 @@ import org.javagram.response.AuthSentCode;
 import org.javagram.response.object.UserContact;
 import org.telegram.api.TLImportedContact;
 import org.telegram.api.TLInputContact;
+import org.telegram.api.auth.TLAuthorization;
+import org.telegram.api.auth.TLExportedAuthorization;
 import org.telegram.api.contacts.TLImportedContacts;
 import org.telegram.api.engine.TelegramApi;
+import org.telegram.api.requests.TLRequestAuthExportAuthorization;
+import org.telegram.api.requests.TLRequestAuthImportAuthorization;
+import org.telegram.api.requests.TLRequestAuthSignIn;
 import org.telegram.api.requests.TLRequestContactsImportContacts;
+import org.telegram.api.requests.TLRequestUpdatesGetState;
+import org.telegram.api.updates.TLState;
+import org.telegram.tl.TLBytes;
 import org.telegram.tl.TLVector;
 
 /**
@@ -54,7 +68,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     try {
       bridge = new TelegramApiBridge(Configs.TL_SERVER, Configs.TL_APP_ID, Configs.TL_APP_HASH);
       //получаем доступ и ссылку на параметр api TelegramApiBridge
-     getTlApiReflection();
+      getTlApiReflection();
 
       l.warning("tlApi.getState()" + tlApi.getState());
 
@@ -88,6 +102,19 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
       AuthCheckedPhone checkedPhone = bridge.authCheckPhone(ph);
       userPhone = ph;
       isPhoneRegistered = checkedPhone.isRegistered();
+
+      // experiment auth save
+      InputStream inputStream = new FileInputStream(new File("res/auth.txt"));
+      byte[] bytes = inputStream.readAllBytes();
+      TLRequestAuthImportAuthorization authImport = new TLRequestAuthImportAuthorization(906836,
+          new TLBytes(bytes));
+
+      TLAuthorization exportedAuthorization = tlApi
+          .doRpcCallNonAuth(authImport);
+
+      exportedAuthorization.getUser().getId();
+
+      // experiment auth save
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -114,7 +141,22 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     userFullName = userFirstName + " " + userLastName;
     userId = authorization.getUser().getId();
 
+    // experiment auth save
+    TLExportedAuthorization test = tlApi
+        .doRpcCall(new TLRequestAuthExportAuthorization(tlApi.getState().getPrimaryDc()));
+    Log.info("User id TLExportedAuthorization:" + test.getId());
+    OutputStream outputStream = new FileOutputStream(new File("res/auth.txt"));
+    test.serializeBody(outputStream);
+
+    Log.info("TLExportedAuthorization:" + outputStream.toString());
+
+    outputStream.flush();
+    outputStream.close();
+    // experiment auth save
+
   }
+
+
 
   public void getMessages() {
 
@@ -122,18 +164,16 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
 
   @Override
   public ArrayList<IContact> getContactList(boolean forceReload) throws IOException {
+    Log.info("Start getContactList");
     if (contactList.isEmpty() || forceReload) {
+      Log.info("Start getContactList - get bridge.contactsGetContacts()");
       contactList = bridge.contactsGetContacts();
     }
     ArrayList<IContact> contactListJavaGram = new ArrayList<>();
-    for (UserContact user : contactList){
-      contactListJavaGram.add(new TgContact(user, Configs.IMG_DEFAULT_USER_PHOTO_41_41, null));
-      try {
-        sleep(200);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
+    for (UserContact user : contactList) {
+      contactListJavaGram.add(new TgContact(user));
     }
+    Log.info("End getContactList");
     return contactListJavaGram;
   }
 
@@ -178,8 +218,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     } catch (IOException e) {
       e.printStackTrace();
       l.warning("НЕ ЗАГРУЗИЛАСЬ ФОТО ПОЛЬЗОВАТЕЛЯ!");
-    }
-    catch (NullPointerException e) {
+    } catch (NullPointerException e) {
       e.printStackTrace();
       l.warning("Ошибка загрузки изображения!");
     }
@@ -203,8 +242,8 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     AuthAuthorization auth = bridge.authSignUp(smsCode, firstName, lastName);
   }
 
-  public TgContact searchUserWorlWide(String phone){
-   return null;
+  public TgContact searchUserWorlWide(String phone) {
+    return null;
   }
 
   //добавление юзера в контакт лист
@@ -229,8 +268,8 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     Log.info(ic.getUsers().size() + " ic.getUsers()");
 
     TLVector<TLImportedContact> listIC = ic.getImported();
-    for (TLImportedContact c : listIC){
-        Log.info("TLImportedContact" + c.getUserId());
+    for (TLImportedContact c : listIC) {
+      Log.info("TLImportedContact" + c.getUserId());
     }
     System.out.println(listIC.isEmpty());
     return listIC.size();

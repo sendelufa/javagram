@@ -23,7 +23,7 @@ public class Configs {
       ERR_PHONE_EMPTY;
   //images for all formElement
   public static Image IMG_LOADING_GIF_100;
-  public static BufferedImage IMG_BUTTON_BACK_35_35, IMG_DEFAULT_USER_PHOTO_41_41;
+  public static BufferedImage IMG_BUTTON_BACK_35_35, IMG_DEFAULT_USER_PHOTO_41_41, IMG_TEST_USER_PHOTO_41_41;
   public static BufferedImage IMG_MESSAGE_OUTGOING_OUT_TOP_WEST, IMG_MESSAGE_OUTGOING_OUT_TOP_EAST;
   public static BufferedImage IMG_MESSAGE_OUTGOING_TIP, IMG_MESSAGE_OUTGOING_OUT_BOTTOM_WEST;
   public static BufferedImage IMG_MESSAGE_INCOMING_OUT_TOP_WEST, IMG_MESSAGE_INCOMING_OUT_TOP_EAST;
@@ -80,6 +80,7 @@ public class Configs {
       IMG_BTN_BG = props.getProperty("IMG_BTN_BG", "res/img/button-background.png");
       IMG_ICON_PHONE = props.getProperty("IMG_ICON_PHONE", "res/img/icon-phone.png");
       IMG_DEFAULT_USER_PHOTO_41_41 = ImageIO.read(new File("res/img/user-photo-def.png"));
+      IMG_TEST_USER_PHOTO_41_41 = ImageIO.read(new File("res/img/test_contact_list_photo.jpg"));
 
       IMG_MESSAGE_OUTGOING_OUT_TOP_WEST = ImageIO.read(new File("res/img/message-out-top.png"));
       IMG_MESSAGE_OUTGOING_OUT_TOP_EAST = ImageIO

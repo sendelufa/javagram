@@ -58,7 +58,7 @@ public abstract class ViewChatAbs {
 
   //Resources - Images
   private BufferedImage microLogo, imgTitleBarUserPic, imgTitleBarSettings;
-  BufferedImage imgChatsTitle, imgUserPhoto1, imgUserPhoto2, imgUserPhotoListSelected;
+  BufferedImage imgChatsTitle, imgUserPhotoListNotSelected, imgUserPhoto2, imgUserPhotoListSelected;
   private BufferedImage imgNewChat, imgCurrentChatUserEdit, imgTextInLeft, imgTextInCenter;
   private BufferedImage imgTextInRight, imgMsgOutTop, imgMsgOutBottom, imgMsgTip;
 
@@ -69,9 +69,9 @@ public abstract class ViewChatAbs {
       imgTitleBarUserPic = ImageIO.read(new File("res/img/mask-blue-mini.png"));
       imgTitleBarSettings = ImageIO.read(new File("res/img/icon-settings.png"));
       imgChatsTitle = ImageIO.read(new File("res/img/icon-search.png"));
-      imgUserPhoto1 = ImageIO.read(new File("res/img/mask-white-online.png"));
+      imgUserPhotoListNotSelected = ImageIO.read(new File("res/img/mask-white.png"));
       imgUserPhoto2 = ImageIO.read(new File("res/img/mask-gray-online.png"));
-      imgUserPhotoListSelected = ImageIO.read(new File("res/img/mask-white-online-select.png"));
+      imgUserPhotoListSelected = ImageIO.read(new File("res/img/mask-white-select.png"));
       imgNewChat = ImageIO.read(new File("res/img/icon-plus.png"));
       imgCurrentChatUserEdit = ImageIO.read(new File("res/img/icon-edit.png"));
       imgTextInLeft = ImageIO.read(new File("res/img/text_in_left.png"));
@@ -131,7 +131,7 @@ public abstract class ViewChatAbs {
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         //Draw Image on panel
-        g.drawImage(imgUserPhoto1, 9, 14, null);
+        g.drawImage(imgUserPhotoListNotSelected, 9, 14, null);
       }
     };
 
@@ -158,7 +158,7 @@ public abstract class ViewChatAbs {
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         //Draw Image on panel
-        g.drawImage(imgUserPhoto1, 0, 0, 35, 35, null);
+        g.drawImage(imgUserPhotoListNotSelected, 0, 0, 35, 35, null);
       }
     };
 
