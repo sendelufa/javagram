@@ -6,6 +6,7 @@ package javagram.View.formElements;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import javagram.Configs;
 import javagram.Log;
 import javagram.View.ViewUtils;
 import javax.swing.JLabel;
@@ -42,13 +43,12 @@ public class ItemContactList {
     if (userPhoto == null) {
       //this.userPhoto = defaultPhoto;
       lblUserPhoto.setText(initiates);
-      pnlUserPhoto.setBackground(new Color(getRandomColorChannel(), getRandomColorChannel(),
-          getRandomColorChannel()));
+      pnlUserPhoto.setBackground(getRandomColor());
     } else {
       lblUserPhoto.setText("");
       this.userPhoto = userPhoto;
     }
-    Log.info("userPhoto null? " + (userPhoto == null));
+    Log.info("name=" + this.fullName + " userPhoto null=  " + (userPhoto == null));
 
     //setUI
     lblName.setText(this.fullName);
@@ -58,9 +58,9 @@ public class ItemContactList {
 
   }
 
-  private int getRandomColorChannel() {
-    //TODO get Color from preseted list
-    return (int) (Math.random() * 30) + 100;
+  private Color getRandomColor() {
+    int colorIndex = (int) (Math.random() * Configs.COLORS_BG.length);
+    return Configs.COLORS_BG[colorIndex];
   }
 
   public JPanel getMainPanel() {

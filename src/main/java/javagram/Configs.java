@@ -3,6 +3,7 @@
  */
 package javagram;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
@@ -28,6 +29,8 @@ public class Configs {
   public static BufferedImage IMG_MESSAGE_OUTGOING_TIP, IMG_MESSAGE_OUTGOING_OUT_BOTTOM_WEST;
   public static BufferedImage IMG_MESSAGE_INCOMING_OUT_TOP_WEST, IMG_MESSAGE_INCOMING_OUT_TOP_EAST;
   public static BufferedImage IMG_MESSAGE_INCOMING_OUT_BOTTOM_EAST, IMG_MESSAGE_INCOMING_TIP;
+
+  public static Color[] COLORS_BG;
   public static Font MAIN_FONT;
   public static String BTN_CONTINUE;
   //TL Connect settings
@@ -62,7 +65,8 @@ public class Configs {
 
       MAIN_FONT = Font.getFont(Font.SANS_SERIF);
       try {
-        MAIN_FONT = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/OpenSansRegular.ttf")).deriveFont((float) 14);
+        MAIN_FONT = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/OpenSansRegular.ttf"))
+            .deriveFont((float) 14);
       } catch (FontFormatException e) {
         e.printStackTrace();
       } catch (IOException e) {
@@ -95,6 +99,11 @@ public class Configs {
       IMG_MESSAGE_INCOMING_OUT_BOTTOM_EAST = ImageIO
           .read(new File("res/img/message-in-bottom-east.png"));
       IMG_MESSAGE_INCOMING_TIP = ImageIO.read(new File("res/img/message-in-left.png"));
+
+      //Сolors
+      COLORS_BG = new Color[]{Color.decode("#fff176"), Color.decode("#f4ff81"),
+          Color.decode("#84ffff"), Color.decode("#ff80ab"), Color.decode("#ff9e80"),
+          Color.decode("#b9f6ca"), Color.decode("#ff8a80"), Color.decode("#bcaaa4")};
 
       //ERRORS WARNINGS INFO texts
       ERR_NO_IMAGES = props.getProperty("ERR_NO_IMAGES", "Неудалось загрузить картинки!");

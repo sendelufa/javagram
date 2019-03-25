@@ -3,6 +3,8 @@
  */
 package javagram.Presenter;
 
+import static java.lang.Thread.sleep;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import javagram.Log;
@@ -34,6 +36,7 @@ public class PrChat implements MainContract.IPresenter {
   }
 
   public void getContactList() {
+    view.showContactList(contactsListModel);
     Thread th = new Thread(new Runnable() {
       @Override
       public void run() {
@@ -44,19 +47,18 @@ public class PrChat implements MainContract.IPresenter {
 
           //clear
           contactsListModel.clear();
-          view.showContactList(contactsListModel);
+
           int i = 0;
 
           for (IContact contact : contactList) {
 
             Log.info("add IContact contact " + contact.getId() + ":" + contact.getFullName());
-            if (i > 100) {
+            if (i++ > 100) {
               break;
             }
             contactsListModel.addElement(contact);
-            i++;
 
-
+            sleep(2000);
           }
 
         } catch (

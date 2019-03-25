@@ -55,6 +55,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
 
   private static Logger l = Logger.getLogger("1");
   private ArrayList<UserContact> contactList = new ArrayList<>();
+  private ArrayList<IContact> contactListJavaGram = new ArrayList<>();
   private TelegramApiBridge bridge;
 
   private TelegramApi tlApi;
@@ -165,15 +166,14 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   @Override
   public ArrayList<IContact> getContactList(boolean forceReload) throws IOException {
     Log.info("Start getContactList");
-    if (contactList.isEmpty() || forceReload) {
+    if (contactList.isEmpty() || contactListJavaGram.isEmpty() || forceReload) {
       Log.info("Start getContactList - get bridge.contactsGetContacts()");
       contactList = bridge.contactsGetContacts();
-    }
-    ArrayList<IContact> contactListJavaGram = new ArrayList<>();
-    for (UserContact user : contactList) {
+      contactListJavaGram.clear();
+      for (UserContact user : contactList) {
       contactListJavaGram.add(new TgContact(user));
     }
-    Log.info("End getContactList");
+    }
     return contactListJavaGram;
   }
 
