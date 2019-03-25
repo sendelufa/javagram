@@ -13,6 +13,7 @@ import javagram.MainContract.IContact;
 import javagram.MainContract.Repository;
 import javagram.Model.TelegramProdFactory;
 import javagram.Presenter.objects.TgMessage;
+import javagram.View.formElements.ItemContactList;
 import javax.swing.DefaultListModel;
 
 
@@ -34,7 +35,10 @@ public class PrChat implements MainContract.IPresenter {
         repository.getUserFirstName(), repository.getUserLastName());
 
     Log.info("id user:" + repository.getUserId());
+
+    getContactList();
   }
+
 
   public synchronized void getContactList() {
 
