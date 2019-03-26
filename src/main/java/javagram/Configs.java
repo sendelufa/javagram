@@ -39,6 +39,11 @@ public class Configs {
   public static String INTERFACE_PHONE_MASK, REPOSITORY;
   public static char INTERFACE_PHONE_MASK_PLACEHOLDER;
   public static int TL_APP_ID, TL_REQUIRED_PHONE_LENGTH;
+  //Pathes
+  public static String PATH_APP_DATA, PATH_USER_PHOTO;
+  //FONTS
+  public static File FONT_FILE_REGULAR, FONT_FILE_BOLD;
+
   private static Properties props = new Properties();
 
   public static void read() {
@@ -117,6 +122,14 @@ public class Configs {
 
       //BUTTONS AND LABELS
       BTN_CONTINUE = props.getProperty("BTN_CONTINUE", "ПРОДОЛЖИТЬ");
+
+      //PATHES
+      PATH_APP_DATA = "res/AppData/";
+      PATH_USER_PHOTO = PATH_APP_DATA + "UserPhoto/";
+
+      //FONTS
+      FONT_FILE_REGULAR = new File("res/font/OpenSansRegular.ttf");
+      FONT_FILE_BOLD = new File("res/font/OpenSansSemiBold.ttf");
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -4,6 +4,7 @@
 package javagram.Model;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import javagram.MainContract;
@@ -157,6 +158,11 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
 
   @Override
   public ArrayList<IContact> getContactList(boolean forceReload) throws IOException {
+    return null;
+  }
+
+  @Override
+  public BufferedImage getContactPhotoSmall(IContact contact) {
     return null;
   }
 }

@@ -7,11 +7,10 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import javagram.Model.objects.InputContact;
 import javagram.Presenter.objects.TgMessage;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
-import org.javagram.response.object.UserContact;
+
 
 public interface MainContract {
 
@@ -50,6 +49,8 @@ public interface MainContract {
     void setUserPhotoTop(Image userPhoto, String userFirstName, String userLastName);
 
     void showDialogMessages(DefaultListModel<TgMessage> tgMessages);
+
+    void repaintContactList();
 
   }
 
@@ -168,6 +169,8 @@ public interface MainContract {
 
     ArrayList<IContact> getContactList(boolean forceReload) throws IOException;
 
+    BufferedImage getContactPhotoSmall(IContact contact);
+
     void getMessages();
 
     void clearApiBridge();
@@ -190,14 +193,29 @@ public interface MainContract {
    **/
 
   interface IContact{
+
+    Object tlUserContact = null;
     String getFullName();
     String getFirstName();
     String getLastName();
     String getTime();
     int getId();
+
+    String getInitiates();
     String getLastMessage();
     BufferedImage getSmallPhoto();
     BufferedImage getBigPhoto();
+
+    //дать доступ к родительскому контакту из API,
+    //на основании которого формируется IContact
+    Object getApiContact();
+
+    //получаем элемент
     boolean isOnline();
+
+    //setters
+    void setLastMessage(String message);
+
+    void setPhotoSmall(BufferedImage photoSmall);
   }
 }

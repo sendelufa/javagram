@@ -5,8 +5,13 @@ package javagram.Presenter;
 
 import static java.lang.Thread.sleep;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputFilter.Config;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import javagram.Configs;
 import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
@@ -14,17 +19,19 @@ import javagram.MainContract.Repository;
 import javagram.Model.TelegramProdFactory;
 import javagram.Presenter.objects.TgMessage;
 import javagram.View.formElements.ItemContactList;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 
 
 public class PrChat implements MainContract.IPresenter {
 
   //TelegramApiBridge
-  ArrayList<IContact> contactList = new ArrayList<>();
+  private volatile ArrayList<IContact> contactList = new ArrayList<>();
   private Repository repository = new TelegramProdFactory().getModel();
   private MainContract.IViewChat view;
-  private DefaultListModel<IContact> contactsListModel = new DefaultListModel<>();
-  private DefaultListModel<TgMessage> messagesListModel;
+  private volatile DefaultListModel<IContact> contactsListModel = new DefaultListModel<>();
+  private volatile DefaultListModel<TgMessage> messagesListModel;
 
 
   public PrChat(MainContract.IViewChat view) {
@@ -78,10 +85,36 @@ public class PrChat implements MainContract.IPresenter {
     th.start();
   }
 
-  private synchronized void refreshUserPhotos() {
-    for (int i = 0; i < contactsListModel.getSize(); i++) {
-      int id = contactsListModel.get(i).getId();
+  public synchronized void refreshUserPhotos() {
+
+    Thread threadGetPhotos = new Thread(new Runnable() {
+      @Override
+      public void run() {
+        for (int i = 0; i < contactsListModel.getSize(); i++) {
+          IContact c = contactsListModel.get(i);
+          Log.info("start set small photo to contact " + c.getFullName());
+          BufferedImage photoSmall = repository.getContactPhotoSmall(c);
+          if (photoSmall != null) {
+            c.setPhotoSmall(photoSmall);
+            //save photoSmall file to disk
+            Log.info("smallphoto have setted for " + c.getFullName());
+          }
+
+          try {
+            sleep(750);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          view.repaintContactList();
+
+        }
+      }
     }
+
+    );
+
+    threadGetPhotos.start();
+
   }
 
   public void clearContactListModel() {

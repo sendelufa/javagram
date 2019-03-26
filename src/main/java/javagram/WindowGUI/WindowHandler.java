@@ -12,6 +12,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
+import javagram.Configs;
 import javagram.MainContract;
 
 import javax.swing.JFrame;
@@ -31,7 +32,6 @@ public class WindowHandler {
   private static final int INDEX_OF_MODAL_BG_FC = 0;
   private static final int INDEX_OF_MODAL_CONTENT_FC = 1;
   private static JFrame frame = new JFrame("Javagram");
-  private static File fontFile = new File("res/font/OpenSansRegular.ttf");
   private static JLayeredPane lp = frame.getLayeredPane();
   private static Component floatComponents;
   private static UndecoratedResize ur;
@@ -81,7 +81,8 @@ public class WindowHandler {
     //default font
     Font font = Font.getFont(Font.SANS_SERIF);
     try {
-      font = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont((float) size);
+      font = Font.createFont(Font.TRUETYPE_FONT, Configs.FONT_FILE_REGULAR)
+          .deriveFont((float) size);
     } catch (FontFormatException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -90,6 +91,21 @@ public class WindowHandler {
 
     return font;
   }
+
+  public static Font getMainFontBold(int size) {
+    //default font
+    Font font = Font.getFont(Font.SANS_SERIF);
+    try {
+      font = Font.createFont(Font.TRUETYPE_FONT, Configs.FONT_FILE_BOLD).deriveFont((float) size);
+    } catch (FontFormatException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return font;
+  }
+
 
   public static void frameSetContent(JPanel p) {
     lp.removeAll();

@@ -181,6 +181,13 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         presenter.getDialogMessages();
       }
     });
+
+    btnLoadPhotoContactList.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        presenter.refreshUserPhotos();
+      }
+    });
   }
 
   @Override
@@ -222,6 +229,11 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   public void showContactList(DefaultListModel<IContact> model) {
     list.setModel(model);
     WindowHandler.repaintFrame();
+  }
+
+  @Override
+  public void repaintContactList() {
+    list.repaint();
   }
 
   @Override

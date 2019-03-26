@@ -5,71 +5,65 @@ package javagram.View.formElements;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javagram.Configs;
-import javagram.Log;
 import javagram.MainContract.IContact;
-import javagram.View.ViewUtils;
+import javagram.WindowGUI.WindowHandler;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ItemContactList {
 
   private JPanel mainPanel;
-  private JPanel pnlUserPhotoContainer;
   private JLabel lblName;
   private JLabel lblLastMessage;
   private JLabel lblTime;
   private JLabel lblUserPhoto;
   private JPanel pnlUserPhoto;
 
-  private String fullName;
-  private String lastMessage;
-  private String time;
   private String initiates;
-  private int contactId;
+
+  private IContact contact;
 
   private BufferedImage maskPhoto;
-  private BufferedImage userPhoto;
+  private Image userPhoto;
 
   public ItemContactList(IContact contact, BufferedImage maskPhoto) {
     //set parameters
-    this.fullName = contact.getFullName();
-    this.lastMessage = contact.getLastMessage();
-    this.time = contact.getTime() + " мин.";
+    this.contact = contact;
     this.maskPhoto = maskPhoto;
-    this.contactId = contact.getId();
+    this.initiates = this.contact.getInitiates();
 
-    this.initiates = ViewUtils.getFullNameInitiates(contact.getFirstName(), contact.getLastName());
-
-    if (contact.getSmallPhoto() == null) {
+    //setPhoto or bg circle
+    if (this.contact.getSmallPhoto() == null) {
       //this.userPhoto = defaultPhoto;
-      lblUserPhoto.setText(initiates);
+      lblUserPhoto.setText(this.initiates);
       pnlUserPhoto.setBackground(getColor());
     } else {
       lblUserPhoto.setText("");
       this.userPhoto = contact.getSmallPhoto();
     }
-    Log.info("name=" + this.fullName + " userPhoto null=  " + (userPhoto == null));
+
+    lblName.setFont(WindowHandler.getMainFontBold(13));
+    lblUserPhoto.setFont(WindowHandler.getMainFontBold(18));
 
     //setUI
-    lblName.setText(this.fullName);
-    lblLastMessage.setText(this.lastMessage);
-    lblTime.setText(this.time);
-
-
+    lblName.setText(this.contact.getFullName());
+    lblName.setToolTipText(this.contact.getFullName());
+    lblLastMessage.setText(this.contact.getLastMessage());
+    lblTime.setText(this.contact.getTime() + " мин.");
   }
 
   private Color getColor() {
-    int colorIndex = 0;
+    int colorIndex;
     try {
-      colorIndex = (contactId % Configs.COLORS_BG.length);
+      colorIndex = (contact.getId() % Configs.COLORS_BG.length);
     } catch (ArithmeticException e) {
       e.printStackTrace();
       return new Color(181, 240, 240);
     }
     return Configs.COLORS_BG[colorIndex];
-
   }
 
   public JPanel getMainPanel() {
@@ -83,6 +77,12 @@ public class ItemContactList {
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         //Draw Image on panel
+        if (userPhoto != null) {
+          userPhoto = userPhoto
+              .getScaledInstance(pnlUserPhoto.getPreferredSize().width,
+                  pnlUserPhoto.getPreferredSize().width,
+                  Image.SCALE_SMOOTH);
+        }
         g.drawImage(userPhoto, 0, 0, null);
       }
     };

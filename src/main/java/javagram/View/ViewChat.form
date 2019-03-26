@@ -354,10 +354,10 @@
               <text value="add msgs"/>
             </properties>
           </component>
-          <component id="c10f" class="javax.swing.JButton" default-binding="true">
+          <component id="c10f" class="javax.swing.JButton" binding="btnLoadPhotoContactList">
             <constraints/>
             <properties>
-              <text value="add item contact list"/>
+              <text value="load photo contactsin bg"/>
             </properties>
           </component>
           <component id="d4050" class="javax.swing.JToolBar$Separator">

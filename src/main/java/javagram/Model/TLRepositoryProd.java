@@ -6,6 +6,7 @@ package javagram.Model;
 import static java.lang.Thread.sleep;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -185,6 +186,44 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     return getContactList(true);
   }
 
+  @Override
+  public BufferedImage getContactPhotoSmall(IContact contact) {
+    BufferedImage photoSmall = null;
+    if (contactListJavaGram.contains(contact)) {
+      UserContact tlContact = (UserContact) contact.getApiContact();
+      File filePhotoSmall = new File(Configs.PATH_USER_PHOTO + tlContact.getId() + ".jpg");
+      if (filePhotoSmall.exists() && filePhotoSmall.isFile()) {
+        try {
+          photoSmall = ImageIO.read(filePhotoSmall);
+          return photoSmall;
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+
+      //get contact from Telegram API
+      try {
+        photoSmall = ImageIO.read(new ByteArrayInputStream(tlContact.getPhoto(true)));
+        //write cash
+        File outputFile = new File(Configs.PATH_USER_PHOTO + contact.getId() + "-small.jpg");
+        try {
+          ImageIO.write(photoSmall, "jpg", outputFile);
+          Log.info("file saved!");
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+        return null;
+      } catch (NullPointerException e) {
+        Log.warning(
+            "NullPointerException Repository getContactPhotoSmall()" + contact.getFullName());
+        return null;
+      }
+    }
+    return photoSmall;
+  }
+
   public String getUserPhone() {
     return userPhone;
   }
@@ -240,10 +279,6 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     AuthAuthorization auth = bridge.authSignUp(smsCode, firstName, lastName);
   }
 
-  public TgContact searchUserWorlWide(String phone) {
-    return null;
-  }
-
   //добавление юзера в контакт лист
   //возврат количество добавленных пользователей
   //при удачном добавлении = 1
@@ -273,6 +308,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     return listIC.size();
   }
 
+  //REFLECTION API
   //получаем доступ к приватной переменной api из TelegramApiBridge
   private void getTlApiReflection() {
     Field fieldApi;

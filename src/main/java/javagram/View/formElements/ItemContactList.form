@@ -21,11 +21,11 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="e0b8f" binding="pnlUserPhotoContainer" layout-manager="FlowLayout" hgap="5" vgap="14" flow-align="1">
+          <grid id="e0b8f" layout-manager="FlowLayout" hgap="5" vgap="10" flow-align="1">
             <constraints/>
             <properties>
               <opaque value="false"/>
-              <preferredSize width="60" height="70"/>
+              <preferredSize width="60" height="80"/>
             </properties>
             <border type="none"/>
             <children>
@@ -50,7 +50,7 @@
                       <horizontalTextPosition value="0"/>
                       <iconTextGap value="0"/>
                       <opaque value="false"/>
-                      <preferredSize width="41" height="41"/>
+                      <preferredSize width="55" height="55"/>
                       <text value="YS"/>
                     </properties>
                   </component>
@@ -58,11 +58,11 @@
               </grid>
             </children>
           </grid>
-          <grid id="81c65" layout-manager="FlowLayout" hgap="10" vgap="0" flow-align="0">
+          <grid id="81c65" layout-manager="FlowLayout" hgap="5" vgap="0" flow-align="0">
             <constraints/>
             <properties>
               <opaque value="false"/>
-              <preferredSize width="130" height="70"/>
+              <preferredSize width="130" height="80"/>
             </properties>
             <border type="none"/>
             <children>
@@ -92,7 +92,7 @@
             <constraints/>
             <properties>
               <opaque value="false"/>
-              <preferredSize width="40" height="70"/>
+              <preferredSize width="40" height="80"/>
             </properties>
             <border type="none"/>
             <children>
