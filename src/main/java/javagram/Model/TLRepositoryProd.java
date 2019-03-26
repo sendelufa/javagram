@@ -104,19 +104,6 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
       AuthCheckedPhone checkedPhone = bridge.authCheckPhone(ph);
       userPhone = ph;
       isPhoneRegistered = checkedPhone.isRegistered();
-
-      // experiment auth save
-      InputStream inputStream = new FileInputStream(new File("res/auth.txt"));
-      byte[] bytes = inputStream.readAllBytes();
-      TLRequestAuthImportAuthorization authImport = new TLRequestAuthImportAuthorization(906836,
-          new TLBytes(bytes));
-
-      TLAuthorization exportedAuthorization = tlApi
-          .doRpcCallNonAuth(authImport);
-
-      exportedAuthorization.getUser().getId();
-
-      // experiment auth save
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -142,20 +129,6 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     userLastName = authorization.getUser().getLastName();
     userFullName = userFirstName + " " + userLastName;
     userId = authorization.getUser().getId();
-
-    // experiment auth save
-    TLExportedAuthorization test = tlApi
-        .doRpcCall(new TLRequestAuthExportAuthorization(tlApi.getState().getPrimaryDc()));
-    Log.info("User id TLExportedAuthorization:" + test.getId());
-    OutputStream outputStream = new FileOutputStream(new File("res/auth.txt"));
-    test.serializeBody(outputStream);
-
-    Log.info("TLExportedAuthorization:" + outputStream.toString());
-
-    outputStream.flush();
-    outputStream.close();
-    // experiment auth save
-
   }
 
   public void getMessages() {
