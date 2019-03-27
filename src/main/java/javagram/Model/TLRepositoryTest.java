@@ -167,7 +167,7 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
-  public boolean editUserProfile(Image newPhoto, String firstName, String lastName) {
+  public boolean editUserProfile(BufferedImage newPhoto, String firstName, String lastName) {
     return false;
   }
 }

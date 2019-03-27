@@ -36,7 +36,7 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
 
   //inner params
   File fileUserPhotoSelected;
-  Image userPhotoNew;
+  BufferedImage userPhotoNew;
   private JPanel mainPanel;
   private JPanel panelLogo;
   private JTextPane lbpDescPhone;
@@ -225,11 +225,11 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
 
   //CROP AND RESIZE
 
-  private Image resizeAndCropImage(Image photo, int width, int height) {
+  private BufferedImage resizeAndCropImage(Image photo, int width, int height) {
     BufferedImage buff = convertImageToBufferImage(photo);
     buff = cropImageInSquare(buff);
-    return buff
-        .getScaledInstance(width, height, Image.SCALE_SMOOTH); //or use it however you want
+    Image img = buff.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    return convertImageToBufferImage(img);
   }
 
   private BufferedImage cropImageInSquare(BufferedImage photo) {

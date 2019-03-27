@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -26,11 +27,19 @@ import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.AuthSentCode;
 import org.javagram.response.object.User;
 import org.javagram.response.object.UserContact;
+import org.telegram.api.TLAbsInputFile;
+import org.telegram.api.TLAbsInputPhotoCrop;
+import org.telegram.api.TLAbsUser;
 import org.telegram.api.TLImportedContact;
 import org.telegram.api.TLInputContact;
+import org.telegram.api.TLInputFile;
+import org.telegram.api.TLInputPhotoCrop;
+import org.telegram.api.TLUserSelf;
 import org.telegram.api.contacts.TLImportedContacts;
 import org.telegram.api.engine.TelegramApi;
+import org.telegram.api.requests.TLRequestAccountUpdateProfile;
 import org.telegram.api.requests.TLRequestContactsImportContacts;
+import org.telegram.api.requests.TLRequestPhotosUploadProfilePhoto;
 import org.telegram.tl.TLVector;
 
 /**
@@ -192,12 +201,15 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
-  public synchronized boolean editUserProfile(Image newPhoto, String firstName, String lastName) {
+  public synchronized boolean editUserProfile(BufferedImage newPhoto, String firstName,
+      String lastName) {
     try {
       bridge.accountUpdateProfile(firstName, lastName);
+      updateUserPhoto(newPhoto);
       this.userFirstName = firstName;
       this.userLastName = lastName;
       userPhotoSmall = newPhoto;
+
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -205,10 +217,6 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
       return false;
     }
     return true;
-  }
-
-  private void updateUserPhoto() {
-
   }
 
   public String getUserPhone() {
@@ -238,6 +246,16 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
         //if user has no photo - set default gag
         if (userPhoto != null) {
           userPhotoSmall = ImageIO.read(new ByteArrayInputStream(userPhoto));
+        } else {
+          File filePhotoSmall = new File(Configs.PATH_USER_PHOTO + "_user-small.jpg");
+          if (filePhotoSmall.exists() && filePhotoSmall.isFile()) {
+            try {
+              userPhotoSmall = ImageIO.read(filePhotoSmall);
+            } catch (IOException e) {
+              e.printStackTrace();
+              l.warning("ошибка чтения фото профиля с диска!");
+            }
+          }
         }
       } catch (IOException e) {
         e.printStackTrace();
@@ -294,6 +312,11 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     }
     System.out.println(listIC.isEmpty());
     return listIC.size();
+  }
+
+  public void updateUserPhoto(BufferedImage photo) throws IOException {
+    File outputFile = new File(Configs.PATH_USER_PHOTO + "_user-small.jpg");
+    ImageIO.write(photo, "jpg", outputFile);
   }
 
   //REFLECTION API

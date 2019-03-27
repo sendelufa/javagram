@@ -34,7 +34,7 @@ public class PrEditUserProfile implements MainContract.IPresenter {
     view.fillUserPhoto(repository.getUserPhoto());
   }
 
-  public void setNewUserData(Image newPhoto, String firstName, String lastName) {
+  public void setNewUserData(BufferedImage newPhoto, String firstName, String lastName) {
     this.firstName = firstName.trim();
     this.lastName = lastName.trim();
     if (isContactFieldsValid()) {
