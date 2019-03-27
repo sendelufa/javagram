@@ -11,9 +11,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import javagram.WindowGUI.WindowHandler;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 //create BlackGlass panel without content
 //Boxlayout with transparent Headline in NORTH
@@ -43,6 +45,7 @@ abstract public class LayeredPaneBlackGlass {
         panel.setLayout(new BorderLayout());
         panel.setOpaque(false);
         panel.setSize(frameDim); // Size is needed here, as there is no layout in lp
+      panel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
 
 
         //Headline

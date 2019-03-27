@@ -6,7 +6,6 @@
     </constraints>
     <properties>
       <background color="-1909479"/>
-      <maximumSize width="800" height="600"/>
       <minimumSize width="800" height="600"/>
       <opaque value="false"/>
       <preferredSize width="800" height="600"/>
@@ -18,8 +17,10 @@
         <properties>
           <background color="-4514764"/>
           <foreground color="-4514764"/>
+          <maximumSize width="800" height="60"/>
+          <minimumSize width="800" height="60"/>
           <opaque value="false"/>
-          <preferredSize width="170" height="60"/>
+          <preferredSize width="800" height="60"/>
         </properties>
         <border type="none"/>
         <children>
@@ -99,20 +100,20 @@
         <constraints/>
         <properties>
           <background color="-11345318"/>
-          <maximumSize width="800" height="60"/>
+          <maximumSize width="800" height="90"/>
           <minimumSize width="500" height="60"/>
           <opaque value="false"/>
-          <preferredSize width="500" height="80"/>
+          <preferredSize width="500" height="90"/>
         </properties>
         <border type="none"/>
         <children>
           <grid id="c4aa7" layout-manager="FlowLayout" hgap="15" vgap="0" flow-align="1">
             <constraints border-constraint="North"/>
             <properties>
-              <maximumSize width="347" height="55"/>
-              <minimumSize width="347" height="55"/>
+              <maximumSize width="347" height="75"/>
+              <minimumSize width="347" height="70"/>
               <opaque value="false"/>
-              <preferredSize width="500" height="65"/>
+              <preferredSize width="500" height="70"/>
             </properties>
             <border type="none"/>
             <children>
@@ -138,7 +139,7 @@
                   <foreground color="-1710618"/>
                   <horizontalAlignment value="0"/>
                   <opaque value="false"/>
-                  <preferredSize width="300" height="35"/>
+                  <preferredSize width="300" height="45"/>
                 </properties>
               </component>
             </children>
@@ -168,20 +169,18 @@
         <constraints/>
         <properties>
           <background color="-11345318"/>
-          <maximumSize width="800" height="60"/>
+          <maximumSize width="800" height="90"/>
           <minimumSize width="500" height="60"/>
           <opaque value="false"/>
-          <preferredSize width="500" height="80"/>
+          <preferredSize width="500" height="90"/>
         </properties>
         <border type="none"/>
         <children>
           <grid id="103fc" layout-manager="FlowLayout" hgap="15" vgap="0" flow-align="1">
             <constraints border-constraint="North"/>
             <properties>
-              <maximumSize width="347" height="55"/>
-              <minimumSize width="347" height="55"/>
               <opaque value="false"/>
-              <preferredSize width="500" height="65"/>
+              <preferredSize width="500" height="70"/>
             </properties>
             <border type="none"/>
             <children>
@@ -202,8 +201,9 @@
                 <properties>
                   <caretColor color="-1710618"/>
                   <foreground color="-1710618"/>
+                  <horizontalAlignment value="0"/>
                   <opaque value="false"/>
-                  <preferredSize width="300" height="35"/>
+                  <preferredSize width="300" height="45"/>
                 </properties>
               </component>
             </children>
@@ -220,7 +220,7 @@
                 <constraints/>
                 <properties>
                   <background color="-393226"/>
-                  <preferredSize width="300" height="2"/>
+                  <preferredSize width="260" height="2"/>
                 </properties>
                 <border type="none"/>
                 <children/>
@@ -233,20 +233,18 @@
         <constraints/>
         <properties>
           <background color="-11345318"/>
-          <maximumSize width="800" height="60"/>
+          <maximumSize width="800" height="90"/>
           <minimumSize width="500" height="60"/>
           <opaque value="false"/>
-          <preferredSize width="500" height="80"/>
+          <preferredSize width="500" height="90"/>
         </properties>
         <border type="none"/>
         <children>
           <grid id="c4942" layout-manager="FlowLayout" hgap="15" vgap="0" flow-align="1">
             <constraints border-constraint="North"/>
             <properties>
-              <maximumSize width="347" height="55"/>
-              <minimumSize width="347" height="55"/>
               <opaque value="false"/>
-              <preferredSize width="500" height="65"/>
+              <preferredSize width="500" height="70"/>
             </properties>
             <border type="none"/>
             <children>
@@ -267,8 +265,9 @@
                 <properties>
                   <caretColor color="-1710618"/>
                   <foreground color="-1710618"/>
+                  <horizontalAlignment value="0"/>
                   <opaque value="false"/>
-                  <preferredSize width="300" height="35"/>
+                  <preferredSize width="300" height="45"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -286,7 +285,7 @@
                 <constraints/>
                 <properties>
                   <background color="-393226"/>
-                  <preferredSize width="300" height="2"/>
+                  <preferredSize width="260" height="2"/>
                 </properties>
                 <border type="none"/>
                 <children/>

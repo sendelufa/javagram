@@ -78,7 +78,7 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
 
     //format text filed, example "+7(999)9999999"
     IFormattedText.setTextFieldMask(txtPhone, Configs.INTERFACE_PHONE_MASK,
-        Configs.INTERFACE_PHONE_MASK_PLACEHOLDER);
+        ' ');
 
     //change Layout to mainPanel fo Y axis position
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -103,7 +103,7 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
     });
 
    // !!! ADD mainPanel to getContent() for right render
-    getContent().add(getMainPanel(), BorderLayout.CENTER);
+    getContent().add(getMainPanel(), BorderLayout.NORTH);
     WindowHandler
         .setModalFullScreenPanel(getContent(), getBgPanel());
   }
