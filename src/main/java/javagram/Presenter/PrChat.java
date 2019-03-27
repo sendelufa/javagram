@@ -92,19 +92,13 @@ public class PrChat implements MainContract.IPresenter {
       public void run() {
         for (int i = 0; i < contactsListModel.getSize(); i++) {
           IContact c = contactsListModel.get(i);
-          Log.info("start set small photo to contact " + c.getFullName());
+          Log.info("start set small photo to contact " + c.getFullName() + "(" + c.getId() + ")");
           BufferedImage photoSmall = repository.getContactPhotoSmall(c);
           if (photoSmall != null) {
             c.setPhotoSmall(photoSmall);
-            //save photoSmall file to disk
             Log.info("smallphoto have setted for " + c.getFullName());
           }
 
-          try {
-            sleep(750);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
           view.repaintContactList();
 
         }

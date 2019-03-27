@@ -136,15 +136,15 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
-  public ArrayList<IContact> getContactList(boolean forceReload) throws IOException {
+  public synchronized ArrayList<IContact> getContactList(boolean forceReload) throws IOException {
     Log.info("Start getContactList");
     if (contactList.isEmpty() || contactListJavaGram.isEmpty() || forceReload) {
       Log.info("Start getContactList - get bridge.contactsGetContacts()");
       contactList = bridge.contactsGetContacts();
       contactListJavaGram.clear();
       for (UserContact user : contactList) {
-      contactListJavaGram.add(new TgContact(user));
-    }
+        contactListJavaGram.add(new TgContact(user));
+      }
     }
     return contactListJavaGram;
   }
@@ -160,11 +160,13 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
-  public BufferedImage getContactPhotoSmall(IContact contact) {
+  public synchronized BufferedImage getContactPhotoSmall(IContact contact) {
     BufferedImage photoSmall = null;
     if (contactListJavaGram.contains(contact)) {
+      //get native UserContact for use API methods
       UserContact tlContact = (UserContact) contact.getApiContact();
-      File filePhotoSmall = new File(Configs.PATH_USER_PHOTO + tlContact.getId() + ".jpg");
+      //try to find img in cache folder with user photos
+      File filePhotoSmall = new File(Configs.PATH_USER_PHOTO + tlContact.getId() + "-small.jpg");
       if (filePhotoSmall.exists() && filePhotoSmall.isFile()) {
         try {
           photoSmall = ImageIO.read(filePhotoSmall);
@@ -177,7 +179,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
       //get contact from Telegram API
       try {
         photoSmall = ImageIO.read(new ByteArrayInputStream(tlContact.getPhoto(true)));
-        //write cash
+        //write cache
         File outputFile = new File(Configs.PATH_USER_PHOTO + contact.getId() + "-small.jpg");
         try {
           ImageIO.write(photoSmall, "jpg", outputFile);
@@ -192,6 +194,14 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
         Log.warning(
             "NullPointerException Repository getContactPhotoSmall()" + contact.getFullName());
         return null;
+      }
+      //after every request do sleep more than 1 second or you can get ban for 12-24 hours (FLOOD_WAIT)
+      finally {
+        try {
+          sleep(Configs.API_DELAY_REQUEST);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       }
     }
     return photoSmall;

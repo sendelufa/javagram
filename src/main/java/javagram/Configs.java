@@ -38,7 +38,7 @@ public class Configs {
   //System
   public static String INTERFACE_PHONE_MASK, REPOSITORY;
   public static char INTERFACE_PHONE_MASK_PLACEHOLDER;
-  public static int TL_APP_ID, TL_REQUIRED_PHONE_LENGTH;
+  public static int TL_APP_ID, TL_REQUIRED_PHONE_LENGTH, API_DELAY_REQUEST;
   //Pathes
   public static String PATH_APP_DATA, PATH_USER_PHOTO;
   //FONTS
@@ -60,13 +60,10 @@ public class Configs {
 
       REPOSITORY = props.getProperty("REPOSITORY");
 
-      //REPOSITORY = "TLProd";
-      //REPOSITORY = "TLProd";
-
       //System settings
-
       INTERFACE_PHONE_MASK = "+# (###) #######";
       INTERFACE_PHONE_MASK_PLACEHOLDER = '_';
+      API_DELAY_REQUEST = 2000; //millis
 
       MAIN_FONT = Font.getFont(Font.SANS_SERIF);
       try {
