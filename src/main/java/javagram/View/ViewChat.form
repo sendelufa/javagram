@@ -164,7 +164,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="44180" binding="pnlSearch" layout-manager="FlowLayout" hgap="5" vgap="0" flow-align="0">
+          <grid id="44180" binding="pnlSearch" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
             <constraints border-constraint="North"/>
             <properties>
               <background color="-1"/>
@@ -173,17 +173,6 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="78ea2" binding="pnlChatsTitle" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints/>
-                <properties>
-                  <minimumSize width="30" height="50"/>
-                  <opaque value="false"/>
-                  <preferredSize width="30" height="40"/>
-                </properties>
-                <border type="none"/>
-                <children/>
-              </grid>
               <component id="10cb5" class="javax.swing.JTextPane" binding="txtSearch" default-binding="true">
                 <constraints/>
                 <properties>
@@ -191,7 +180,7 @@
                   <foreground color="-6049613"/>
                   <opaque value="false"/>
                   <preferredSize width="210" height="30"/>
-                  <text value="Поиск"/>
+                  <text value=""/>
                 </properties>
               </component>
             </children>
@@ -280,6 +269,13 @@
                 </properties>
                 <border type="none"/>
                 <children>
+                  <component id="ce9ab" class="javax.swing.JTextField" binding="txtSearchTest">
+                    <constraints/>
+                    <properties>
+                      <preferredSize width="100" height="40"/>
+                      <text value="ппппп"/>
+                    </properties>
+                  </component>
                   <grid id="7d069" binding="pnlTitleBarUserPic" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
                     <constraints/>
                     <properties>

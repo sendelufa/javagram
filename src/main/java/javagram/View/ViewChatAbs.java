@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 public abstract class ViewChatAbs {
@@ -54,6 +55,7 @@ public abstract class ViewChatAbs {
   protected JButton btnAddMsgOutgoing;
   protected JScrollPane messagesJScroll;
   protected JButton btnLoadPhotoContactList;
+  protected JTextField txtSearchTest;
 
   protected JPanel pnlFloatAddContactButton = new JPanel();
 

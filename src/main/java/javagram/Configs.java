@@ -28,7 +28,8 @@ public class Configs {
   public static BufferedImage IMG_MESSAGE_OUTGOING_OUT_TOP_WEST, IMG_MESSAGE_OUTGOING_OUT_TOP_EAST;
   public static BufferedImage IMG_MESSAGE_OUTGOING_TIP, IMG_MESSAGE_OUTGOING_OUT_BOTTOM_WEST;
   public static BufferedImage IMG_MESSAGE_INCOMING_OUT_TOP_WEST, IMG_MESSAGE_INCOMING_OUT_TOP_EAST;
-  public static BufferedImage IMG_MESSAGE_INCOMING_OUT_BOTTOM_EAST, IMG_MESSAGE_INCOMING_TIP, IMG_USER_PHOTO_EMPTY_160;
+  public static BufferedImage IMG_MESSAGE_INCOMING_OUT_BOTTOM_EAST, IMG_MESSAGE_INCOMING_TIP,
+      IMG_USER_PHOTO_EMPTY_160, IMG_SEARCH_ICON_30;
 
   public static Color[] COLORS_BG;
   public static Font MAIN_FONT;
@@ -102,6 +103,7 @@ public class Configs {
           .read(new File("res/img/message-in-bottom-east.png"));
       IMG_MESSAGE_INCOMING_TIP = ImageIO.read(new File("res/img/message-in-left.png"));
       IMG_USER_PHOTO_EMPTY_160 = ImageIO.read(new File("res/img/UserPhotoEmpty.png"));
+      IMG_SEARCH_ICON_30 = ImageIO.read(new File("res/img/icon-search.png"));
 
       //Сolors
       COLORS_BG = new Color[]{Color.decode("#fff176"), Color.decode("#f4ff81"),

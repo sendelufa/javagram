@@ -16,11 +16,14 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import javagram.Configs;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.Presenter.PrChat;
@@ -29,6 +32,7 @@ import javagram.View.formElements.HeadLineForm;
 import javagram.View.formElements.ItemContactList;
 import javagram.View.formElements.MessagesDialog.IMessageItemDialog;
 import javagram.View.formElements.MessagesDialog.MessageFactory;
+import javagram.View.formElements.TextPrompt;
 import javagram.WindowGUI.GUIHelper;
 import javagram.WindowGUI.WindowHandler;
 import javax.swing.DefaultListCellRenderer;
@@ -41,6 +45,7 @@ import javax.swing.ListSelectionModel;
 public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   JList<IContact> list = new JList<>();
+  DefaultListModel<IContact> model = new DefaultListModel<>();
   //Presenter
   private PrChat presenter;
 
@@ -67,6 +72,12 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     //TODO сделать чтобы плавающая кнопка меняла положени при ресайзе и при открытии других панелей
     //set Float Buttons to Form
     setFloatPanels();
+
+    TextPrompt tp7 = new TextPrompt("Найти контакт", txtSearch);
+    tp7.setForeground(Color.GRAY);
+    tp7.changeAlpha(0.5f);
+    ImageIcon imageIcon = new ImageIcon(Configs.IMG_SEARCH_ICON_30);
+    tp7.setIcon(imageIcon);
   }
 
   private void setListeners() {
@@ -141,6 +152,13 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       }
     });
 
+    txtSearch.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyReleased(KeyEvent e) {
+        super.keyReleased(e);
+        showContactListFilter(txtSearch.getText().trim());
+      }
+    });
     /**
      блок тестовых кнопок
      */
@@ -218,7 +236,8 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   @Override
   public void showContactList(DefaultListModel<IContact> model) {
-    list.setModel(model);
+    this.model = model;
+    list.setModel(this.model);
     WindowHandler.repaintFrame();
   }
 
@@ -302,6 +321,22 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     WindowHandler.setFloatComponents(pnlFloatAddContactButton);
     WindowHandler.showLayeredFloatButtons();
     WindowHandler.repaintFrame();
+  }
+
+  //Filter contact by String
+  private synchronized void showContactListFilter(String searchString) {
+    if (searchString.equals("")) {
+      list.setModel(model);
+    } else {
+      DefaultListModel<IContact> searchModel = new DefaultListModel<>();
+      list.setModel(searchModel);
+      for (int i = 0; i < model.getSize(); i++) {
+        if (model.get(i).getFullName().toLowerCase().contains(searchString.toLowerCase())) {
+          searchModel.addElement(model.get(i));
+        }
+      }
+    }
+
   }
 
 

@@ -10,7 +10,7 @@
 	<repositories>
   <repository>
   <id>my-local-repo</id>
-    <url>file://E:/DEV_HTML_PHP/maven_rep</url>
+    <url>file://E:\DEV_HTML_PHP\maven_rep</url>
   </repository>
 </repositories>
 
