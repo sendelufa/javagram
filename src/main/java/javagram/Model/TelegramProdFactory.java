@@ -1,28 +1,25 @@
-/**
- * Project Javagram Created by Shibkov Konstantin on 20.03.2019.
- */
 package javagram.Model;
 
-
-import java.util.logging.Logger;
 import javagram.Configs;
+import javagram.Log;
 import javagram.MainContract.Repository;
 import javagram.MainContract.RepositoryFactory;
 
 public class TelegramProdFactory implements RepositoryFactory {
-  private static Logger log = Logger.getLogger(TelegramProdFactory.class.getName());
-  private static Repository repository;
+
+  private static Repository repository = null;
+
   @Override
   public Repository getModel() {
-
-    if (Configs.REPOSITORY.equals("TLRepositoryTest")) {
-      log.info("RepositoryFactory: TLRepositoryTest");
-      return TLRepositoryTest.getInstance();
+    if (repository == null) {
+      if (Configs.REPOSITORY.equals("TLRepositoryTest")) {
+        Log.info("RepositoryFactory: TLRepositoryTest");
+        repository = TLRepositoryTest.getInstance();
+      } else if (Configs.REPOSITORY.equals("TLProd")) {
+        Log.info("RepositoryFactory: TLProd");
+        repository = TLRepositoryProd.getInstance();
+      }
     }
-    else if (Configs.REPOSITORY.equals("TLProd")){
-      log.info("RepositoryFactory: TLProd");
-      return TLRepositoryProd.getInstance();
-    }
-    return null;
+    return repository;
   }
 }
