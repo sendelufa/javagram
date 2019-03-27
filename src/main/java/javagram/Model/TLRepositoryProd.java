@@ -213,21 +213,22 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   }
 
   public Image getUserPhoto() {
-    Image img = null;
-    try {
-      byte[] userPhoto = authorization.getUser().getPhoto(true);
-      //if user has no photo - set default gag
-      if (userPhoto != null) {
-        img = ImageIO.read(new ByteArrayInputStream(userPhoto));
+    if (userPhotoSmall == null) {
+      try {
+        byte[] userPhoto = authorization.getUser().getPhoto(true);
+        //if user has no photo - set default gag
+        if (userPhoto != null) {
+          userPhotoSmall = ImageIO.read(new ByteArrayInputStream(userPhoto));
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+        l.warning("НЕ ЗАГРУЗИЛАСЬ ФОТО ПОЛЬЗОВАТЕЛЯ!");
+      } catch (NullPointerException e) {
+        e.printStackTrace();
+        l.warning("Ошибка загрузки изображения!");
       }
-    } catch (IOException e) {
-      e.printStackTrace();
-      l.warning("НЕ ЗАГРУЗИЛАСЬ ФОТО ПОЛЬЗОВАТЕЛЯ!");
-    } catch (NullPointerException e) {
-      e.printStackTrace();
-      l.warning("Ошибка загрузки изображения!");
     }
-    return img;
+    return userPhotoSmall;
   }
 
   public String getSmsCodeChecked() {

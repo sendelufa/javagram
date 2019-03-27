@@ -3,6 +3,8 @@
  */
 package javagram.Presenter;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javagram.MainContract;
 import javagram.MainContract.Repository;
@@ -20,8 +22,20 @@ public class PrEditUserProfile implements MainContract.IPresenter {
     this.view = view;
   }
 
-  public String[] getUserProfileData() {
-    return null;
+  //init data on view
+  public void getUserProfileData() {
+    String[] names = {repository.getUserFirstName(), repository.getUserLastName(),
+        repository.getUserPhone()};
+    view.fillUserProfileData(names);
+    view.fillUserPhoto(repository.getUserPhoto());
+  }
+
+  public void setNewUserData(Image newPhoto, String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    if (isContactFieldsValid()) {
+      view.showInfo("Обновление ваших данных на сервере...");
+    }
   }
 
   private boolean isContactFieldsValid() {

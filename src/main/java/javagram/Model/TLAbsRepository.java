@@ -3,15 +3,19 @@
  */
 package javagram.Model;
 
+import java.awt.Image;
+
 abstract class TLAbsRepository {
-  String userPhone;
-  boolean isPhoneRegistered = false;
 
   static volatile TLRepositoryProd instance;
-
+  boolean isPhoneRegistered = false;
+  String userPhone;
   String userFullName;
   String userFirstName;
   String userLastName;
+
+  Image userPhotoSmall = null;
+  Image getUserPhotoBig = null;
 
   int userId;
 }

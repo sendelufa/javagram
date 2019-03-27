@@ -130,7 +130,10 @@ public interface MainContract {
 
     void showErrorEmptyFirst();
 
+    //String[] = {firstName, lastName}
     void fillUserProfileData(String[] data);
+
+    void fillUserPhoto(Image photo);
   }
 
   /**
