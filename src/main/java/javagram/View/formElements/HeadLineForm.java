@@ -11,10 +11,12 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javagram.Model.TelegramProdFactory;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import org.telegram.api.TLAbsInputPhoto;
 
 
 public class HeadLineForm {
@@ -62,6 +64,7 @@ public class HeadLineForm {
     pnlBtnExit.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseReleased(MouseEvent e) {
+        new TelegramProdFactory().getModel().logOut();
         System.exit(1);
       }
     });
