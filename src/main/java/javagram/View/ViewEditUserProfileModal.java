@@ -12,23 +12,20 @@ import java.io.File;
 import java.io.IOException;
 import javagram.CommonInterfaces.IFormattedText;
 import javagram.Configs;
-import javagram.Log;
 import javagram.MainContract;
 import javagram.Presenter.PrAddContact;
-import javagram.Presenter.PrSignUp;
 import javagram.View.formElements.LayeredPaneBlackGlass;
-import javagram.View.formElements.MyGlassPanel;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-public class ViewAddContact extends LayeredPaneBlackGlass implements MainContract.IViewAddContact,
+public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
+    MainContract.IViewAddContact,
     IFormattedText {
 
   private JPanel mainPanel;
@@ -51,7 +48,7 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
   //Presenter
   private PrAddContact presenter;
 
-  public ViewAddContact() {
+  public ViewEditUserProfileModal() {
     super(WindowHandler.getFrameSize());
     //PRESENTER
     setPresenter(new PrAddContact(this));
@@ -69,7 +66,7 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
     txtLastName.setBorder(null);
 
     //Set Fonts
-    lblDescription.setFont(WindowHandler.getMainFont(14));
+//    lblDescription.setFont(WindowHandler.getMainFont(14));
     lblBtnAddContact.setFont(WindowHandler.getMainFont(30));
     lblTitle.setFont(WindowHandler.getMainFont(32));
     txtPhone.setFont(WindowHandler.getMainFont(30));
@@ -102,7 +99,7 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
       }
     });
 
-   // !!! ADD mainPanel to getContent() for right render
+    // !!! ADD mainPanel to getContent() for right render
     getContent().add(getMainPanel(), BorderLayout.NORTH);
     WindowHandler
         .setModalFullScreenPanel(getContent(), getBgPanel());
@@ -131,13 +128,10 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
   @Override
   public void showLoadingProcess() {
 
-
-
   }
 
   @Override
   public void hideLoadingProcess() {
-
 
   }
 
@@ -182,8 +176,6 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
   //Custom UI components create
   private void createUIComponents() {
 
-
-
     panelLogo = new JPanel() {
       @Override
       protected void paintComponent(Graphics g) {
@@ -199,8 +191,6 @@ public class ViewAddContact extends LayeredPaneBlackGlass implements MainContrac
         g.drawImage(imgBtn, 0, 3, null);
       }
     };
-
-
 
     buttonBackToPhoneInput = new JLabel() {
       @Override

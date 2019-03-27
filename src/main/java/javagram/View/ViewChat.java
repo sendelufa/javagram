@@ -21,7 +21,6 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javagram.Configs;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.Presenter.PrChat;
@@ -72,20 +71,11 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   private void setListeners() {
     //temp
-    pnlTitleBarSettings.addMouseListener(new MouseAdapter() {
+    pnlUserEditProfile.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        try {
-          ViewUserChangeProfile glassPanel = new ViewUserChangeProfile(WindowHandler.getFrameSize(),
-              "Настройки профиля");
-          WindowHandler.setModalFullScreenPanel(glassPanel.getContent(), glassPanel.getBgPanel());
-          WindowHandler.repaintFrame();
-        } catch (IOException e1) {
-          e1.printStackTrace();
-        } catch (FontFormatException e1) {
-          e1.printStackTrace();
-        }
+        ViewEditUserProfileModal viewEditUserProfileModal = new ViewEditUserProfileModal();
       }
     });
 
@@ -115,7 +105,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-          ViewAddContact viewAddContact = new ViewAddContact();
+        ViewAddContactModal viewAddContact = new ViewAddContactModal();
       }
     });
 
@@ -136,6 +126,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       }
     });
 
+    //LISTENERS OF JLIST CONTACTLIST
     list.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseEntered(MouseEvent e) {
@@ -306,6 +297,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
     Dimension frameDimension = WindowHandler.getFrameSize();
     pnlFloatAddContactButton.setBounds(20, (int) frameDimension.getHeight() - 70, 50, 50);
+    pnlFloatAddContactButton.setOpaque(false);
 
     WindowHandler.setFloatComponents(pnlFloatAddContactButton);
     WindowHandler.showLayeredFloatButtons();

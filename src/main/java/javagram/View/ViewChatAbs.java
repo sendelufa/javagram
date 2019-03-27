@@ -4,8 +4,6 @@
 package javagram.View;
 
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,7 +20,7 @@ public abstract class ViewChatAbs {
   protected JPanel mainPanel;
   protected JPanel pnlMicroLogo;
   protected JPanel pnlTitleBarUserPic;
-  protected JPanel pnlTitleBarSettings;
+  protected JPanel pnlUserEditProfile;
   protected JPanel pnlChatsTitle;
   protected JTextPane txtSearch;
   protected JPanel pnlUserPhoto1;
@@ -112,7 +110,7 @@ public abstract class ViewChatAbs {
       }
     };
 
-    pnlTitleBarSettings = new JPanel() {
+    pnlUserEditProfile = new JPanel() {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
