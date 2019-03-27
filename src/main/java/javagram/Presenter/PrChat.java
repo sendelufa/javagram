@@ -37,13 +37,18 @@ public class PrChat implements MainContract.IPresenter {
   public PrChat(MainContract.IViewChat view) {
     this.view = view;
     //set view to frame
-    this.view.setUserFullNameLabelTop(repository.getUserFullName());
-    this.view.setUserPhotoTop(repository.getUserPhoto(),
-        repository.getUserFirstName(), repository.getUserLastName());
+    showUserData();
+
 
     Log.info("id user:" + repository.getUserId());
 
     getContactList();
+  }
+
+  public void showUserData() {
+    this.view.setUserFullNameLabelTop(repository.getUserFullName());
+    this.view.setUserPhotoTop(repository.getUserPhoto(),
+        repository.getUserFirstName(), repository.getUserLastName());
   }
 
 

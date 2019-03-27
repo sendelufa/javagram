@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javagram.MainContract;
+import javagram.MainContract.IPresenter;
 import javagram.MainContract.Repository;
 import javagram.Model.TelegramProdFactory;
 import org.javagram.core.StaticContainer;
@@ -18,8 +19,11 @@ public class PrEditUserProfile implements MainContract.IPresenter {
 
   private String phone, firstName, lastName;
 
-  public PrEditUserProfile(MainContract.IViewEditUserProfile view) {
+  private PrChat presenterChat;
+
+  public PrEditUserProfile(MainContract.IViewEditUserProfile view, IPresenter presenterChat) {
     this.view = view;
+    this.presenterChat = (PrChat) presenterChat;
   }
 
   //init data on view
@@ -36,6 +40,7 @@ public class PrEditUserProfile implements MainContract.IPresenter {
     if (isContactFieldsValid()) {
       view.showInfo("Обновление ваших данных на сервере...");
       if (repository.editUserProfile(newPhoto, firstName, lastName)) {
+        presenterChat.showUserData();
         view.showInfo("Обновление успешно завершено!");
       } else {
         view.showError("При обновлении произошла ошибка!");

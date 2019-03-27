@@ -75,7 +75,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        ViewEditUserProfileModal viewEditUserProfileModal = new ViewEditUserProfileModal();
+        ViewEditUserProfileModal viewEditUserProfileModal = new ViewEditUserProfileModal(presenter);
       }
     });
 

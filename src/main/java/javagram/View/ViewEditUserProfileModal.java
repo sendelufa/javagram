@@ -16,6 +16,7 @@ import javagram.CommonInterfaces.IFormattedText;
 import javagram.Configs;
 import javagram.Log;
 import javagram.MainContract;
+import javagram.MainContract.IPresenter;
 import javagram.Presenter.PrEditUserProfile;
 import javagram.View.formElements.LayeredPaneBlackGlass;
 import javagram.WindowGUI.WindowHandler;
@@ -54,10 +55,10 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
   //Presenter
   private PrEditUserProfile presenter;
 
-  public ViewEditUserProfileModal() {
+  public ViewEditUserProfileModal(IPresenter chatPresenter) {
     super(WindowHandler.getFrameSize());
     //PRESENTER
-    setPresenter(new PrEditUserProfile(this));
+    setPresenter(new PrEditUserProfile(this, chatPresenter));
 
     //set images
     try {
