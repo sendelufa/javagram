@@ -11,8 +11,10 @@ import javagram.MainContract.RepositoryFactory;
 
 public class TelegramProdFactory implements RepositoryFactory {
   private static Logger log = Logger.getLogger(TelegramProdFactory.class.getName());
+  private static Repository repository;
   @Override
   public Repository getModel() {
+
     if (Configs.REPOSITORY.equals("TLRepositoryTest")) {
       log.info("RepositoryFactory: TLRepositoryTest");
       return TLRepositoryTest.getInstance();

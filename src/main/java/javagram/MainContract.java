@@ -121,6 +121,18 @@ public interface MainContract {
     void showErrorEmptyFirst();
   }
 
+  interface IViewEditUserProfile extends IView {
+
+    void closeModalView();
+
+    //SHOW ERRORS AND INFO
+    void showErrorEmptyFirstLast();
+
+    void showErrorEmptyFirst();
+
+    void fillUserProfileData(String[] data);
+  }
+
   /**
    * Presenters
    **/

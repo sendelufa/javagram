@@ -101,7 +101,7 @@
                   <horizontalAlignment value="0"/>
                   <labelFor value="c771"/>
                   <preferredSize width="500" height="30"/>
-                  <text value="Номер телефона"/>
+                  <text value="Ваш номер телефона"/>
                   <verticalAlignment value="3"/>
                   <verticalTextPosition value="1"/>
                 </properties>
@@ -110,6 +110,7 @@
                 <constraints/>
                 <properties>
                   <caretColor color="-1710618"/>
+                  <editable value="false"/>
                   <font size="28"/>
                   <foreground color="-1710618"/>
                   <horizontalAlignment value="0"/>
@@ -125,18 +126,7 @@
               <opaque value="false"/>
             </properties>
             <border type="none"/>
-            <children>
-              <grid id="90c66" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints/>
-                <properties>
-                  <background color="-393226"/>
-                  <preferredSize width="260" height="2"/>
-                </properties>
-                <border type="none"/>
-                <children/>
-              </grid>
-            </children>
+            <children/>
           </grid>
         </children>
       </grid>
@@ -315,7 +305,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="34c43" class="javax.swing.JLabel" binding="lblBtnAddContact">
+              <component id="34c43" class="javax.swing.JLabel" binding="lblBtnEdit">
                 <constraints border-constraint="Center"/>
                 <properties>
                   <alignmentX value="0.5"/>

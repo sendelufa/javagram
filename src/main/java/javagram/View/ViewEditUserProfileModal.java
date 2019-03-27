@@ -13,7 +13,7 @@ import java.io.IOException;
 import javagram.CommonInterfaces.IFormattedText;
 import javagram.Configs;
 import javagram.MainContract;
-import javagram.Presenter.PrAddContact;
+import javagram.Presenter.PrEditUserProfile;
 import javagram.View.formElements.LayeredPaneBlackGlass;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
@@ -25,14 +25,13 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
-    MainContract.IViewAddContact,
-    IFormattedText {
+    MainContract.IViewEditUserProfile, IFormattedText {
 
   private JPanel mainPanel;
   private JPanel panelLogo;
   private JTextPane lbpDescPhone;
   private JPanel pnlBtnAddContact;
-  private JLabel lblBtnAddContact;
+  private JLabel lblBtnEdit;
   private JLabel lblDescription;
   private JLabel lblTitle;
   private JLabel lblError;
@@ -46,12 +45,12 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
   //inner params
 
   //Presenter
-  private PrAddContact presenter;
+  private PrEditUserProfile presenter;
 
   public ViewEditUserProfileModal() {
     super(WindowHandler.getFrameSize());
     //PRESENTER
-    setPresenter(new PrAddContact(this));
+    setPresenter(new PrEditUserProfile(this));
     //set images
     try {
       logo = ImageIO.read(new File("res/img/logo-micro.png"));
@@ -61,32 +60,35 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
       e.printStackTrace();
     }
 
+    //format text filed, example "+7(999)9999999"
+    IFormattedText.setTextFieldMask(txtPhone, Configs.INTERFACE_PHONE_MASK,
+        ' ');
+
     txtPhone.setBorder(null);
     txtFirstName.setBorder(null);
     txtLastName.setBorder(null);
 
+    txtPhone.setText("79659363762");
+    txtPhone.setToolTipText("Номер изменить нельзя");
+
     //Set Fonts
-//    lblDescription.setFont(WindowHandler.getMainFont(14));
-    lblBtnAddContact.setFont(WindowHandler.getMainFont(30));
+    lblBtnEdit.setFont(WindowHandler.getMainFont(30));
     lblTitle.setFont(WindowHandler.getMainFont(32));
     txtPhone.setFont(WindowHandler.getMainFont(30));
     txtFirstName.setFont(WindowHandler.getMainFont(30));
     txtLastName.setFont(WindowHandler.getMainFont(30));
 
-    //format text filed, example "+7(999)9999999"
-    IFormattedText.setTextFieldMask(txtPhone, Configs.INTERFACE_PHONE_MASK,
-        ' ');
+
 
     //change Layout to mainPanel fo Y axis position
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
     //check confirm code
-    lblBtnAddContact.addMouseListener(new MouseAdapter() {
+    lblBtnEdit.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        presenter.addContact(txtPhone.getText().trim(), txtFirstName.getText().trim(),
-            txtLastName.getText().trim());
+
       }
     });
 
@@ -103,6 +105,8 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
     getContent().add(getMainPanel(), BorderLayout.NORTH);
     WindowHandler
         .setModalFullScreenPanel(getContent(), getBgPanel());
+
+    presenter.getUserProfileData();
   }
 
   @Override
@@ -147,23 +151,6 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
 
 
   @Override
-  public void showErrorUserNotFound() {
-    showError("Пользователь не найден!");
-  }
-
-  @Override
-  public void showErrorPhoneEmpty() {
-    showError(Configs.ERR_PHONE_EMPTY);
-
-  }
-
-  @Override
-  public void showErrorPhoneFormat() {
-    showError(Configs.ERR_PHONE_FORMAT);
-
-  }
-
-  @Override
   public void showErrorEmptyFirstLast() {
     showError("Введите, пожалуйста, Имя и Фамилию");
   }
@@ -171,6 +158,11 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
   @Override
   public void showErrorEmptyFirst() {
     showError("Пожалуйста, введите Имя");
+  }
+
+  @Override
+  public void fillUserProfileData(String[] data) {
+
   }
 
   //Custom UI components create
@@ -205,6 +197,6 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
 
   @Override
   public void setPresenter(MainContract.IPresenter presenter) {
-    this.presenter = (PrAddContact) presenter;
+    this.presenter = (PrEditUserProfile) presenter;
   }
 }
