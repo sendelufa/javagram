@@ -165,6 +165,11 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
   public BufferedImage getContactPhotoSmall(IContact contact) {
     return null;
   }
+
+  @Override
+  public boolean editUserProfile(Image newPhoto, String firstName, String lastName) {
+    return false;
+  }
 }
 
 

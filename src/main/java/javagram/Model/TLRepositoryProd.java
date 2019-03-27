@@ -24,6 +24,7 @@ import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
 import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.AuthSentCode;
+import org.javagram.response.object.User;
 import org.javagram.response.object.UserContact;
 import org.telegram.api.TLImportedContact;
 import org.telegram.api.TLInputContact;
@@ -81,7 +82,6 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   public void clearApiBridge() {
     userPhone = "";
     isPhoneRegistered = false;
-    userFullName = "";
   }
 
   public void checkPhoneRegistered(String ph) {
@@ -112,7 +112,6 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     //получаем имя, фамилию юзера и записываем
     userFirstName = authorization.getUser().getFirstName();
     userLastName = authorization.getUser().getLastName();
-    userFullName = userFirstName + " " + userLastName;
     userId = authorization.getUser().getId();
   }
 
@@ -192,12 +191,27 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     return photoSmall;
   }
 
+  @Override
+  public synchronized boolean editUserProfile(Image newPhoto, String firstName, String lastName) {
+    try {
+      bridge.accountUpdateProfile(firstName, lastName);
+      this.userFirstName = firstName;
+      this.userLastName = lastName;
+
+    } catch (IOException e) {
+      e.printStackTrace();
+      Log.warning("repository editUserProfile - IOException");
+      return false;
+    }
+    return true;
+  }
+
   public String getUserPhone() {
     return userPhone;
   }
 
   public String getUserFullName() {
-    return userFullName;
+    return (userFirstName + " " + userLastName).trim();
   }
 
   public String getUserFirstName() {

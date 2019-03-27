@@ -162,6 +162,8 @@ public interface MainContract {
 
     void signUp(String smsCode, String firstName, String lastName) throws IOException;
 
+    boolean editUserProfile(Image newPhoto, String firstName, String lastName);
+
     String getUserPhone();
 
     void logOut();

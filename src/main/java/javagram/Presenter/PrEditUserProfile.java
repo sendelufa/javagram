@@ -31,10 +31,15 @@ public class PrEditUserProfile implements MainContract.IPresenter {
   }
 
   public void setNewUserData(Image newPhoto, String firstName, String lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.firstName = firstName.trim();
+    this.lastName = lastName.trim();
     if (isContactFieldsValid()) {
       view.showInfo("Обновление ваших данных на сервере...");
+      if (repository.editUserProfile(newPhoto, firstName, lastName)) {
+        view.showInfo("Обновление успешно завершено!");
+      } else {
+        view.showError("При обновлении произошла ошибка!");
+      }
     }
   }
 
