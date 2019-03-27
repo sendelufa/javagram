@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -225,8 +226,9 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
   //CROP AND RESIZE
 
   private Image resizeAndCropImage(Image photo, int width, int height) {
-    BufferedImage buffPhoto = cropImageInSquare((BufferedImage) photo);
-    return buffPhoto
+    BufferedImage buff = convertImageToBufferImage(photo);
+    buff = cropImageInSquare(buff);
+    return buff
         .getScaledInstance(width, height, Image.SCALE_SMOOTH); //or use it however you want
   }
 
@@ -257,6 +259,16 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
     Graphics g = copyOfImage.createGraphics();
     g.drawImage(img, 0, 0, null);
     return copyOfImage;
+  }
+
+  private BufferedImage convertImageToBufferImage(Image img) {
+    BufferedImage buff = new BufferedImage(img.getWidth(null), img.getHeight(null),
+        BufferedImage.TYPE_INT_RGB);
+    // Draw the image on to the buffered image
+    Graphics2D bGr = buff.createGraphics();
+    bGr.drawImage(img, 0, 0, null);
+    bGr.dispose();
+    return buff;
   }
   //CROP AND RESIZE
 

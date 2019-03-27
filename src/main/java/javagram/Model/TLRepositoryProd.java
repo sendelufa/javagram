@@ -197,6 +197,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
       bridge.accountUpdateProfile(firstName, lastName);
       this.userFirstName = firstName;
       this.userLastName = lastName;
+      userPhotoSmall = newPhoto;
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -204,6 +205,10 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
       return false;
     }
     return true;
+  }
+
+  private void updateUserPhoto() {
+
   }
 
   public String getUserPhone() {
