@@ -52,10 +52,10 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   private static Logger l = Logger.getLogger("1");
   private ArrayList<UserContact> contactList = new ArrayList<>();
   private ArrayList<IContact> contactListJavaGram = new ArrayList<>();
-  private TelegramApiBridge bridge;
+  private TelegramApiBridge bridge = null;
 
   private TelegramApi tlApi;
-  private AuthAuthorization authorization;
+  private AuthAuthorization authorization = null;
 
   //смс код прошедший проверку
   private String smsCodeChecked = "";
@@ -274,7 +274,11 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
 
   public void logOut() {
     try {
-      bridge.authLogOut();
+      if (authorization != null && bridge != null) {
+        bridge.authLogOut();
+      }
+    } catch (NullPointerException e) {
+      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
