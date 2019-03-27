@@ -3,6 +3,7 @@ package javagram.View; /**
  */
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.MouseAdapter;
@@ -71,6 +72,8 @@ public class ViewSignUp implements MainContract.IViewSignUp {
 
     txtLastName.setFont(WindowHandler.getMainFont(30));
     txtFirstName.setFont(WindowHandler.getMainFont(30));
+
+    pnlSignUp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
     //change Layout to mainPanel fo Y axis position
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));

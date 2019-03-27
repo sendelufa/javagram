@@ -35,7 +35,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
   private JLabel lblDescription;
   private JLabel lblPhoneNumber;
   private JLabel lblError;
-  private JLabel buttonBackToPhoneInput;
+  private JLabel lblBackToPhoneInput;
   //Resources - Images
   private BufferedImage bg;
   private BufferedImage logo;
@@ -69,6 +69,9 @@ public class ViewSendCode implements MainContract.IViewSendCode {
     lblBtnSend.setFont(WindowHandler.getMainFont(30));
     lblPhoneNumber.setFont(WindowHandler.getMainFont(40));
 
+    pnlBtnSend.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    lblBackToPhoneInput.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
     //change Layout to mainPanel fo Y axis position
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
@@ -87,7 +90,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
     });
 
     //back to SignIn (input phone number)
-    buttonBackToPhoneInput.addMouseListener(new MouseAdapter() {
+    lblBackToPhoneInput.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
@@ -96,7 +99,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
       }
     });
 
-    buttonBackToPhoneInput.addComponentListener(new ComponentAdapter() {
+    lblBackToPhoneInput.addComponentListener(new ComponentAdapter() {
     });
 
     WindowHandler.setViewOnFrame(this);
@@ -237,7 +240,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
       }
     };
 
-    buttonBackToPhoneInput = new JLabel() {
+    lblBackToPhoneInput = new JLabel() {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);

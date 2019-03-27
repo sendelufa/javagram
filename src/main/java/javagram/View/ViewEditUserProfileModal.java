@@ -81,6 +81,8 @@ public class ViewEditUserProfileModal extends LayeredPaneBlackGlass implements
     txtPhone.setToolTipText("Номер изменить нельзя");
 
     lblUserPhoto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    lblBtnEdit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    lblBackToChat.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
     //Set Fonts
     lblBtnEdit.setFont(WindowHandler.getMainFont(30));

@@ -64,6 +64,7 @@ public class HeadLineForm {
     pnlBtnExit.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseReleased(MouseEvent e) {
+        WindowHandler.hideFrame();
         new TelegramProdFactory().getModel().logOut();
         System.exit(1);
       }

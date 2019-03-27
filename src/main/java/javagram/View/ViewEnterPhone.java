@@ -3,6 +3,7 @@ package javagram.View; /**
  */
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -91,6 +92,8 @@ public class ViewEnterPhone implements MainContract.IViewEnterPhone {
         Configs.INTERFACE_PHONE_MASK_PLACEHOLDER);
     //format phone text input field
     txtPhone.setText("9996624444");
+
+    pnlBtnSend.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
     //view set to windowframe
     WindowHandler.setViewOnFrame(this);

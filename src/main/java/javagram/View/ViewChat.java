@@ -6,6 +6,7 @@ package javagram.View; /**
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -78,6 +79,13 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     tp7.changeAlpha(0.5f);
     ImageIcon imageIcon = new ImageIcon(Configs.IMG_SEARCH_ICON_30);
     tp7.setIcon(imageIcon);
+
+    imageIcon = new ImageIcon(Configs.IMG_SEARCH_STOP_30);
+
+    lblClearSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    pnlFloatAddContactButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    pnlUserEditProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    lblClearSearch.setIcon(imageIcon);
   }
 
   private void setListeners() {

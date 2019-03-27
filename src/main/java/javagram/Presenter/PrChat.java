@@ -70,9 +70,9 @@ public class PrChat implements MainContract.IPresenter {
           for (IContact contact : contactList) {
 
             Log.info("add IContact contact " + contact.getId() + ":" + contact.getFullName());
-            if (i++ > 100) {
+/*            if (i++ > 100) {
               break;
-            }
+            }*/
             contactsListModel.addElement(contact);
           }
 

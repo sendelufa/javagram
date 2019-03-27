@@ -61,7 +61,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="e60e7" class="javax.swing.JLabel" binding="buttonBackToPhoneInput" custom-create="true">
+              <component id="e60e7" class="javax.swing.JLabel" binding="lblBackToPhoneInput" custom-create="true">
                 <constraints/>
                 <properties>
                   <preferredSize width="35" height="35"/>

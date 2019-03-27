@@ -55,7 +55,7 @@ public abstract class ViewChatAbs {
   protected JButton btnAddMsgOutgoing;
   protected JScrollPane messagesJScroll;
   protected JButton btnLoadPhotoContactList;
-  protected JTextField txtSearchTest;
+  protected JLabel lblClearSearch;
 
   protected JPanel pnlFloatAddContactButton = new JPanel();
 

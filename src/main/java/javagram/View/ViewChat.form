@@ -183,6 +183,13 @@
                   <text value=""/>
                 </properties>
               </component>
+              <component id="79cbf" class="javax.swing.JLabel" binding="lblClearSearch">
+                <constraints/>
+                <properties>
+                  <preferredSize width="30" height="30"/>
+                  <text value=""/>
+                </properties>
+              </component>
             </children>
           </grid>
           <grid id="41499" binding="pnlContactsCol" layout-manager="BorderLayout" hgap="0" vgap="0">
@@ -269,13 +276,6 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="ce9ab" class="javax.swing.JTextField" binding="txtSearchTest">
-                    <constraints/>
-                    <properties>
-                      <preferredSize width="100" height="40"/>
-                      <text value="ппппп"/>
-                    </properties>
-                  </component>
                   <grid id="7d069" binding="pnlTitleBarUserPic" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
                     <constraints/>
                     <properties>

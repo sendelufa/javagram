@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 import javagram.Configs;
+import javagram.Log;
 import javagram.MainContract;
 
 import javax.swing.JFrame;
@@ -81,8 +82,10 @@ public class WindowHandler {
     //default font
     Font font = Font.getFont(Font.SANS_SERIF);
     try {
+      Log.warning(Configs.FONT_FILE_REGULAR.getAbsolutePath());
       font = Font.createFont(Font.TRUETYPE_FONT, Configs.FONT_FILE_REGULAR)
           .deriveFont((float) size);
+
     } catch (FontFormatException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -90,6 +93,10 @@ public class WindowHandler {
     }
 
     return font;
+  }
+
+  public static void hideFrame() {
+    frame.setVisible(false);
   }
 
   public static Font getMainFontBold(int size) {
