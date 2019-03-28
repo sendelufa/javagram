@@ -13,13 +13,14 @@ import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import javagram.CommonInterfaces.IHumanableDate;
 import javagram.Configs;
+import javagram.WindowGUI.WindowHandler;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class MessageTextItemOutgoing implements IMessageItemDialog, IHumanableDate {
 
-  private static Font f = new Font("Helvetica", Font.PLAIN, 14);
+  private static Font f = WindowHandler.getMainFont(14);
   private JPanel pnlMsgOutTop;
   private JPanel pnlMsgOutBottom;
   private JPanel pnlMsgTip;

@@ -36,6 +36,11 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
+  public void sendMessage() throws IOException {
+
+  }
+
+  @Override
   public boolean isPhoneRegistered() {
     return isPhoneRegistered;
   }

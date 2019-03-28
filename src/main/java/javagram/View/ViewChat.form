@@ -372,6 +372,12 @@
               <text value="clr contact list"/>
             </properties>
           </component>
+          <component id="d33da" class="javax.swing.JButton" binding="sendMessageButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="send message"/>
+            </properties>
+          </component>
           <component id="440e4" class="javax.swing.JButton" binding="LOGOUTButton" default-binding="true">
             <constraints/>
             <properties>

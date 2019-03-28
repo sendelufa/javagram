@@ -186,12 +186,6 @@
           </grid>
         </children>
       </grid>
-      <component id="83a11" class="javax.swing.JCheckBox" binding="checkBox1" default-binding="true">
-        <constraints/>
-        <properties>
-          <text value="CheckBox"/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>

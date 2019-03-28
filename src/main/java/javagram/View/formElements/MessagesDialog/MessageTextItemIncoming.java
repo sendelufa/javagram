@@ -13,6 +13,7 @@ import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import javagram.CommonInterfaces.IHumanableDate;
 import javagram.Configs;
+import javagram.WindowGUI.WindowHandler;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ import javax.swing.JTextArea;
 
 public class MessageTextItemIncoming implements IMessageItemDialog, IHumanableDate {
 
-  private static Font f = new Font("Helvetica", Font.PLAIN, 14);
+  private static Font f = WindowHandler.getMainFont(14);
   private JPanel pnlMsgOutTop;
   private JPanel pnlMsgOutBottom;
   private JPanel pnlMsgTip;
@@ -35,7 +36,6 @@ public class MessageTextItemIncoming implements IMessageItemDialog, IHumanableDa
   private JPanel pnlMsgOutBottomEast;
   private JLabel lblMessageDate;
   private JPanel rootPanel;
-  private JCheckBox checkBox1;
 
   private int maxLineLength;
 

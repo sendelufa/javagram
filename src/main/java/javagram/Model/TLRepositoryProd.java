@@ -318,9 +318,14 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     return listIC.size();
   }
 
-  public void updateUserPhoto(BufferedImage photo) throws IOException {
+  private void updateUserPhoto(BufferedImage photo) throws IOException {
     File outputFile = new File(Configs.PATH_USER_PHOTO + "_user-small.jpg");
     ImageIO.write(photo, "jpg", outputFile);
+  }
+
+  @Override
+  public void sendMessage() throws IOException {
+    bridge.messagesSendMessage(1181136, "test message", (int) (Math.random() * 10000));
   }
 
   //REFLECTION API

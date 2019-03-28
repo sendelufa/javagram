@@ -171,6 +171,13 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
      блок тестовых кнопок
      */
 
+    sendMessageButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        presenter.sendMessage();
+      }
+    });
+
     LOGOUTButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {

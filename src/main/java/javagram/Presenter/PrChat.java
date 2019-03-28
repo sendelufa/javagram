@@ -133,4 +133,13 @@ public class PrChat implements MainContract.IPresenter {
     repository.logOut();
   }
 
+  public void sendMessage() {
+    try {
+      repository.sendMessage();
+    } catch (IOException e) {
+      e.printStackTrace();
+      view.showError("error sending message");
+    }
+  }
+
 }

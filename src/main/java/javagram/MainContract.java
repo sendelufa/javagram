@@ -190,6 +190,8 @@ public interface MainContract {
 
     void getMessages();
 
+    void sendMessage() throws IOException;
+
     void clearApiBridge();
 
     //return number of added contacts, must be one
