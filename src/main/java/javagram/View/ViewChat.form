@@ -280,7 +280,7 @@
                     <constraints/>
                     <properties>
                       <opaque value="false"/>
-                      <preferredSize width="29" height="50"/>
+                      <preferredSize width="50" height="50"/>
                     </properties>
                     <border type="none"/>
                     <children>
@@ -295,6 +295,7 @@
                           <horizontalAlignment value="0"/>
                           <horizontalTextPosition value="0"/>
                           <opaque value="false"/>
+                          <preferredSize width="50" height="50"/>
                           <text value="ШШ"/>
                         </properties>
                       </component>

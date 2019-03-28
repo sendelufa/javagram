@@ -31,6 +31,7 @@ import javagram.Presenter.PrChat;
 import javagram.Presenter.objects.TgMessage;
 import javagram.View.formElements.HeadLineForm;
 import javagram.View.formElements.ItemContactList;
+import javagram.View.formElements.LabelUserPhoto;
 import javagram.View.formElements.MessagesDialog.IMessageItemDialog;
 import javagram.View.formElements.MessagesDialog.MessageFactory;
 import javagram.View.formElements.TextPrompt;
@@ -288,19 +289,12 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     lblFullUserNameTopBar.setText(fullName);
   }
 
+  //remove and set new Label with user photo
   @Override
   public void setUserPhotoTop(Image userPhoto, String userFirstName, String userLastName) {
-    if (userPhoto == null) {
-      lblTitleBarUserPic.setText(getFullNameInitiates(userFirstName, userLastName));
-      return;
-    }
-    userPhoto = userPhoto
-        .getScaledInstance(lblTitleBarUserPic.getPreferredSize().width,
-            lblTitleBarUserPic.getPreferredSize().width,
-            Image.SCALE_SMOOTH);
-    ImageIcon icon = new ImageIcon(userPhoto);
-
-    lblTitleBarUserPic.setIcon(icon);
+    pnlTitleBarUserPic.removeAll();
+    pnlTitleBarUserPic
+        .add(new LabelUserPhoto(getFullNameInitiates(userFirstName, userLastName), userPhoto));
   }
 
   private String getFullNameInitiates(String userFirstName, String userLastName) {
