@@ -82,7 +82,6 @@ public class WindowHandler {
     //default font
     Font font = Font.getFont(Font.SANS_SERIF);
     try {
-      Log.warning(Configs.FONT_FILE_REGULAR.getAbsolutePath());
       font = Font.createFont(Font.TRUETYPE_FONT, Configs.FONT_FILE_REGULAR)
           .deriveFont((float) size);
 
