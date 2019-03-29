@@ -5,13 +5,15 @@ package javagram.View.formElements.MessagesDialog;
 
 public class MessageFactory {
 
-  public static final int INCOMING = 1;
-  public static final int OUTGOING = 2;
+  public enum Type {
+    INCOMING,
+    OUTGOING
+  }
 
-  public static IMessageItemDialog render(int messageType, String text, int date) {
-    if (messageType == INCOMING) {
+  public static IMessageItemDialog render(Type messageType, String text, int date) {
+    if (messageType == Type.INCOMING) {
       return new MessageTextItemIncoming(text, date);
-    } else if (messageType == OUTGOING) {
+    } else if (messageType == Type.OUTGOING) {
       return new MessageTextItemOutgoing(text, date);
     }
 //TODO null - not good, maybe exception

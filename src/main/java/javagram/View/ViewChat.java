@@ -37,6 +37,7 @@ import javagram.View.formElements.ItemContactList;
 import javagram.View.formElements.LabelUserPhoto;
 import javagram.View.formElements.MessagesDialog.IMessageItemDialog;
 import javagram.View.formElements.MessagesDialog.MessageFactory;
+import javagram.View.formElements.MessagesDialog.MessageFactory.Type;
 import javagram.View.formElements.TextPrompt;
 import javagram.WindowGUI.GUIHelper;
 import javagram.WindowGUI.WindowHandler;
@@ -318,7 +319,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         TgMessage m = (TgMessage) value;
         //add gui form TgMessage to item in list
         IMessageItemDialog item = MessageFactory
-            .render(m.isOut() ? 2 : 1, m.getMessage(), m.getDate());
+            .render(m.isOut() ? Type.OUTGOING : Type.INCOMING, m.getMessage(), m.getDate());
         return item.getMainPanel();
       }
     });
