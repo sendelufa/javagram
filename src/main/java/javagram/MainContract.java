@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javagram.Presenter.objects.TgMessage;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
+import org.javagram.response.object.Message;
 
 
 public interface MainContract {
@@ -77,8 +78,6 @@ public interface MainContract {
     //main panel with dialogs, contact list, messages
     void callViewChat();
 
-    void callViewEnterPhone();
-
     void callViewEnterPhone(String phone);
 
     void callViewSignUp();
@@ -95,13 +94,10 @@ public interface MainContract {
     void callViewChat();
     void callViewEnterPhone(String phone);
 
-
     //SHOW ERRORS AND INFO
     void showErrorEmptyFirstLast();
 
     void showErrorEmptyFirst();
-
-    void showErrorUnknown();
 
     void setPhoneNumber(String phone);
   }
@@ -188,9 +184,9 @@ public interface MainContract {
 
     BufferedImage getContactPhotoSmall(IContact contact);
 
-    void getMessages();
-
     void sendMessage() throws IOException;
+
+    ArrayList<Message> getMessagesHistoryByUserId(int userId) throws IOException;
 
     void clearApiBridge();
 

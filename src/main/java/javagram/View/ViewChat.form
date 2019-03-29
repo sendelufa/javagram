@@ -49,7 +49,7 @@
                     <border type="none"/>
                     <children/>
                   </grid>
-                  <component id="73551" class="javax.swing.JLabel">
+                  <component id="73551" class="javax.swing.JLabel" binding="lblDialogContactName">
                     <constraints/>
                     <properties>
                       <font size="14" style="1"/>

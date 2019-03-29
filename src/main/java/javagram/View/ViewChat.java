@@ -24,7 +24,10 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.EventListener;
+import java.util.HashMap;
 import javagram.Configs;
+import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.Presenter.PrChat;
@@ -43,11 +46,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   JList<IContact> list = new JList<>();
   DefaultListModel<IContact> model = new DefaultListModel<>();
+  HashMap<String, EventListener> actionsListeners = new HashMap<>();
   //Presenter
   private PrChat presenter;
 
@@ -58,15 +64,14 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
     initFrameComponents();
 
-    setListeners();
-
     GUIHelper.decorateScrollPane(contactsJScroll);
     GUIHelper.decorateScrollPane(messagesJScroll);
 
     WindowHandler.makeFrameResizable();
     WindowHandler.setViewOnFrame(this);
 
-    //  presenter.refreshUserPhotos();
+    setListeners();
+
   }
 
   private void initFrameComponents() {
@@ -94,6 +99,8 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   }
 
   private void setListeners() {
+    //init all actions, must be first
+    setListenersActions();
     //temp
     pnlUserEditProfile.addMouseListener(new MouseAdapter() {
       @Override
@@ -165,11 +172,14 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       }
     });
 
+    list.addMouseListener((MouseAdapter) actionsListeners.get("selectItemContactList"));
+
     txtSearch.addKeyListener(new KeyAdapter() {
       @Override
       public void keyReleased(KeyEvent e) {
         super.keyReleased(e);
         showContactListFilter(txtSearch.getText().trim());
+
       }
     });
     /**
@@ -207,7 +217,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     btnAddMsgOutgoing.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        presenter.getDialogMessages();
+
       }
     });
 
@@ -219,9 +229,28 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     });
 
 
-    /*list.addListSelectionListener(
-        new SharedListSelectionHandler());*/
   }
+
+  private void setListenersActions() {
+    MouseAdapter selectItemContactList = new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
+        txtEnterMessage.setText(list.getSelectedValue().getFullName());
+        setFocusOnInputFieldMessage();
+        lblDialogContactName.setText(list.getSelectedValue().getFullName());
+        presenter.getDialogMessages(list.getSelectedValue().getId());
+      }
+    };
+
+    actionsListeners.put("selectItemContactList", selectItemContactList);
+  }
+
+  private void setFocusOnInputFieldMessage() {
+    txtEnterMessage.requestFocusInWindow();
+    txtEnterMessage.setCaretPosition(txtEnterMessage.getText().length());
+  }
+
 
   @Override
   public void setPresenter(MainContract.IPresenter presenter) {
@@ -358,5 +387,3 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
 
 }
-
-

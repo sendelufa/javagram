@@ -6,6 +6,9 @@ package javagram.Presenter;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
@@ -13,6 +16,7 @@ import javagram.MainContract.Repository;
 import javagram.Model.TelegramProdFactory;
 import javagram.Presenter.objects.TgMessage;
 import javax.swing.DefaultListModel;
+import org.javagram.response.object.Message;
 
 public class PrChat implements MainContract.IPresenter {
 
@@ -31,12 +35,11 @@ public class PrChat implements MainContract.IPresenter {
     getContactList();
   }
 
-  private void showUserData() {
+  void showUserData() {
     this.view.setUserFullNameLabelTop(repository.getUserFullName());
     this.view.setUserPhotoTop(repository.getUserPhoto(),
         repository.getUserFirstName(), repository.getUserLastName());
   }
-
 
   public synchronized void getContactList() {
 
@@ -101,11 +104,19 @@ public class PrChat implements MainContract.IPresenter {
     contactsListModel.clear();
   }
 
-  public void getDialogMessages() {
+  public void getDialogMessages(int userId) {
     messagesListModel = new DefaultListModel<>();
-    messagesListModel.ensureCapacity(20);
-    for (int i = 0; i < 8; i++) {
-      messagesListModel.addElement(new TgMessage(1552927340 - 60 * 2 * (8 - i), i));
+    ArrayList<Message> messages = null;
+    try {
+      messages = repository.getMessagesHistoryByUserId(userId);
+      Collections.reverse(messages);
+    } catch (IOException e) {
+      e.printStackTrace();
+      Log.warning("Сообщения для чата " + userId + " не получены!");
+    }
+    for (Message message : messages) {
+      messagesListModel
+          .addElement(new TgMessage(message.getMessage(), message.getDate(), message.isOut()));
     }
     view.showDialogMessages(messagesListModel);
   }

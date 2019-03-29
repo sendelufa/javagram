@@ -16,10 +16,13 @@ public interface IHumanableDate {
     long startTodayUnixStamp = todayDate.getTimeInMillis() / 1000;
 
     Calendar calDate = Calendar.getInstance();
-    long sec = Long.valueOf(dateMessageInSeconds) * 1000;
+    long sec = dateMessageInSeconds * 1000;
     calDate.setTimeInMillis(sec);
 
-    dateString.append(calDate.get(Calendar.HOUR_OF_DAY))
+    int hour = calDate.get(Calendar.HOUR_OF_DAY);
+    String hourString = hour < 10 ? "0" + hour : "" + hour;
+
+    dateString.append(hourString)
         .append(":")
         .append(calDate.get(Calendar.MINUTE));
 

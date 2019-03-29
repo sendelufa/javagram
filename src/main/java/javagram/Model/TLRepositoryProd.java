@@ -10,9 +10,9 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Logger;
 import javagram.Configs;
 import javagram.Log;
@@ -25,21 +25,17 @@ import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
 import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.AuthSentCode;
-import org.javagram.response.object.User;
+import org.javagram.response.object.Message;
 import org.javagram.response.object.UserContact;
-import org.telegram.api.TLAbsInputFile;
-import org.telegram.api.TLAbsInputPhotoCrop;
-import org.telegram.api.TLAbsUser;
+import org.telegram.api.TLAbsMessage;
 import org.telegram.api.TLImportedContact;
 import org.telegram.api.TLInputContact;
-import org.telegram.api.TLInputFile;
-import org.telegram.api.TLInputPhotoCrop;
-import org.telegram.api.TLUserSelf;
+import org.telegram.api.TLInputPeerContact;
 import org.telegram.api.contacts.TLImportedContacts;
 import org.telegram.api.engine.TelegramApi;
-import org.telegram.api.requests.TLRequestAccountUpdateProfile;
+import org.telegram.api.messages.TLAbsMessages;
 import org.telegram.api.requests.TLRequestContactsImportContacts;
-import org.telegram.api.requests.TLRequestPhotosUploadProfilePhoto;
+import org.telegram.api.requests.TLRequestMessagesGetHistory;
 import org.telegram.tl.TLVector;
 
 /**
@@ -122,10 +118,6 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     userFirstName = authorization.getUser().getFirstName();
     userLastName = authorization.getUser().getLastName();
     userId = authorization.getUser().getId();
-  }
-
-  public void getMessages() {
-
   }
 
   @Override
@@ -325,7 +317,30 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
 
   @Override
   public void sendMessage() throws IOException {
-    bridge.messagesSendMessage(1181136, "test message", (int) (Math.random() * 10000));
+    bridge.messagesSendMessage(234424, "test message " + (Math.random() * 10000)
+        , (int) (Math.random() * 10000));
+  }
+
+  @Override
+  public ArrayList<Message> getMessagesHistoryByUserId(int userId) throws IOException {
+    ArrayList<Message> messages = null;     //Todo убрать фиксированный лимит сообщений
+    messages = getMessagesHistory(userId, 0, Integer.MAX_VALUE, 50);
+    return messages;
+  }
+
+  private ArrayList<Message> getMessagesHistory(int userId, int offset, int maxId, int limit)
+      throws IOException {
+    TLRequestMessagesGetHistory request = new TLRequestMessagesGetHistory(
+        new TLInputPeerContact(userId), offset, maxId, limit);
+    TLVector<TLAbsMessage> tlAbsMessages = ((TLAbsMessages) tlApi.doRpcCall(request)).getMessages();
+    ArrayList<Message> messages = new ArrayList();
+    Iterator var7 = tlAbsMessages.iterator();
+
+    while (var7.hasNext()) {
+      TLAbsMessage tlMessage = (TLAbsMessage) var7.next();
+      messages.add(new Message(tlMessage));
+    }
+    return messages;
   }
 
   //REFLECTION API

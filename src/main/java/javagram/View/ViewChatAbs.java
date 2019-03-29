@@ -5,6 +5,7 @@ package javagram.View;
 
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +57,7 @@ public abstract class ViewChatAbs {
   protected JButton btnLoadPhotoContactList;
   protected JLabel lblClearSearch;
   protected JButton sendMessageButton;
+  protected JLabel lblDialogContactName;
 
   protected JPanel pnlFloatAddContactButton = new JPanel();
 
@@ -88,6 +90,7 @@ public abstract class ViewChatAbs {
     }
     lblFullUserNameTopBar.addMouseListener(new MouseAdapter() {
     });
+
   }
 
   //Custom UI components create

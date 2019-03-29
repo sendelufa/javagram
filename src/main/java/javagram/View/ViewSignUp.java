@@ -137,11 +137,6 @@ public class ViewSignUp implements MainContract.IViewSignUp {
   }
 
   @Override
-  public void showErrorUnknown() {
-    showError("Неизвестная ошибка!");
-  }
-
-  @Override
   public void showInfo(String strInfo) {
     clearError();
     lblError.setText(strInfo);

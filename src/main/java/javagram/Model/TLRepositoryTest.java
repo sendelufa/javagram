@@ -11,6 +11,7 @@ import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.Model.objects.InputContact;
 import javagram.Model.objects.TgContact;
+import org.javagram.response.object.Message;
 import org.javagram.response.object.UserContact;
 import org.telegram.api.TLUserContact;
 import org.telegram.api.TLUserProfilePhoto;
@@ -33,6 +34,11 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
       }
     }
     return localInstance;
+  }
+
+  @Override
+  public ArrayList<Message> getMessagesHistoryByUserId(int userId) throws IOException {
+    return null;
   }
 
   @Override
@@ -129,11 +135,6 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
       userContacts.add(new TgContact("test", c));
     }
     return userContacts;
-  }
-
-  @Override
-  public void getMessages() {
-
   }
 
   @Override

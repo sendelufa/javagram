@@ -111,11 +111,6 @@ public class ViewSendCode implements MainContract.IViewSendCode {
   }
 
   @Override
-  public void callViewEnterPhone() {
-    new ViewEnterPhone();
-  }
-
-  @Override
   public void callViewEnterPhone(String phone) {
     new ViewEnterPhone(phone);
   }
