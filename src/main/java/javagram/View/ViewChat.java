@@ -45,6 +45,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -240,9 +241,13 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         setFocusOnInputFieldMessage();
         lblDialogContactName.setText(list.getSelectedValue().getFullName());
         presenter.getDialogMessages(list.getSelectedValue().getId());
+        //scroll to bottom
+        JScrollBar vertical = messagesJScroll.getVerticalScrollBar();
+        vertical.setValue(vertical.getMaximum());
       }
     };
 
+    //set names to listeners
     actionsListeners.put("selectItemContactList", selectItemContactList);
   }
 
