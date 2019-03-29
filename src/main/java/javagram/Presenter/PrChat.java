@@ -3,26 +3,16 @@
  */
 package javagram.Presenter;
 
-import static java.lang.Thread.sleep;
-
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputFilter.Config;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import javagram.Configs;
 import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.MainContract.Repository;
 import javagram.Model.TelegramProdFactory;
 import javagram.Presenter.objects.TgMessage;
-import javagram.View.formElements.ItemContactList;
-import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
-
 
 public class PrChat implements MainContract.IPresenter {
 
@@ -33,19 +23,15 @@ public class PrChat implements MainContract.IPresenter {
   private volatile DefaultListModel<IContact> contactsListModel = new DefaultListModel<>();
   private volatile DefaultListModel<TgMessage> messagesListModel;
 
-
   public PrChat(MainContract.IViewChat view) {
     this.view = view;
     //set view to frame
     showUserData();
 
-
-    Log.info("id user:" + repository.getUserId());
-
     getContactList();
   }
 
-  public void showUserData() {
+  private void showUserData() {
     this.view.setUserFullNameLabelTop(repository.getUserFullName());
     this.view.setUserPhotoTop(repository.getUserPhoto(),
         repository.getUserFirstName(), repository.getUserLastName());
@@ -65,8 +51,6 @@ public class PrChat implements MainContract.IPresenter {
           //clear
           contactsListModel.clear();
 
-          int i = 0;
-
           for (IContact contact : contactList) {
 
             Log.info("add IContact contact " + contact.getId() + ":" + contact.getFullName());
@@ -83,6 +67,7 @@ public class PrChat implements MainContract.IPresenter {
           e.printStackTrace();
           view.showError("Ошибка при получении списка контактов! IOException getContactList()");
         }
+        refreshUserPhotos();
       }
 
     });
@@ -91,7 +76,6 @@ public class PrChat implements MainContract.IPresenter {
   }
 
   public synchronized void refreshUserPhotos() {
-
     Thread threadGetPhotos = new Thread(new Runnable() {
       @Override
       public void run() {
@@ -103,13 +87,10 @@ public class PrChat implements MainContract.IPresenter {
             c.setPhotoSmall(photoSmall);
             Log.info("smallphoto have setted for " + c.getFullName());
           }
-
           view.repaintContactList();
-
         }
       }
     }
-
     );
 
     threadGetPhotos.start();

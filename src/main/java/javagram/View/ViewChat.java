@@ -65,6 +65,8 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
     WindowHandler.makeFrameResizable();
     WindowHandler.setViewOnFrame(this);
+
+    //  presenter.refreshUserPhotos();
   }
 
   private void initFrameComponents() {
@@ -87,6 +89,8 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     pnlFloatAddContactButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     pnlUserEditProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     lblClearSearch.setIcon(imageIcon);
+
+
   }
 
   private void setListeners() {
@@ -213,6 +217,10 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         presenter.refreshUserPhotos();
       }
     });
+
+
+    /*list.addListSelectionListener(
+        new SharedListSelectionHandler());*/
   }
 
   @Override

@@ -87,7 +87,6 @@
             <constraints border-constraint="South"/>
             <properties>
               <background color="-1"/>
-              <preferredSize width="24" height="65"/>
             </properties>
             <border type="none"/>
             <children>
@@ -101,18 +100,21 @@
                 <border type="none"/>
                 <children/>
               </grid>
-              <grid id="5ce60" binding="pnlTextInCenter" custom-create="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+              <grid id="5ce60" binding="pnlTextInCenter" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
                 <constraints border-constraint="Center"/>
                 <properties>
                   <background color="-1"/>
+                  <preferredSize width="300" height="100"/>
                 </properties>
                 <border type="none"/>
                 <children>
                   <component id="59995" class="javax.swing.JTextPane" binding="txtEnterMessage">
-                    <constraints/>
+                    <constraints>
+                      <card name="Card1"/>
+                    </constraints>
                     <properties>
                       <opaque value="false"/>
-                      <preferredSize width="300" height="50"/>
+                      <preferredSize width="300" height="100"/>
                     </properties>
                   </component>
                 </children>
