@@ -13,5 +13,8 @@
     <orderEntry type="library" name="Maven: com.vdurmont:emoji-java:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20170516" level="project" />
     <orderEntry type="library" name="Maven: org.sendel:javagram-api:2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.vdurmont:emoji-java:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20170516" level="project" />
+    <orderEntry type="library" name="Maven: org.sendel:javagram-api:2.0" level="project" />
   </component>
 </module>
