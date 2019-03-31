@@ -184,7 +184,7 @@ public interface MainContract {
 
     BufferedImage getContactPhotoSmall(IContact contact);
 
-    void sendMessage() throws IOException;
+    void sendMessage(int contactId, String text, int randomId) throws IOException;
 
     ArrayList<Message> getMessagesHistoryByUserId(int userId) throws IOException;
 

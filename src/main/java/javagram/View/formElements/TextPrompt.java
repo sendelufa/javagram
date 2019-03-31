@@ -44,6 +44,8 @@ public class TextPrompt extends JLabel
     setForeground(component.getForeground());
     setBorder(new EmptyBorder(component.getInsets()));
     setHorizontalAlignment(JLabel.LEADING);
+    setVerticalAlignment(JLabel.TOP);
+
 
     component.addFocusListener(this);
     document.addDocumentListener(this);

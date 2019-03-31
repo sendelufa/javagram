@@ -316,9 +316,8 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
-  public void sendMessage() throws IOException {
-    bridge.messagesSendMessage(234424, "test message " + (Math.random() * 10000)
-        , (int) (Math.random() * 10000));
+  public void sendMessage(int contactId, String text, int randomId) throws IOException {
+    bridge.messagesSendMessage(contactId, text, randomId);
   }
 
   @Override

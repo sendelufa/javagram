@@ -122,9 +122,9 @@ public class PrChat implements MainContract.IPresenter {
     repository.logOut();
   }
 
-  public void sendMessage() {
+  public void sendMessage(int contactId, String text) {
     try {
-      repository.sendMessage();
+      repository.sendMessage(contactId, text, (int) (Math.random() * 1000));
     } catch (IOException e) {
       e.printStackTrace();
       view.showError("error sending message");

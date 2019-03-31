@@ -42,7 +42,7 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
   }
 
   @Override
-  public void sendMessage() throws IOException {
+  public void sendMessage(int contactId, String text, int randomId) throws IOException {
 
   }
 

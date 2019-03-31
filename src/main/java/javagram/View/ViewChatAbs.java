@@ -3,7 +3,11 @@
  */
 package javagram.View;
 
+import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.InputMethodEvent;
@@ -13,7 +17,10 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javagram.Configs;
+import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -63,14 +70,14 @@ public abstract class ViewChatAbs {
   protected JButton sendMessageButton;
   protected JLabel lblDialogContactName;
   protected JButton btnSendMessage;
+  protected JLabel lblError;
 
   protected JPanel pnlFloatAddContactButton = new JPanel();
 
   //Resources - Images
   private BufferedImage microLogo, imgTitleBarUserPic, imgTitleBarSettings;
   BufferedImage imgChatsTitle, imgUserPhotoListNotSelected, imgUserPhoto2, imgUserPhotoListSelected;
-  private BufferedImage imgNewChat, imgCurrentChatUserEdit, imgTextInLeft, imgTextInCenter;
-  private BufferedImage imgTextInRight, imgMsgOutTop, imgMsgOutBottom, imgMsgTip;
+  private BufferedImage imgNewChat, imgCurrentChatUserEdit;
 
   ViewChatAbs() {
     //set images
@@ -84,17 +91,21 @@ public abstract class ViewChatAbs {
       imgUserPhotoListSelected = ImageIO.read(new File("res/img/mask-white-select.png"));
       imgNewChat = ImageIO.read(new File("res/img/icon-plus.png"));
       imgCurrentChatUserEdit = ImageIO.read(new File("res/img/icon-edit.png"));
-      imgTextInLeft = ImageIO.read(new File("res/img/text_in_left.png"));
-      imgTextInCenter = ImageIO.read(new File("res/img/text_in_center.png"));
-      imgTextInRight = ImageIO.read(new File("res/img/button-send.png"));
-
     } catch (
         IOException e) {
       System.err.println("Неудалось загрузить картинки!");
       e.printStackTrace();
     }
-    lblFullUserNameTopBar.addMouseListener(new MouseAdapter() {
-    });
+
+    lblClearSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    pnlFloatAddContactButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    pnlUserEditProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    btnSendMessage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+    lblClearSearch.setIcon(new ImageIcon(Configs.IMG_SEARCH_STOP_30));
+    txtEnterMessage.setFont(WindowHandler.getMainFont(14));
+    lblDialogContactName.setFont(WindowHandler.getMainFontBold(16));
+
 
 
   }
@@ -108,6 +119,15 @@ public abstract class ViewChatAbs {
         super.paintComponent(g);
         //Draw Image on panel
         g.drawImage(microLogo, 5, 5, null);
+      }
+    };
+
+    btnSendMessage = new JButton() {
+      @Override
+      protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        //Draw Image on panel
+        g.drawImage(Configs.IMG_BUTTON_SEND, 0, 0, null);
       }
     };
 
@@ -182,61 +202,5 @@ public abstract class ViewChatAbs {
         g.drawImage(imgCurrentChatUserEdit, 0, 0, null);
       }
     };
-
-    pnlTextInLeft = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgTextInLeft, 27, 5, null);
-      }
-    };
-
-    pnlTextInCenter = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgTextInCenter, 0, 5, 1920, 45, null);
-      }
-    };
-
-    pnlTextInRight = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgTextInRight, 0, 5, null);
-      }
-    };
-
-    pnlMsgOutTop = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgMsgOutTop, 0, 0, null);
-      }
-    };
-
-    pnlMsgOutBottom = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgMsgOutBottom, 0, 0, null);
-      }
-    };
-
-    pnlMsgTip = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Draw Image on panel
-        g.drawImage(imgMsgTip, 0, 20, null);
-      }
-    };
   }
-
-
 }

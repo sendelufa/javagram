@@ -6,7 +6,6 @@ package javagram.View; /**
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -29,7 +28,6 @@ import java.io.IOException;
 import java.util.EventListener;
 import java.util.HashMap;
 import javagram.Configs;
-import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.Presenter.PrChat;
@@ -46,13 +44,10 @@ import javagram.WindowGUI.WindowHandler;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
 public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
@@ -60,8 +55,6 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   private JList<IContact> list = new JList<>();
   private DefaultListModel<IContact> model = new DefaultListModel<>();
   private HashMap<String, EventListener> actionsListeners = new HashMap<>();
-
-  private String filterContact = "";
 
   //Presenter
   private PrChat presenter;
@@ -94,13 +87,6 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     addPlaceholder(txtSearch, "Найти контакт", new ImageIcon(Configs.IMG_SEARCH_ICON_30));
     addPlaceholder(txtEnterMessage, "Напишите сообщение...", null);
 
-    lblClearSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    pnlFloatAddContactButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    pnlUserEditProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    btnSendMessage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-    lblClearSearch.setIcon(new ImageIcon(Configs.IMG_SEARCH_STOP_30));
-
 
   }
 
@@ -117,6 +103,14 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     //init all actions, must be first
     setListenersActions();
     //temp
+    btnSendMessage.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        presenter.sendMessage(list.getSelectedValue().getId(), txtEnterMessage.getText().trim());
+        txtEnterMessage.setText("");
+      }
+    });
+
     pnlUserEditProfile.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseReleased(MouseEvent e) {
@@ -238,7 +232,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     sendMessageButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        presenter.sendMessage();
+        showError("Not work");
       }
     });
 
@@ -313,17 +307,19 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   @Override
   public void showError(String strError) {
-    txtEnterMessage.setText(strError);
+    lblError.setForeground(Color.RED);
+    lblError.setText(strError);
   }
 
   @Override
   public void showInfo(String strError) {
-    txtEnterMessage.setText(strError);
+    lblError.setForeground(Color.WHITE);
+    lblError.setText(strError);
   }
 
   @Override
   public void clearError() {
-
+    lblError.setText("");
   }
 
   @Override
@@ -424,7 +420,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   }
 
   //Filter contact by String by create new model and add contacts
-  private synchronized void showContactListFilter(String searchString) {
+  private void showContactListFilter(String searchString) {
     if (searchString.equals("")) {
       list.setModel(model);
     } else {
