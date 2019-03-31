@@ -22,9 +22,12 @@ public interface IHumanableDate {
     int hour = calDate.get(Calendar.HOUR_OF_DAY);
     String hourString = hour < 10 ? "0" + hour : "" + hour;
 
+    int min = calDate.get(Calendar.MINUTE);
+    String minString = min < 10 ? "0" + min : "" + min;
+
     dateString.append(hourString)
         .append(":")
-        .append(calDate.get(Calendar.MINUTE));
+        .append(minString);
 
     if (dateMessageInSeconds < startTodayUnixStamp) {
       String m = String.valueOf(calDate.get(Calendar.MONTH)+1);
