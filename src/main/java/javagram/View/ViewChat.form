@@ -87,6 +87,7 @@
             <constraints border-constraint="South"/>
             <properties>
               <background color="-1"/>
+              <preferredSize width="395" height="55"/>
             </properties>
             <border type="none"/>
             <children>
@@ -119,16 +120,22 @@
                   </component>
                 </children>
               </grid>
-              <grid id="9e9c7" binding="pnlTextInRight" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
+              <grid id="9e9c7" binding="pnlTextInRight" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints border-constraint="East"/>
                 <properties>
                   <background color="-1"/>
                   <opaque value="true"/>
-                  <preferredSize width="100" height="24"/>
+                  <preferredSize width="55" height="55"/>
                 </properties>
                 <border type="none"/>
-                <children/>
+                <children>
+                  <component id="27bef" class="javax.swing.JButton" binding="btnSendMessage">
+                    <constraints border-constraint="South"/>
+                    <properties>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                </children>
               </grid>
             </children>
           </grid>
@@ -336,7 +343,7 @@
           <enabled value="true"/>
           <focusable value="true"/>
           <toolTipText value="для тестов"/>
-          <visible value="true"/>
+          <visible value="false"/>
         </properties>
         <border type="none">
           <font/>
