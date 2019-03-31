@@ -5,6 +5,7 @@ package javagram.View;
 
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.MouseAdapter;
@@ -61,6 +62,7 @@ public abstract class ViewChatAbs {
   protected JLabel lblClearSearch;
   protected JButton sendMessageButton;
   protected JLabel lblDialogContactName;
+  protected JButton btnSendMessage;
 
   protected JPanel pnlFloatAddContactButton = new JPanel();
 
@@ -93,6 +95,7 @@ public abstract class ViewChatAbs {
     }
     lblFullUserNameTopBar.addMouseListener(new MouseAdapter() {
     });
+
 
   }
 

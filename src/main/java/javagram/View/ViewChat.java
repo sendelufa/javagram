@@ -17,6 +17,8 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -51,6 +53,7 @@ import javax.swing.JScrollBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.JTextComponent;
 
 public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
@@ -84,24 +87,30 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     //add base elements to head panel with max/min buttons
     HeadLineForm headLine = new HeadLineForm(HeadLineForm.SHOW_MINMAX);
     panelTopBar.add(headLine.getPanelHeadline(), BorderLayout.NORTH);
-    //TODO сделать чтобы плавающая кнопка меняла положени при ресайзе и при открытии других панелей
     //set Float Buttons to Form
     setFloatPanels();
 
-    TextPrompt tp7 = new TextPrompt("Найти контакт", txtSearch);
-    tp7.setForeground(Color.GRAY);
-    tp7.changeAlpha(0.5f);
-    ImageIcon imageIcon = new ImageIcon(Configs.IMG_SEARCH_ICON_30);
-    tp7.setIcon(imageIcon);
-
-    imageIcon = new ImageIcon(Configs.IMG_SEARCH_STOP_30);
+    //add placeholders
+    addPlaceholder(txtSearch, "Найти контакт", new ImageIcon(Configs.IMG_SEARCH_ICON_30));
+    addPlaceholder(txtEnterMessage, "Напишите сообщение...", null);
 
     lblClearSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     pnlFloatAddContactButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     pnlUserEditProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    lblClearSearch.setIcon(imageIcon);
+    btnSendMessage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+    lblClearSearch.setIcon(new ImageIcon(Configs.IMG_SEARCH_STOP_30));
 
 
+  }
+
+  private void addPlaceholder(JTextComponent component, String text, ImageIcon icon) {
+    TextPrompt tp = new TextPrompt(text, component);
+    tp.setForeground(Color.GRAY);
+    tp.changeAlpha(0.5f);
+    if (icon != null) {
+      tp.setIcon(icon);
+    }
   }
 
   private void setListeners() {
@@ -113,6 +122,17 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
         ViewEditUserProfileModal viewEditUserProfileModal = new ViewEditUserProfileModal(presenter);
+      }
+    });
+
+    //recount position of float button
+    mainPanel.addComponentListener(new ComponentAdapter() {
+      @Override
+      public void componentResized(ComponentEvent e) {
+        super.componentResized(e);
+        //set Float Buttons to Form
+        pnlFloatAddContactButton
+            .setBounds(20, (int) WindowHandler.getFrameSize().getHeight() - 70, 50, 50);
       }
     });
 
@@ -207,6 +227,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         txtSearch.setText("");
         showContactListFilter(txtSearch.getText().trim());
         lblClearSearch.setVisible(false);
+        list.ensureIndexIsVisible(list.getSelectedIndex());
 
       }
     });
