@@ -3,6 +3,8 @@ package javagram.View; /**
  */
 
 
+import static java.lang.Thread.sleep;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.util.EventListener;
 import java.util.HashMap;
 import javagram.Configs;
+import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.Presenter.PrChat;
@@ -279,14 +282,11 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     MouseAdapter selectItemContactList = new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        // super.mouseClicked(e);
-        txtEnterMessage.setText(list.getSelectedValue().getFullName());
+        super.mouseClicked(e);
         setFocusOnInputFieldMessage();
         lblDialogContactName.setText(list.getSelectedValue().getFullName());
         presenter.getDialogMessages(list.getSelectedValue().getId());
-        //scroll to bottom
-        JScrollBar vertical = messagesJScroll.getVerticalScrollBar();
-        vertical.setValue(vertical.getMaximum());
+
       }
     };
 
@@ -356,6 +356,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     list.setDragEnabled(true);
     list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     messagesJScroll.setViewportView(list);
+
     //set design form to item in JList
     list.setCellRenderer(new DefaultListCellRenderer() {
       public Component getListCellRendererComponent(JList list,
@@ -367,8 +368,13 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         return item.getMainPanel();
       }
     });
+    //necessarily repaint for get right size of max scroll amount
+    WindowHandler.repaintFrame();
+    //scroll to bottom
+    JScrollBar vertical = messagesJScroll.getVerticalScrollBar();
+    vertical.setValue(vertical.getMaximum());
+    Log.info("vertical.getMaximum()" + vertical.getMaximum());
 
-    WindowHandler.pack();
   }
 
   @Override

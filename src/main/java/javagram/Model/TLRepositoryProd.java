@@ -155,6 +155,10 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
       if (filePhotoSmall.exists() && filePhotoSmall.isFile()) {
         try {
           photoSmall = ImageIO.read(filePhotoSmall);
+          //if empty img - user have no photo
+          if (photoSmall.getHeight() == 2 & photoSmall.getWidth() == 2) {
+            return null;
+          }
           return photoSmall;
         } catch (IOException e) {
           e.printStackTrace();
@@ -178,6 +182,14 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
       } catch (NullPointerException e) {
         Log.warning(
             "NullPointerException Repository getContactPhotoSmall()" + contact.getFullName());
+        BufferedImage nullImage = new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB);
+        File outputFile = new File(Configs.PATH_USER_PHOTO + contact.getId() + "-small.jpg");
+        try {
+          ImageIO.write(nullImage, "jpg", outputFile);
+        } catch (IOException e1) {
+          Log.warning(
+              "IOException ошибка записи пустой авы для " + contact.getFullName());
+        }
         return null;
       }
       //after every request do sleep more than 1 second or you can get ban for 12-24 hours (FLOOD_WAIT)

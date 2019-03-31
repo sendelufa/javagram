@@ -162,10 +162,14 @@
                   <card name="Card1"/>
                 </constraints>
                 <properties>
+                  <autoscrolls value="true"/>
                   <background color="-1"/>
                   <doubleBuffered value="true"/>
+                  <focusable value="false"/>
                   <foreground color="-1"/>
-                  <opaque value="true"/>
+                  <opaque value="false"/>
+                  <requestFocusEnabled value="false"/>
+                  <verifyInputWhenFocusTarget value="false"/>
                 </properties>
                 <border type="empty"/>
                 <children/>

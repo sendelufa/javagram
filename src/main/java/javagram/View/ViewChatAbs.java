@@ -18,12 +18,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javagram.Configs;
+import javagram.Log;
 import javagram.WindowGUI.WindowHandler;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
@@ -105,8 +107,6 @@ public abstract class ViewChatAbs {
     lblClearSearch.setIcon(new ImageIcon(Configs.IMG_SEARCH_STOP_30));
     txtEnterMessage.setFont(WindowHandler.getMainFont(14));
     lblDialogContactName.setFont(WindowHandler.getMainFontBold(16));
-
-
 
   }
 

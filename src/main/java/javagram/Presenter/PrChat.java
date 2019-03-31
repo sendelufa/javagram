@@ -65,6 +65,7 @@ public class PrChat implements MainContract.IPresenter {
           e.printStackTrace();
           view.showError("Ошибка при получении списка контактов! IOException getContactList()");
         }
+        //getLastMessages();
         refreshUserPhotos();
       }
 
@@ -96,6 +97,7 @@ public class PrChat implements MainContract.IPresenter {
     threadGetPhotos.start();
 
   }
+
 
   public void clearContactListModel() {
     contactsListModel.clear();
