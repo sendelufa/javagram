@@ -17,6 +17,7 @@ public class TgContact implements IContact {
   private String time, lastMessage;
   private BufferedImage photoSmall = null;
   private UserContact tlUserContact;
+  private static int selectedId = -1;
 
   public TgContact(UserContact contact) {
     this.tlUserContact = contact;
@@ -130,6 +131,17 @@ public class TgContact implements IContact {
   @Override
   public void setPhotoSmall(BufferedImage photoSmall) {
     this.photoSmall = photoSmall;
+  }
+
+  //set get selected id in list
+  @Override
+  public int getSelected() {
+    return selectedId;
+  }
+
+  @Override
+  public void setSelected(int selectedContactId) {
+    selectedId = selectedContactId;
   }
 }
 

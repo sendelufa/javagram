@@ -44,6 +44,7 @@ import javagram.WindowGUI.WindowHandler;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -53,9 +54,12 @@ import javax.swing.event.ListSelectionListener;
 
 public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
-  JList<IContact> list = new JList<>();
-  DefaultListModel<IContact> model = new DefaultListModel<>();
-  HashMap<String, EventListener> actionsListeners = new HashMap<>();
+  private JList<IContact> list = new JList<>();
+  private DefaultListModel<IContact> model = new DefaultListModel<>();
+  private HashMap<String, EventListener> actionsListeners = new HashMap<>();
+
+  private String filterContact = "";
+
   //Presenter
   private PrChat presenter;
 
@@ -112,18 +116,29 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       }
     });
 
-    //CONTACTLIST
+    //CONTACT_LIST
 
     list.setLayoutOrientation(JList.VERTICAL);
 
     contactsJScroll.setViewportView(list);
     //set design form to item in JList
     list.setCellRenderer(new DefaultListCellRenderer() {
-      public Component getListCellRendererComponent(JList list,
+      public Component getListCellRendererComponent(JList listC,
           Object value, int index, boolean isSelected, boolean cellHasFocus) {
         IContact tc = (IContact) value;
+        //save is selected value
+        try {
+          list.getSelectedValue().setSelected(list.getSelectedValue().getId());
+        } catch (NullPointerException e) {
+        }
+        //return selected value for element in list
+        if (tc.getId() == tc.getSelected()) {
+          list.setSelectedIndex(index);
+        }
+
         //select color and img mask for selected item
         Color color = isSelected ? new Color(213, 245, 255) : new Color(255, 255, 255);
+
         BufferedImage imgMask = isSelected ? imgUserPhotoListSelected : imgUserPhotoListNotSelected;
         //add gui form ItemContactList to item in list
         ItemContactList cList = new ItemContactList(tc, imgMask);
@@ -132,8 +147,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       }
     });
 
-    //CONTACTLIST
-
+    //CONTACT_LIST
     pnlFloatAddContactButton.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseReleased(MouseEvent e) {
@@ -181,6 +195,18 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       public void keyReleased(KeyEvent e) {
         super.keyReleased(e);
         showContactListFilter(txtSearch.getText().trim());
+        lblClearSearch.setVisible(true);
+
+      }
+    });
+
+    lblClearSearch.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
+        txtSearch.setText("");
+        showContactListFilter(txtSearch.getText().trim());
+        lblClearSearch.setVisible(false);
 
       }
     });
@@ -234,10 +260,11 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   }
 
   private void setListenersActions() {
+    //get chats and set dialog top headers
     MouseAdapter selectItemContactList = new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        super.mouseClicked(e);
+        // super.mouseClicked(e);
         txtEnterMessage.setText(list.getSelectedValue().getFullName());
         setFocusOnInputFieldMessage();
         lblDialogContactName.setText(list.getSelectedValue().getFullName());
@@ -375,7 +402,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     WindowHandler.repaintFrame();
   }
 
-  //Filter contact by String
+  //Filter contact by String by create new model and add contacts
   private synchronized void showContactListFilter(String searchString) {
     if (searchString.equals("")) {
       list.setModel(model);
@@ -388,7 +415,6 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         }
       }
     }
-
   }
 
 

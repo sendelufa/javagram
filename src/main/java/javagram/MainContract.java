@@ -225,12 +225,16 @@ public interface MainContract {
     //на основании которого формируется IContact
     Object getApiContact();
 
-    //получаем элемент
+    //setters getters
+    void setLastMessage(String message);
+    void setPhotoSmall(BufferedImage photoSmall);
+
     boolean isOnline();
 
-    //setters
-    void setLastMessage(String message);
+    //set get selected id in list
+    int getSelected();
 
-    void setPhotoSmall(BufferedImage photoSmall);
+    void setSelected(int selected);
+
   }
 }

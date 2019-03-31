@@ -190,6 +190,7 @@
                 <properties>
                   <preferredSize width="30" height="30"/>
                   <text value=""/>
+                  <visible value="false"/>
                 </properties>
               </component>
             </children>

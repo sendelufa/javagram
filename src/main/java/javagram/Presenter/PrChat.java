@@ -55,14 +55,9 @@ public class PrChat implements MainContract.IPresenter {
           contactsListModel.clear();
 
           for (IContact contact : contactList) {
-
             Log.info("add IContact contact " + contact.getId() + ":" + contact.getFullName());
-/*            if (i++ > 100) {
-              break;
-            }*/
             contactsListModel.addElement(contact);
           }
-
           view.showContactList(contactsListModel);
 
         } catch (
@@ -90,7 +85,9 @@ public class PrChat implements MainContract.IPresenter {
             c.setPhotoSmall(photoSmall);
             Log.info("smallphoto have setted for " + c.getFullName());
           }
-          view.repaintContactList();
+          if (i % 5 == 0) {
+            view.repaintContactList();
+          }
         }
       }
     }
@@ -112,7 +109,7 @@ public class PrChat implements MainContract.IPresenter {
       Collections.reverse(messages);
     } catch (IOException e) {
       e.printStackTrace();
-      Log.warning("Сообщения для чата " + userId + " не получены!");
+      view.showError("Сообщения для чата " + userId + " не получены!");
     }
     for (Message message : messages) {
       messagesListModel
