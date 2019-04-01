@@ -97,9 +97,15 @@ public class MessageTextItemOutgoing implements IMessageItemDialog, IHumanableDa
 
     //resize other panel to fit JTextArea
     getPnlMessageText().setPreferredSize(
-        new Dimension(widthOfTextArea + 20, getTxtMessage().getPreferredSize().height));
-    getPnlMessage().setPreferredSize(
-        new Dimension(widthOfTextArea + 20,getTxtMessage().getPreferredSize().height + 34));
+        new Dimension(widthOfTextArea + 25, getTxtMessage().getPreferredSize().height));
+    if (widthOfTextArea < 20) {
+      getPnlMessage().setPreferredSize(
+          new Dimension(80, getTxtMessage().getPreferredSize().height + 34));
+    } else {
+      getPnlMessage().setPreferredSize(
+          new Dimension(widthOfTextArea + 30, getTxtMessage().getPreferredSize().height + 34));
+    }
+
   }
 
   //Custom UI components create

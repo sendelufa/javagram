@@ -83,6 +83,7 @@
                       <foreground color="-6049613"/>
                       <horizontalAlignment value="4"/>
                       <horizontalTextPosition value="4"/>
+                      <minimumSize width="50" height="15"/>
                       <opaque value="false"/>
                       <text value="5 минут назад"/>
                     </properties>
