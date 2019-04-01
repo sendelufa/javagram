@@ -33,6 +33,7 @@ import javagram.Configs;
 import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
+import javagram.MainContract.IMessage;
 import javagram.Presenter.PrChat;
 import javagram.Presenter.objects.TgMessage;
 import javagram.View.formElements.HeadLineForm;
@@ -341,6 +342,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   }
 
+
   @Override
   public JPanel getMainPanel() {
     return mainPanel;
@@ -359,8 +361,17 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   }
 
   @Override
-  public void showDialogMessages(DefaultListModel<TgMessage> model) {
-    JList<TgMessage> list = new JList<>(model);
+  public void refreshDialogsView() {
+    //necessarily repaint for get right size of max scroll amount
+    WindowHandler.repaintFrame();
+    //scroll to bottom
+    JScrollBar vertical = messagesJScroll.getVerticalScrollBar();
+    vertical.setValue(vertical.getMaximum());
+  }
+
+  @Override
+  public void showDialogMessages(DefaultListModel<IMessage> model) {
+    JList<IMessage> list = new JList<>(model);
     list.setLayoutOrientation(JList.VERTICAL);
     list.setDragEnabled(true);
     list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -382,8 +393,6 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     //scroll to bottom
     JScrollBar vertical = messagesJScroll.getVerticalScrollBar();
     vertical.setValue(vertical.getMaximum());
-    Log.info("vertical.getMaximum()" + vertical.getMaximum());
-
   }
 
   @Override

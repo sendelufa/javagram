@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.TreeMap;
+import javagram.CommonInterfaces.IHumanableDate;
 import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
@@ -31,7 +32,7 @@ public class PrChat implements MainContract.IPresenter {
   private Repository repository = new TelegramProdFactory().getModel();
   private MainContract.IViewChat view;
   private volatile DefaultListModel<IContact> contactsListModel = new DefaultListModel<>();
-  private volatile DefaultListModel<TgMessage> messagesListModel;
+  private volatile DefaultListModel<IMessage> messagesListModel;
 
   public PrChat(MainContract.IViewChat view) {
     this.view = view;
@@ -55,7 +56,6 @@ public class PrChat implements MainContract.IPresenter {
         try {
           //get from Telegram Api
           ArrayList<IContact> contactListArray = repository.getContactList();
-          Log.info("contactList.size() = " + contactListArray.size());
 
           for (int i = 0; i < contactListArray.size(); i++) {
             if (contactList.containsKey(contactListArray.get(i).getId())) {
@@ -65,8 +65,6 @@ public class PrChat implements MainContract.IPresenter {
               contactList.put(contactListArray.get(i).getId(), contactListArray.get(i));
             }
           }
-
-
           //clear
           contactsListModel.clear();
 
@@ -79,10 +77,10 @@ public class PrChat implements MainContract.IPresenter {
           //pause before get lastmessages to prevent FLOOD_WAIT
           view.showInfo(
               "<html>Обновляем последние сообщения и<br>сортируем список контактов</html> ");
-          sleep(3000);
+          sleep(1000);
           getLastMessages();
           view.showInfo("Загружаем фотографии контактов");
-          sleep(3000);
+          sleep(1000);
 
         } catch (
             Exception e) {
@@ -128,15 +126,9 @@ public class PrChat implements MainContract.IPresenter {
           int indexToRemove = contactsListModel.indexOf(currentContact);
           contactsListModel.remove(indexToRemove);
           contactsListModel.insertElementAt(currentContact, 0);
-          Log.warning(i + " find " + lastMessagesList.get(i).getFullName());
         }
-
-        //contactsListModel.addElement(contactList.get(lastMessagesList.size()-i));
       }
-
       WindowHandler.repaintFrame();
-
-
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -204,6 +196,20 @@ public class PrChat implements MainContract.IPresenter {
   public void sendMessage(int contactId, String text) {
     try {
       repository.sendMessage(contactId, text, (int) (Math.random() * 1000));
+      //add message to Dialog
+
+      IMessage newMessage = new TgMessage(0, repository.getUserId(), contactId, text,
+          (int) (System.currentTimeMillis() / 1000), true, false);
+      messagesListModel.addElement(newMessage);
+
+      IContact contactAddLastMessage = contactList.get(contactId);
+
+      if (contactsListModel.contains(contactAddLastMessage)) {
+        int index = contactsListModel.indexOf(contactAddLastMessage);
+        contactsListModel.get(index).setLastMessage(newMessage);
+      }
+
+      view.refreshDialogsView();
     } catch (IOException e) {
       e.printStackTrace();
       view.showError("error sending message");

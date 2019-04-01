@@ -51,9 +51,13 @@ public interface MainContract {
 
     void setUserPhotoTop(Image userPhoto, String userFirstName, String userLastName);
 
-    void showDialogMessages(DefaultListModel<TgMessage> tgMessages);
+    void showDialogMessages(DefaultListModel<IMessage> tgMessages);
 
     void repaintContactList();
+
+    void refreshDialogsView();
+
+    //void showNewOutMessage(String text);
 
   }
 
