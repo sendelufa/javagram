@@ -11,6 +11,7 @@ import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.Model.objects.InputContact;
 import javagram.Model.objects.TgContact;
+import org.javagram.response.object.Dialog;
 import org.javagram.response.object.Message;
 import org.javagram.response.object.UserContact;
 import org.telegram.api.TLUserContact;
@@ -34,6 +35,12 @@ public class TLRepositoryTest extends TLAbsRepository implements MainContract.Re
       }
     }
     return localInstance;
+  }
+
+  @Override
+  public ArrayList<Message> messagesGetDialogs(int offset, int maxId, int limit)
+      throws IOException {
+    return null;
   }
 
   @Override

@@ -7,9 +7,11 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TreeMap;
 import javagram.Presenter.objects.TgMessage;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
+import org.javagram.response.object.Dialog;
 import org.javagram.response.object.Message;
 
 
@@ -92,6 +94,7 @@ public interface MainContract {
 
     //main panel with dialogs, contact list, messages
     void callViewChat();
+
     void callViewEnterPhone(String phone);
 
     //SHOW ERRORS AND INFO
@@ -102,7 +105,8 @@ public interface MainContract {
     void setPhoneNumber(String phone);
   }
 
-  interface IViewAddContact extends IView{
+  interface IViewAddContact extends IView {
+
     void closeModalView();
 
     //SHOW ERRORS AND INFO
@@ -136,10 +140,13 @@ public interface MainContract {
    * Presenters
    **/
   interface IPresenter {
+
   }
 
-  interface IPresenterSignUp extends IPresenter{
+  interface IPresenterSignUp extends IPresenter {
+
     void goBackToPhoneInput();
+
     void signUp(String firstName, String lastName);
   }
 
@@ -182,6 +189,8 @@ public interface MainContract {
 
     ArrayList<IContact> getContactList(boolean forceReload) throws IOException;
 
+    ArrayList<Message> messagesGetDialogs(int offset, int maxId, int limit) throws IOException;
+
     BufferedImage getContactPhotoSmall(IContact contact);
 
     void sendMessage(int contactId, String text, int randomId) throws IOException;
@@ -207,26 +216,36 @@ public interface MainContract {
    * Objects
    **/
 
-  interface IContact{
+  interface IContact {
 
-    Object tlUserContact = null;
+    //Object tlUserContact = null;
+    TreeMap<Integer, IMessage> messages = null;
+
+    IMessage lastMessage = null;
+
     String getFullName();
+
     String getFirstName();
+
     String getLastName();
+
     String getTime();
+
     int getId();
 
     String getInitiates();
-    String getLastMessage();
+
+    //setters getters
+    void setLastMessage(IMessage message);
+
     BufferedImage getSmallPhoto();
+
     BufferedImage getBigPhoto();
 
     //дать доступ к родительскому контакту из API,
     //на основании которого формируется IContact
     Object getApiContact();
 
-    //setters getters
-    void setLastMessage(String message);
     void setPhotoSmall(BufferedImage photoSmall);
 
     boolean isOnline();
@@ -236,5 +255,24 @@ public interface MainContract {
 
     void setSelected(int selected);
 
+    IMessage getLastMessage();
+
+  }
+
+  interface IMessage {
+
+    int getId();
+
+    int getFromId();
+
+    int getToId();
+
+    boolean isOut();
+
+    boolean isUnread();
+
+    int getDate();
+
+    String getMessageText();
   }
 }

@@ -51,7 +51,12 @@ public class ItemContactList {
     //setUI
     lblName.setText(this.contact.getFullName());
     lblName.setToolTipText(this.contact.getFullName());
-    lblLastMessage.setText(this.contact.getLastMessage());
+    if (this.contact.getLastMessage() != null) {
+      lblLastMessage.setText(this.contact.getLastMessage().getMessageText());
+    } else {
+      lblLastMessage.setText("нет переписки");
+    }
+
     lblTime.setText(this.contact.getTime() + " мин.");
   }
 

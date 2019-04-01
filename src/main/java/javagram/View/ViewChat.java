@@ -105,12 +105,14 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   private void setListeners() {
     //init all actions, must be first
     setListenersActions();
-    //temp
+
     btnSendMessage.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        presenter.sendMessage(list.getSelectedValue().getId(), txtEnterMessage.getText().trim());
-        txtEnterMessage.setText("");
+        if (!txtEnterMessage.getText().equals("")) {
+          presenter.sendMessage(list.getSelectedValue().getId(), txtEnterMessage.getText().trim());
+          txtEnterMessage.setText("");
+        }
       }
     });
 
@@ -169,7 +171,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       @Override
       public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        ViewAddContactModal viewAddContact = new ViewAddContactModal();
+        ViewAddContactModal viewAddContact = new ViewAddContactModal(presenter);
       }
     });
 
@@ -235,6 +237,13 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     sendMessageButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        // presenter.getDialogs();
+      }
+    });
+
+    sendMessageButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
         showError("Not work");
       }
     });
@@ -286,6 +295,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         setFocusOnInputFieldMessage();
         lblDialogContactName.setText(list.getSelectedValue().getFullName());
         presenter.getDialogMessages(list.getSelectedValue().getId());
+        txtEnterMessage.setEnabled(true);
 
       }
     };
@@ -298,7 +308,6 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     txtEnterMessage.requestFocusInWindow();
     txtEnterMessage.setCaretPosition(txtEnterMessage.getText().length());
   }
-
 
   @Override
   public void setPresenter(MainContract.IPresenter presenter) {
@@ -364,7 +373,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         TgMessage m = (TgMessage) value;
         //add gui form TgMessage to item in list
         IMessageItemDialog item = MessageFactory
-            .render(m.isOut() ? Type.OUTGOING : Type.INCOMING, m.getMessage(), m.getDate());
+            .render(m.isOut() ? Type.OUTGOING : Type.INCOMING, m.getMessageText(), m.getDate());
         return item.getMainPanel();
       }
     });

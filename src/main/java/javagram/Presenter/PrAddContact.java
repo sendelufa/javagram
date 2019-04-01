@@ -6,16 +6,20 @@ package javagram.Presenter;
 import java.io.IOException;
 import javagram.Configs;
 import javagram.MainContract;
+import javagram.MainContract.IPresenter;
+import javagram.MainContract.IViewAddContact;
 import javagram.MainContract.Repository;
 import javagram.Model.TelegramProdFactory;
 
-public class PrAddContact implements MainContract.IPresenter {
+public class PrAddContact implements IPresenter {
+
+  PrChat presenterChat;
   private MainContract.IViewAddContact view;
   private Repository repository = new TelegramProdFactory().getModel();
-
   private String phone, firstName, lastName;
 
-  public PrAddContact(MainContract.IViewAddContact view) {
+  public PrAddContact(IViewAddContact view, PrChat presenterChat) {
+    this.presenterChat = presenterChat;
     this.view = view;
   }
 
@@ -41,14 +45,13 @@ public class PrAddContact implements MainContract.IPresenter {
           view.showError("Неизвестная ошибка!");
         }
 
+        presenterChat.getContactList();
+
       } catch (IOException e) {
         e.printStackTrace();
         view.showError("Ошибка ответа от сервера Telegram!");
       }
     }
-
-    //repository.
-    // view.showError("запуск поиска контакта");
   }
 
   private boolean isContactFieldsValid() {
@@ -75,37 +78,4 @@ public class PrAddContact implements MainContract.IPresenter {
     }
     return true;
   }
-
- /* public void checkCode(String confirmCode) {
-    view.showLoadingProcess();
-    Thread thread = new Thread(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          //check confirm code
-          repository.signIn(confirmCode);
-        } catch (RpcException e) {
-          if (e.getErrorTag().equals("PHONE_CODE_INVALID")) {
-            view.showErrorWrongCode();
-          } else if (e.getErrorTag().equals("PHONE_NUMBER_UNOCCUPIED")) {
-            view.showInfo("PHONE_NUMBER_UNOCCUPIED go to SignUp");
-            view.callViewSignUp();
-          } else {
-            view.showErrorUnknown();
-          }
-          return;
-        } catch (IOException e) {
-          e.printStackTrace();
-          return;
-        } finally {
-          view.hideLoadingProcess();
-        }
-
-        //view chat if no exceptions
-        view.callViewChat();
-      }
-    });
-    thread.start();
-
-  }*/
 }

@@ -3,25 +3,31 @@
  */
 package javagram.Presenter;
 
+import static java.lang.Thread.sleep;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.TreeMap;
 import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
+import javagram.MainContract.IMessage;
 import javagram.MainContract.Repository;
 import javagram.Model.TelegramProdFactory;
 import javagram.Presenter.objects.TgMessage;
+import javagram.WindowGUI.WindowHandler;
 import javax.swing.DefaultListModel;
 import org.javagram.response.object.Message;
 
 public class PrChat implements MainContract.IPresenter {
 
   //TelegramApiBridge
-  private volatile ArrayList<IContact> contactList = new ArrayList<>();
+  private volatile HashMap<Integer, IContact> contactList = new HashMap<>();
+  //HashMap<idMessage, idContact>
+  private volatile TreeMap<Integer, IContact> lastMessagesList = new TreeMap<>();
   private Repository repository = new TelegramProdFactory().getModel();
   private MainContract.IViewChat view;
   private volatile DefaultListModel<IContact> contactsListModel = new DefaultListModel<>();
@@ -48,30 +54,92 @@ public class PrChat implements MainContract.IPresenter {
       public void run() {
         try {
           //get from Telegram Api
-          contactList = repository.getContactList();
-          Log.info("contactList.size() = " + contactList.size());
+          ArrayList<IContact> contactListArray = repository.getContactList();
+          Log.info("contactList.size() = " + contactListArray.size());
+
+          for (int i = 0; i < contactListArray.size(); i++) {
+            if (contactList.containsKey(contactListArray.get(i).getId())) {
+              //TODO обновить контакт
+              continue;
+            } else {
+              contactList.put(contactListArray.get(i).getId(), contactListArray.get(i));
+            }
+          }
+
 
           //clear
           contactsListModel.clear();
 
-          for (IContact contact : contactList) {
+          for (IContact contact : contactList.values()) {
             Log.info("add IContact contact " + contact.getId() + ":" + contact.getFullName());
             contactsListModel.addElement(contact);
           }
           view.showContactList(contactsListModel);
+
+          //pause before get lastmessages to prevent FLOOD_WAIT
+          view.showInfo(
+              "<html>Обновляем последние сообщения и<br>сортируем список контактов</html> ");
+          sleep(3000);
+          getLastMessages();
+          view.showInfo("Загружаем фотографии контактов");
+          sleep(3000);
 
         } catch (
             Exception e) {
           e.printStackTrace();
           view.showError("Ошибка при получении списка контактов! IOException getContactList()");
         }
-        //getLastMessages();
+
         refreshUserPhotos();
+        view.showInfo("<html><b>Все готово!</b><br>Можете написать сообщения</html>");
       }
 
     });
 
     th.start();
+  }
+
+  public void getLastMessages() {
+    try {
+      ArrayList<Message> lastMessages = repository.messagesGetDialogs(0, 0, 0);
+      for (Message m : lastMessages) {
+        IMessage lastMessage = new TgMessage(m.getId(), m.getFromId(), m.getToId(), m.getMessage(),
+            m.getDate(),
+            m.isOut(), m.isUnread());
+
+        //set last messages to contact list
+        try {
+          if (m.isOut()) {
+            contactList.get(m.getToId()).setLastMessage(lastMessage);
+            lastMessagesList.put(m.getId(), contactList.get(m.getToId()));
+          } else {
+            contactList.get(m.getFromId()).setLastMessage(lastMessage);
+            lastMessagesList.put(m.getId(), contactList.get(m.getFromId()));
+          }
+        } catch (NullPointerException e) {
+          Log.info("NPE when get last Messages " + m.getToId());
+        }
+      }
+      //contactsListModel.clear();
+
+      for (Integer i : lastMessagesList.keySet()) {
+        IContact currentContact = lastMessagesList.get(i);
+        if (contactsListModel.contains(currentContact)) {
+          int indexToRemove = contactsListModel.indexOf(currentContact);
+          contactsListModel.remove(indexToRemove);
+          contactsListModel.insertElementAt(currentContact, 0);
+          Log.warning(i + " find " + lastMessagesList.get(i).getFullName());
+        }
+
+        //contactsListModel.addElement(contactList.get(lastMessagesList.size()-i));
+      }
+
+      WindowHandler.repaintFrame();
+
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public synchronized void refreshUserPhotos() {
@@ -98,7 +166,6 @@ public class PrChat implements MainContract.IPresenter {
 
   }
 
-
   public void clearContactListModel() {
     contactsListModel.clear();
   }
@@ -108,16 +175,26 @@ public class PrChat implements MainContract.IPresenter {
     ArrayList<Message> messages = null;
     try {
       messages = repository.getMessagesHistoryByUserId(userId);
-      Collections.reverse(messages);
+      importMessagesToContact(userId, messages);
+
     } catch (IOException e) {
       e.printStackTrace();
       view.showError("Сообщения для чата " + userId + " не получены!");
     }
+
+    //method add to model
+
+    Collections.reverse(messages);
     for (Message message : messages) {
       messagesListModel
-          .addElement(new TgMessage(message.getMessage(), message.getDate(), message.isOut()));
+          .addElement(new TgMessage(message.getId(), message.getFromId(), message.getToId(),
+              message.getMessage(), message.getDate(), message.isOut(), message.isUnread()));
     }
     view.showDialogMessages(messagesListModel);
+  }
+
+  private void importMessagesToContact(int userId, ArrayList<Message> messages) {
+
   }
 
   public void logOut() {

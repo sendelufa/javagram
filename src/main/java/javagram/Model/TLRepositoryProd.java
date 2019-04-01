@@ -25,6 +25,7 @@ import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
 import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.AuthSentCode;
+import org.javagram.response.object.Dialog;
 import org.javagram.response.object.Message;
 import org.javagram.response.object.UserContact;
 import org.telegram.api.TLAbsMessage;
@@ -332,10 +333,22 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     bridge.messagesSendMessage(contactId, text, randomId);
   }
 
+  //list of messages by contact id
   @Override
   public ArrayList<Message> getMessagesHistoryByUserId(int userId) throws IOException {
-    ArrayList<Message> messages = null;     //Todo убрать фиксированный лимит сообщений
-    messages = getMessagesHistory(userId, 0, Integer.MAX_VALUE, 50);
+    ArrayList<Message> messages = getMessagesHistory(userId, 0, Integer.MAX_VALUE, 50);
+    return messages;
+  }
+
+  @Override
+  public ArrayList<Message> messagesGetDialogs(int offset, int maxId, int limit)
+      throws IOException {
+    ArrayList<Integer> messageIds = new ArrayList<>();
+    ArrayList<Dialog> dialogs = bridge.messagesGetDialogs(0, Integer.MAX_VALUE, 500);
+    for (Dialog d : dialogs) {
+      messageIds.add(d.getTopMessage());
+    }
+    ArrayList<Message> messages = bridge.messagesGetMessages(messageIds);        //работает
     return messages;
   }
 

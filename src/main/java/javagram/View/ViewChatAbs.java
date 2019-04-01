@@ -108,6 +108,7 @@ public abstract class ViewChatAbs {
     txtEnterMessage.setFont(WindowHandler.getMainFont(14));
     lblDialogContactName.setFont(WindowHandler.getMainFontBold(16));
 
+
   }
 
   //Custom UI components create

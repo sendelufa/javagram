@@ -8,13 +8,15 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import javagram.MainContract.IContact;
+import javagram.MainContract.IMessage;
 import javax.imageio.ImageIO;
 import org.javagram.response.object.UserContact;
 
 
 public class TgContact implements IContact {
 
-  private String time, lastMessage;
+  private String time;
+  private IMessage lastMessage;
   private BufferedImage photoSmall = null;
   private UserContact tlUserContact;
   private static int selectedId = -1;
@@ -24,7 +26,8 @@ public class TgContact implements IContact {
     //this.photoSmall = initSmallPhoto(defPhotoSmall);
     //this.photoSmall = defPhotoSmall;
     time = String.valueOf((int) (Math.random() * 9));
-    lastMessage = String.valueOf(Math.random() * 1000000);
+    lastMessage = null;
+
   }
 
   //for tests
@@ -32,7 +35,7 @@ public class TgContact implements IContact {
     if (test.equals("test")) {
       this.tlUserContact = tlUserContact;
       time = String.valueOf((int) (Math.random() * 9));
-      lastMessage = String.valueOf(Math.random() * 1000000);
+      // lastMessage = String.valueOf(Math.random() * 1000000);
       //this.photoSmall = Configs.IMG_DEFAULT_USER_PHOTO_41_41;
     }
   }
@@ -82,7 +85,7 @@ public class TgContact implements IContact {
   }
 
   @Override
-  public String getLastMessage() {
+  public IMessage getLastMessage() {
     return lastMessage;
   }
 
@@ -124,7 +127,7 @@ public class TgContact implements IContact {
   }
 
   @Override
-  public void setLastMessage(String message) {
+  public void setLastMessage(IMessage message) {
     lastMessage = message;
   }
 

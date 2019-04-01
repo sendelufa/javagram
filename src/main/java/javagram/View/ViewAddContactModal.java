@@ -14,7 +14,9 @@ import javagram.CommonInterfaces.IFormattedText;
 import javagram.Configs;
 import javagram.Log;
 import javagram.MainContract;
+import javagram.MainContract.IPresenter;
 import javagram.Presenter.PrAddContact;
+import javagram.Presenter.PrChat;
 import javagram.Presenter.PrSignUp;
 import javagram.View.formElements.LayeredPaneBlackGlass;
 import javagram.View.formElements.MyGlassPanel;
@@ -52,10 +54,10 @@ public class ViewAddContactModal extends LayeredPaneBlackGlass implements
   //Presenter
   private PrAddContact presenter;
 
-  public ViewAddContactModal() {
+  public ViewAddContactModal(PrChat presenterChat) {
     super(WindowHandler.getFrameSize());
     //PRESENTER
-    setPresenter(new PrAddContact(this));
+    setPresenter(new PrAddContact(this, presenterChat));
     //set images
     try {
       logo = ImageIO.read(new File("res/img/logo-micro.png"));
@@ -215,7 +217,7 @@ public class ViewAddContactModal extends LayeredPaneBlackGlass implements
   }
 
   @Override
-  public void setPresenter(MainContract.IPresenter presenter) {
+  public void setPresenter(IPresenter presenter) {
     this.presenter = (PrAddContact) presenter;
   }
 }

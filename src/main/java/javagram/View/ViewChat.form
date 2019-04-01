@@ -117,6 +117,7 @@
                     </constraints>
                     <properties>
                       <background color="-6049613"/>
+                      <enabled value="false"/>
                       <opaque value="false"/>
                       <preferredSize width="300" height="100"/>
                       <text value=""/>
@@ -295,7 +296,7 @@
                     <properties>
                       <font size="12" style="2"/>
                       <foreground color="-1"/>
-                      <text value="Label"/>
+                      <text value="&lt;html&gt;Все готов!&lt;br&gt; Можете начать переписываться&lt;/html&gt;"/>
                     </properties>
                   </component>
                   <grid id="7d069" binding="pnlTitleBarUserPic" custom-create="true" layout-manager="CardLayout" hgap="0" vgap="0">
@@ -355,7 +356,7 @@
           <enabled value="true"/>
           <focusable value="true"/>
           <toolTipText value="для тестов"/>
-          <visible value="false"/>
+          <visible value="true"/>
         </properties>
         <border type="none">
           <font/>
@@ -398,7 +399,7 @@
           <component id="d33da" class="javax.swing.JButton" binding="sendMessageButton" default-binding="true">
             <constraints/>
             <properties>
-              <text value="send message"/>
+              <text value="get Dialogs"/>
             </properties>
           </component>
           <component id="440e4" class="javax.swing.JButton" binding="LOGOUTButton" default-binding="true">
