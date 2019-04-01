@@ -293,11 +293,11 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       @Override
       public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
-        setFocusOnInputFieldMessage();
+
         lblDialogContactName.setText(list.getSelectedValue().getFullName());
         presenter.getDialogMessages(list.getSelectedValue().getId());
         txtEnterMessage.setEnabled(true);
-
+        setFocusOnInputFieldMessage();
       }
     };
 

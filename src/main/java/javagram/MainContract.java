@@ -225,6 +225,8 @@ public interface MainContract {
     //Object tlUserContact = null;
     TreeMap<Integer, IMessage> messages = null;
 
+    boolean hasNewMessage = false;
+
     IMessage lastMessage = null;
 
     String getFullName();
@@ -256,6 +258,10 @@ public interface MainContract {
 
     //set get selected id in list
     int getSelected();
+
+    boolean getHasNewMessage();
+
+    void setHasNewMessage(boolean hasNewMessage);
 
     void setSelected(int selected);
 

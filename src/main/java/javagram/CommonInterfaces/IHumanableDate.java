@@ -4,7 +4,6 @@
 package javagram.CommonInterfaces;
 
 import java.util.Calendar;
-import javagram.Log;
 
 public interface IHumanableDate {
 
@@ -16,11 +15,9 @@ public interface IHumanableDate {
         todayDate.get(Calendar.DATE), 0, 0, 0);
     long startTodayUnixStamp = todayDate.getTimeInMillis() / 1000;
 
-    Log.warning("startTodayUnixStamp=" + startTodayUnixStamp);
     Calendar calDate = Calendar.getInstance();
     long sec = ((long) dateMessageInSeconds) * 1000;
     calDate.setTimeInMillis(sec);
-    Log.warning("sec=" + dateMessageInSeconds);
     int hour = calDate.get(Calendar.HOUR_OF_DAY);
     String hourString = hour < 10 ? "0" + hour : "" + hour;
 

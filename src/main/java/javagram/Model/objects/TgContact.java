@@ -20,6 +20,9 @@ public class TgContact implements IContact {
   private BufferedImage photoSmall = null;
   private UserContact tlUserContact;
   private static int selectedId = -1;
+  boolean hasNewMessage = false;
+
+
 
   public TgContact(UserContact contact) {
     this.tlUserContact = contact;
@@ -40,6 +43,15 @@ public class TgContact implements IContact {
     }
   }
 
+  @Override
+  public boolean getHasNewMessage() {
+    return hasNewMessage;
+  }
+
+  @Override
+  public void setHasNewMessage(boolean hasNewMessage) {
+    this.hasNewMessage = hasNewMessage;
+  }
   @Override
   public Object getApiContact() {
     return tlUserContact;

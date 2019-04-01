@@ -69,7 +69,7 @@ public class PrChat implements MainContract.IPresenter {
           contactsListModel.clear();
 
           for (IContact contact : contactList.values()) {
-            Log.info("add IContact contact " + contact.getId() + ":" + contact.getFullName());
+            //Log.info("add IContact contact " + contact.getId() + ":" + contact.getFullName());
             contactsListModel.addElement(contact);
           }
           view.showContactList(contactsListModel);
@@ -78,7 +78,7 @@ public class PrChat implements MainContract.IPresenter {
           view.showInfo(
               "<html>Обновляем последние сообщения и<br>сортируем список контактов</html> ");
           sleep(1000);
-          getLastMessages();
+          getLastMessages(Integer.MAX_VALUE, 1000, false);
           view.showInfo("Загружаем фотографии контактов");
           sleep(1000);
 
@@ -90,6 +90,9 @@ public class PrChat implements MainContract.IPresenter {
 
         refreshUserPhotos();
         view.showInfo("<html><b>Все готово!</b><br>Можете написать сообщения</html>");
+
+        //new thread
+        startUpdateMessages();
       }
 
     });
@@ -97,42 +100,96 @@ public class PrChat implements MainContract.IPresenter {
     th.start();
   }
 
-  public void getLastMessages() {
+  private synchronized void getLastMessages(int maxId, int limit, boolean update) {
     try {
-      ArrayList<Message> lastMessages = repository.messagesGetDialogs(0, 0, 0);
+      ArrayList<Message> lastMessages = repository.messagesGetDialogs(0, Integer.MAX_VALUE, limit);
       for (Message m : lastMessages) {
         IMessage lastMessage = new TgMessage(m.getId(), m.getFromId(), m.getToId(), m.getMessage(),
             m.getDate(),
             m.isOut(), m.isUnread());
-
         //set last messages to contact list
         try {
           if (m.isOut()) {
+            try {
+              if (contactList.get(m.getToId()).getLastMessage().getId() < m.getId()) {
+                contactList.get(m.getToId()).setHasNewMessage(true);
+              }
+            } catch (NullPointerException e) {
+              // Log.warning("NullPointerException setHasNewMessage(true)" + m.getToId());
+            }
             contactList.get(m.getToId()).setLastMessage(lastMessage);
             lastMessagesList.put(m.getId(), contactList.get(m.getToId()));
           } else {
+            try {
+              if (contactList.get(m.getToId()).getLastMessage().getId() < m.getId()) {
+                contactList.get(m.getToId()).setHasNewMessage(true);
+              }
+            } catch (NullPointerException e) {
+              // Log.warning("NullPointerException setHasNewMessage(true)" + m.getToId());
+            }
             contactList.get(m.getFromId()).setLastMessage(lastMessage);
             lastMessagesList.put(m.getId(), contactList.get(m.getFromId()));
           }
         } catch (NullPointerException e) {
-          Log.info("NPE when get last Messages " + m.getToId());
+          //Log.info("NPE when get last Messages " + m.getToId());
         }
       }
       //contactsListModel.clear();
 
       for (Integer i : lastMessagesList.keySet()) {
         IContact currentContact = lastMessagesList.get(i);
-        if (contactsListModel.contains(currentContact)) {
+        //check if last message is in contact -> not need to update
+        if (contactsListModel.contains(currentContact) && !update) {
+          int indexToRemove = contactsListModel.indexOf(currentContact);
+          contactsListModel.remove(indexToRemove);
+          contactsListModel.insertElementAt(currentContact, 0);
+          Log.warning(" ============= !update " + currentContact.getFullName());
+        } else if (contactsListModel.contains(currentContact) && update && currentContact
+            .getHasNewMessage()) {
+          currentContact.setHasNewMessage(false);
+          Log.warning(" ============= update " + currentContact.getFullName());
           int indexToRemove = contactsListModel.indexOf(currentContact);
           contactsListModel.remove(indexToRemove);
           contactsListModel.insertElementAt(currentContact, 0);
         }
       }
-      WindowHandler.repaintFrame();
+      view.repaintContactList();
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
+
+  private synchronized void startUpdateMessages() {
+    Thread th = new Thread(new Runnable() {
+      @Override
+      public void run() {
+        try {
+
+        } catch (
+            Exception e) {
+          e.printStackTrace();
+          view.showError("Ошибка при получении списка контактов! IOException getContactList()");
+        }
+
+        for (; ; ) {
+          try {
+            sleep(7000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+
+          getLastMessages(lastMessagesList.lastKey(), 500, true);
+          view.showInfo("Обновление состояния успешно lk=" + lastMessagesList.lastKey());
+          Log.info("update info succesfull!");
+
+        }
+      }
+
+    });
+
+    th.start();
+  }
+
 
   public synchronized void refreshUserPhotos() {
     Thread threadGetPhotos = new Thread(new Runnable() {
@@ -206,9 +263,12 @@ public class PrChat implements MainContract.IPresenter {
 
       if (contactsListModel.contains(contactAddLastMessage)) {
         int index = contactsListModel.indexOf(contactAddLastMessage);
-        contactsListModel.get(index).setLastMessage(newMessage);
+        IContact replaceContact = contactsListModel.get(index);
+        //replaceContact.setLastMessage(newMessage);
+        //remove and set to top
+        contactsListModel.remove(index);
+        contactsListModel.add(0, replaceContact);
       }
-
       view.refreshDialogsView();
     } catch (IOException e) {
       e.printStackTrace();

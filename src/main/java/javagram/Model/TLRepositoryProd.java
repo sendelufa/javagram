@@ -345,7 +345,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
   public ArrayList<Message> messagesGetDialogs(int offset, int maxId, int limit)
       throws IOException {
     ArrayList<Integer> messageIds = new ArrayList<>();
-    ArrayList<Dialog> dialogs = bridge.messagesGetDialogs(0, Integer.MAX_VALUE, 500);
+    ArrayList<Dialog> dialogs = bridge.messagesGetDialogs(0, maxId, limit);
     for (Dialog d : dialogs) {
       messageIds.add(d.getTopMessage());
     }

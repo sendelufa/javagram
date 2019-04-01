@@ -50,7 +50,7 @@ public class ItemContactList {
     lblUserPhoto.setFont(WindowHandler.getMainFontBold(18));
 
     //setUI
-    lblName.setText(this.contact.getFullName());
+    lblName.setText(this.contact.getLastMessage().isUnread() + " " + this.contact.getFullName());
     lblName.setToolTipText(this.contact.getFullName());
     if (this.contact.getLastMessage() != null) {
 
