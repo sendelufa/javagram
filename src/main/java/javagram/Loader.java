@@ -13,16 +13,13 @@ public class Loader {
   public static void main(String[] args) {
     //Read config parameters and text strings
     Configs.read();
-    //start app with first form with Phone enter
+
     WindowHandler.startFrame();
-    //IMessenger messengerModel = TLRepositoryProd.getInstance();
-    //new ViewChat();
+
     new ViewEnterPhone();
 
-    /*ViewAddContactModal vca = new ViewAddContactModal();
-    vca.getMainPanel().setBackground(Color.black);
-    vca.getMainPanel().setOpaque(true);
-    WindowHandler.frameSetContent(vca.getMainPanel());  */  //new ViewSignUp();
+
+
 
 
   }

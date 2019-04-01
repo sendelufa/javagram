@@ -76,6 +76,7 @@
                     <properties>
                       <opaque value="false"/>
                       <preferredSize width="18" height="18"/>
+                      <visible value="false"/>
                     </properties>
                     <border type="none"/>
                     <children/>
@@ -356,7 +357,7 @@
           <enabled value="true"/>
           <focusable value="true"/>
           <toolTipText value="для тестов"/>
-          <visible value="true"/>
+          <visible value="false"/>
         </properties>
         <border type="none">
           <font/>

@@ -34,6 +34,9 @@ public class PrChat implements MainContract.IPresenter {
   private volatile DefaultListModel<IContact> contactsListModel = new DefaultListModel<>();
   private volatile DefaultListModel<IMessage> messagesListModel;
 
+  //contact Id of dialog open
+  private int contactId;
+
   public PrChat(MainContract.IViewChat view) {
     this.view = view;
     //set view to frame
@@ -163,25 +166,25 @@ public class PrChat implements MainContract.IPresenter {
     Thread th = new Thread(new Runnable() {
       @Override
       public void run() {
-        try {
-
-        } catch (
-            Exception e) {
-          e.printStackTrace();
-          view.showError("Ошибка при получении списка контактов! IOException getContactList()");
-        }
-
         for (; ; ) {
           try {
-            sleep(7000);
+            sleep(6000);
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
 
           getLastMessages(lastMessagesList.lastKey(), 500, true);
-          view.showInfo("Обновление состояния успешно lk=" + lastMessagesList.lastKey());
+          view.showInfo("<html>Обновление состояния <br>успешно lk=" + lastMessagesList.lastKey() + "</html>");
           Log.info("update info succesfull!");
 
+          try {
+            sleep(2000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          getDialogMessages(contactId);
+          view.showInfo("<html>Обновление чата с <br>contact=" + contactId + " успешно!</html>");
+          view.scrollToLastMessage();
         }
       }
 
@@ -219,27 +222,24 @@ public class PrChat implements MainContract.IPresenter {
     contactsListModel.clear();
   }
 
-  public void getDialogMessages(int userId) {
+  public void getDialogMessages(int cId) {
+    contactId = cId;
     messagesListModel = new DefaultListModel<>();
     ArrayList<Message> messages = null;
     try {
-      messages = repository.getMessagesHistoryByUserId(userId);
-      importMessagesToContact(userId, messages);
-
-    } catch (IOException e) {
-      e.printStackTrace();
-      view.showError("Сообщения для чата " + userId + " не получены!");
-    }
-
+      messages = repository.getMessagesHistoryByUserId(cId);
+      importMessagesToContact(cId, messages);
     //method add to model
-
     Collections.reverse(messages);
     for (Message message : messages) {
       messagesListModel
           .addElement(new TgMessage(message.getId(), message.getFromId(), message.getToId(),
               message.getMessage(), message.getDate(), message.isOut(), message.isUnread()));
     }
-    view.showDialogMessages(messagesListModel);
+    view.showDialogMessages(messagesListModel); } catch (IOException e) {
+    e.printStackTrace();
+    view.showError("Сообщения для чата " + cId + " не получены!");
+  }
   }
 
   private void importMessagesToContact(int userId, ArrayList<Message> messages) {
