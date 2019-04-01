@@ -40,7 +40,7 @@ public class Configs {
   //System
   public static String INTERFACE_PHONE_MASK, REPOSITORY;
   public static char INTERFACE_PHONE_MASK_PLACEHOLDER;
-  public static int TL_APP_ID, TL_REQUIRED_PHONE_LENGTH, API_DELAY_REQUEST;
+  public static int TL_APP_ID, TL_REQUIRED_PHONE_LENGTH, API_DELAY_REQUEST, USER_ID;
   //Pathes
   public static String PATH_APP_DATA, PATH_USER_PHOTO;
   //FONTS
@@ -59,6 +59,8 @@ public class Configs {
       TL_APP_HASH = props.getProperty("TL_APP_HASH");
       TL_APP_ID = Integer.parseInt(props.getProperty("TL_APP_ID"));
       TL_REQUIRED_PHONE_LENGTH = Integer.parseInt(props.getProperty("TL_REQUIRED_PHONE_LENGTH"));
+
+      USER_ID = 0;
 
       REPOSITORY = props.getProperty("REPOSITORY");
 

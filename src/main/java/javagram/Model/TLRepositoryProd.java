@@ -119,6 +119,7 @@ public class TLRepositoryProd extends TLAbsRepository implements MainContract.Re
     userFirstName = authorization.getUser().getFirstName();
     userLastName = authorization.getUser().getLastName();
     userId = authorization.getUser().getId();
+    Configs.USER_ID = userId;
   }
 
   @Override

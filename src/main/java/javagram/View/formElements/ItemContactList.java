@@ -52,7 +52,13 @@ public class ItemContactList {
     lblName.setText(this.contact.getFullName());
     lblName.setToolTipText(this.contact.getFullName());
     if (this.contact.getLastMessage() != null) {
+
       lblLastMessage.setText(this.contact.getLastMessage().getMessageText());
+
+      if (this.contact.getLastMessage().getFromId() == Configs.USER_ID) {
+        lblLastMessage.setText("Вы: " + lblLastMessage.getText());
+      }
+
     } else {
       lblLastMessage.setText("нет переписки");
     }
