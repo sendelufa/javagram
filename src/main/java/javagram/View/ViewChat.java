@@ -287,6 +287,12 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   }
 
+  @Override
+  public void scrollToLastMessage() {
+    JScrollBar vertical = messagesJScroll.getVerticalScrollBar();
+    vertical.setValue(vertical.getMaximum());
+  }
+
   private void setListenersActions() {
     //get chats and set dialog top headers
     MouseAdapter selectItemContactList = new MouseAdapter() {

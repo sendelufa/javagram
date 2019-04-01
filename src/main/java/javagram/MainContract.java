@@ -57,6 +57,8 @@ public interface MainContract {
 
     void refreshDialogsView();
 
+    void scrollToLastMessage();
+
     //void showNewOutMessage(String text);
 
   }

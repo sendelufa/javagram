@@ -264,7 +264,7 @@ public class PrChat implements MainContract.IPresenter {
       if (contactsListModel.contains(contactAddLastMessage)) {
         int index = contactsListModel.indexOf(contactAddLastMessage);
         IContact replaceContact = contactsListModel.get(index);
-        //replaceContact.setLastMessage(newMessage);
+        replaceContact.setLastMessage(newMessage);
         //remove and set to top
         contactsListModel.remove(index);
         contactsListModel.add(0, replaceContact);
