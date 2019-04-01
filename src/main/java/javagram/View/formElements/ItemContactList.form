@@ -88,7 +88,7 @@
               </component>
             </children>
           </grid>
-          <grid id="e75aa" layout-manager="FlowLayout" hgap="5" vgap="25" flow-align="1">
+          <grid id="e75aa" layout-manager="FlowLayout" hgap="2" vgap="25" flow-align="1">
             <constraints/>
             <properties>
               <opaque value="false"/>
@@ -101,7 +101,7 @@
                 <properties>
                   <font size="10"/>
                   <foreground color="-6049613"/>
-                  <text value="2 мин"/>
+                  <text value="&lt;html&gt;99:99&lt;br&gt;29.12.19&lt;/html&gt;"/>
                 </properties>
               </component>
             </children>

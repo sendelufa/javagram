@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import javagram.CommonInterfaces.IHumanableDate;
 import javagram.Configs;
 import javagram.MainContract.IContact;
 import javagram.WindowGUI.WindowHandler;
@@ -62,8 +63,12 @@ public class ItemContactList {
     } else {
       lblLastMessage.setText("нет переписки");
     }
-
-    lblTime.setText(this.contact.getTime() + " мин.");
+    try {
+      String time = IHumanableDate.convertDate(contact.getLastMessage().getDate());
+      lblTime.setText("<html>" + time.replaceAll(" ", "<br>") + "</html>");
+    } catch (NullPointerException e) {
+      lblTime.setText("");
+    }
   }
 
   private Color getColor() {
