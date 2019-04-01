@@ -4,6 +4,7 @@
 package javagram.CommonInterfaces;
 
 import java.util.Calendar;
+import javagram.Log;
 
 public interface IHumanableDate {
 
@@ -15,28 +16,31 @@ public interface IHumanableDate {
         todayDate.get(Calendar.DATE), 0, 0, 0);
     long startTodayUnixStamp = todayDate.getTimeInMillis() / 1000;
 
+    Log.warning("startTodayUnixStamp=" + startTodayUnixStamp);
     Calendar calDate = Calendar.getInstance();
-    long sec = dateMessageInSeconds * 1000;
+    long sec = ((long) dateMessageInSeconds) * 1000;
     calDate.setTimeInMillis(sec);
-
+    Log.warning("sec=" + dateMessageInSeconds);
     int hour = calDate.get(Calendar.HOUR_OF_DAY);
     String hourString = hour < 10 ? "0" + hour : "" + hour;
 
     int min = calDate.get(Calendar.MINUTE);
     String minString = min < 10 ? "0" + min : "" + min;
 
+    if (dateMessageInSeconds < startTodayUnixStamp) {
+      String m = String.valueOf(calDate.get(Calendar.MONTH) + 1);
+      String month = m.length() == 1 ? "0" + m : m;
+      dateString
+          .append(calDate.get(Calendar.DAY_OF_MONTH))
+          .append(".")
+          .append(month)
+          .append(" ");
+    }
+
     dateString.append(hourString)
         .append(":")
         .append(minString);
 
-    if (dateMessageInSeconds < startTodayUnixStamp) {
-      String m = String.valueOf(calDate.get(Calendar.MONTH)+1);
-      String month = m.length() == 1 ? "0" + m : m;
-      dateString.append(" ")
-          .append(calDate.get(Calendar.DAY_OF_MONTH))
-          .append(".")
-          .append(month);
-    }
     return dateString.toString();
   }
 }
