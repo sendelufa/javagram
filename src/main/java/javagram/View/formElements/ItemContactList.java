@@ -46,11 +46,13 @@ public class ItemContactList {
       this.userPhoto = contact.getSmallPhoto();
     }
 
-    lblName.setFont(WindowHandler.getMainFontBold(13));
-    lblUserPhoto.setFont(WindowHandler.getMainFontBold(18));
+    lblName.setFont(WindowHandler.getMainFontBold(14));
+    lblUserPhoto.setFont(WindowHandler.getMainFont(18));
+    lblLastMessage.setFont(WindowHandler.getMainFont(10));
+    lblLastMessage.setFont(WindowHandler.getMainFont(14));
 
     //setUI
-    lblName.setText(this.contact.getLastMessage().isUnread() + " " + this.contact.getFullName());
+    lblName.setText(this.contact.getFullName());
     lblName.setToolTipText(this.contact.getFullName());
     if (this.contact.getLastMessage() != null) {
 

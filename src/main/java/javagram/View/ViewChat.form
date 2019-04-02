@@ -57,7 +57,7 @@
                       <foreground color="-12828863"/>
                       <opaque value="false"/>
                       <preferredSize width="400" height="35"/>
-                      <text value="Андрей Петров"/>
+                      <text value=""/>
                       <verticalAlignment value="0"/>
                     </properties>
                   </component>

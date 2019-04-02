@@ -5,6 +5,9 @@ package javagram.View; /**
 
 import static java.lang.Thread.sleep;
 
+import com.vdurmont.emoji.Emoji;
+import com.vdurmont.emoji.EmojiParser;
+import com.vdurmont.emoji.EmojiParser.FitzpatrickAction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -57,9 +60,10 @@ import javax.swing.text.JTextComponent;
 public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
 
   private JList<IContact> list = new JList<>();
+  private JList<IMessage> listMessages = new JList<>();
   private DefaultListModel<IContact> model = new DefaultListModel<>();
   private HashMap<String, EventListener> actionsListeners = new HashMap<>();
-
+  private JScrollBar vertical = messagesJScroll.getVerticalScrollBar();
   //Presenter
   private PrChat presenter;
 
@@ -288,8 +292,8 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
   }
 
   @Override
-  public void scrollToLastMessage() {
-    JScrollBar vertical = messagesJScroll.getVerticalScrollBar();
+  public synchronized void scrollToLastMessage() {
+
     vertical.setValue(vertical.getMaximum());
   }
 
@@ -371,34 +375,28 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     //necessarily repaint for get right size of max scroll amount
     WindowHandler.repaintFrame();
     //scroll to bottom
-    JScrollBar vertical = messagesJScroll.getVerticalScrollBar();
-    vertical.setValue(vertical.getMaximum());
+    scrollToLastMessage();
   }
 
   @Override
   public void showDialogMessages(DefaultListModel<IMessage> model) {
-    JList<IMessage> list = new JList<>(model);
-    list.setLayoutOrientation(JList.VERTICAL);
-    list.setDragEnabled(true);
-    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    messagesJScroll.setViewportView(list);
+    listMessages.setModel(model);
+    listMessages.setLayoutOrientation(JList.VERTICAL);
+
+    messagesJScroll.setViewportView(listMessages);
 
     //set design form to item in JList
-    list.setCellRenderer(new DefaultListCellRenderer() {
+    listMessages.setCellRenderer(new DefaultListCellRenderer() {
       public Component getListCellRendererComponent(JList list,
           Object value, int index, boolean isSelected, boolean cellHasFocus) {
         TgMessage m = (TgMessage) value;
         //add gui form TgMessage to item in list
         IMessageItemDialog item = MessageFactory
-            .render(m.isOut() ? Type.OUTGOING : Type.INCOMING, m.getMessageText(), m.getDate());
+            .render(m.isOut() ? Type.OUTGOING : Type.INCOMING,m.getMessageText(), m.getDate());
         return item.getMainPanel();
       }
     });
-    //necessarily repaint for get right size of max scroll amount
-    WindowHandler.repaintFrame();
-    //scroll to bottom
-    JScrollBar vertical = messagesJScroll.getVerticalScrollBar();
-    vertical.setValue(vertical.getMaximum());
+    refreshDialogsView();
   }
 
   @Override

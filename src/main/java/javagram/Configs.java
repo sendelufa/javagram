@@ -71,7 +71,7 @@ public class Configs {
 
       MAIN_FONT = Font.getFont(Font.SANS_SERIF);
       try {
-        MAIN_FONT = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/OpenSansRegular.ttf"))
+        MAIN_FONT = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/OpenSansEmoji.ttf"))
             .deriveFont((float) 14);
       } catch (FontFormatException e) {
         e.printStackTrace();
@@ -134,8 +134,8 @@ public class Configs {
       PATH_USER_PHOTO = PATH_APP_DATA + "UserPhoto/";
 
       //FONTS
-      FONT_FILE_REGULAR = new File("res/font/OpenSansRegular.ttf");
-      FONT_FILE_BOLD = new File("res/font/OpenSansSemiBold.ttf");
+      FONT_FILE_REGULAR = new File("res/font/OpenSansEmoji.ttf");
+      FONT_FILE_BOLD = new File("res/font/Roboto-Bold.ttf");
     } catch (IOException e) {
       e.printStackTrace();
     }

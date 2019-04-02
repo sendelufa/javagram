@@ -49,6 +49,7 @@ public class MessageTextItemIncoming implements IMessageItemDialog, IHumanableDa
     AttributedString attrText = new AttributedString(text);
     //font for textArea and AttributedString must be the same
     attrText.addAttribute(TextAttribute.FONT, f);
+    lblMessageDate.setFont(WindowHandler.getMainFont(10));
     FontRenderContext frc = textArea.getFontMetrics(textArea.getFont())
         .getFontRenderContext();
 

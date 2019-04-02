@@ -36,6 +36,7 @@ public class PrChat implements MainContract.IPresenter {
 
   //contact Id of dialog open
   private int contactId;
+  private boolean refreshDialogChat = true;
 
   public PrChat(MainContract.IViewChat view) {
     this.view = view;
@@ -80,10 +81,10 @@ public class PrChat implements MainContract.IPresenter {
           //pause before get lastmessages to prevent FLOOD_WAIT
           view.showInfo(
               "<html>Обновляем последние сообщения и<br>сортируем список контактов</html> ");
-          sleep(1000);
+          sleep(5000);
           getLastMessages(Integer.MAX_VALUE, 1000, false);
           view.showInfo("Загружаем фотографии контактов");
-          sleep(1000);
+          sleep(5000);
 
         } catch (
             Exception e) {
@@ -110,6 +111,13 @@ public class PrChat implements MainContract.IPresenter {
         IMessage lastMessage = new TgMessage(m.getId(), m.getFromId(), m.getToId(), m.getMessage(),
             m.getDate(),
             m.isOut(), m.isUnread());
+        //check if there new messages in open dialog
+        try {
+
+        }catch (NullPointerException e){
+
+        }
+
         //set last messages to contact list
         try {
           if (m.isOut()) {
@@ -174,7 +182,8 @@ public class PrChat implements MainContract.IPresenter {
           }
 
           getLastMessages(lastMessagesList.lastKey(), 500, true);
-          view.showInfo("<html>Обновление состояния <br>успешно lk=" + lastMessagesList.lastKey() + "</html>");
+          view.showInfo("<html>Обновление состояния <br>успешно lk=" + lastMessagesList.lastKey()
+              + "</html>");
           Log.info("update info succesfull!");
 
           try {
@@ -182,9 +191,11 @@ public class PrChat implements MainContract.IPresenter {
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
-          getDialogMessages(contactId);
+          if (refreshDialogChat) {
+            getDialogMessages(contactId);
+          }
           view.showInfo("<html>Обновление чата с <br>contact=" + contactId + " успешно!</html>");
-          view.scrollToLastMessage();
+          //view.refreshDialogsView();
         }
       }
 
@@ -229,17 +240,18 @@ public class PrChat implements MainContract.IPresenter {
     try {
       messages = repository.getMessagesHistoryByUserId(cId);
       importMessagesToContact(cId, messages);
-    //method add to model
-    Collections.reverse(messages);
-    for (Message message : messages) {
-      messagesListModel
-          .addElement(new TgMessage(message.getId(), message.getFromId(), message.getToId(),
-              message.getMessage(), message.getDate(), message.isOut(), message.isUnread()));
+      //method add to model
+      Collections.reverse(messages);
+      for (Message message : messages) {
+        messagesListModel
+            .addElement(new TgMessage(message.getId(), message.getFromId(), message.getToId(),
+                message.getMessage(), message.getDate(), message.isOut(), message.isUnread()));
+      }
+      view.showDialogMessages(messagesListModel);
+    } catch (IOException e) {
+      e.printStackTrace();
+      view.showError("Сообщения для чата " + cId + " не получены!");
     }
-    view.showDialogMessages(messagesListModel); } catch (IOException e) {
-    e.printStackTrace();
-    view.showError("Сообщения для чата " + cId + " не получены!");
-  }
   }
 
   private void importMessagesToContact(int userId, ArrayList<Message> messages) {
