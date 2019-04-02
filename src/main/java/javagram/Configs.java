@@ -21,7 +21,7 @@ public class Configs {
 
   public static String IMG_BG, IMG_LOGO_SIGN, IMG_BTN_BG, IMG_ICON_PHONE;
   public static String ERR_NO_IMAGES, ERR_PHONE_FORMAT, INFO_CONNECT_TELEGRAM, ERR_WRONG_CODE,
-      ERR_PHONE_EMPTY;
+      ERR_PHONE_EMPTY, ERR_IMG_LOAD, ERR_CONTACT_NOT_FOUND;
   //images for all formElement
   public static Image IMG_LOADING_GIF_100;
   public static BufferedImage IMG_BUTTON_BACK_35_35, IMG_DEFAULT_USER_PHOTO_41_41, IMG_TEST_USER_PHOTO_41_41;
@@ -45,6 +45,8 @@ public class Configs {
   public static String PATH_APP_DATA, PATH_USER_PHOTO;
   //FONTS
   public static File FONT_FILE_REGULAR, FONT_FILE_BOLD;
+
+  public static String TXT_FIND_CONTACT, TXT_WRITE_MESSAGE, TXT_EDIT_CONTACT, TXT_CHOOSE_IMAGE;
 
   private static Properties props = new Properties();
 
@@ -122,9 +124,19 @@ public class Configs {
       ERR_WRONG_CODE = props
           .getProperty("ERR_WRONG_CODE", "Неверный код подтверждения, попробуйте еще раз");
       ERR_PHONE_EMPTY = props.getProperty("ERR_PHONE_EMPTY", "Пожалуйста, введите номер телефона");
+      ERR_IMG_LOAD = props.getProperty("ERR_IMG_LOAD", "Не удалось загрузить картинки!");
+      ERR_CONTACT_NOT_FOUND = props.getProperty("ERR_CONTACT_NOT_FOUND", "Пользователь не найден!");
 
       INFO_CONNECT_TELEGRAM = props
           .getProperty("INFO_CONNECT_TELEGRAM", "Подключение к серверам телеграм...");
+      TXT_FIND_CONTACT = props
+          .getProperty("TXT_FIND_CONTACT", "Найти контакт");
+      TXT_WRITE_MESSAGE = props
+          .getProperty("TXT_WRITE_MESSAGE", "Напишите сообщение...");
+      TXT_EDIT_CONTACT = props
+          .getProperty("TXT_EDIT_CONTACT", "Изменить пользователя");
+      TXT_CHOOSE_IMAGE = props
+          .getProperty("TXT_CHOOSE_IMAGE", "Выберите изображение");
 
       //BUTTONS AND LABELS
       BTN_CONTINUE = props.getProperty("BTN_CONTINUE", "ПРОДОЛЖИТЬ");

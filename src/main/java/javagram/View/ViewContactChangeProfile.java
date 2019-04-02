@@ -71,7 +71,6 @@ public class ViewContactChangeProfile extends LayeredPaneBlackGlass {
         txtName.setOpaque(false);
         txtName.setFont(WindowHandler.getMainFont(30));
         txtName.setPreferredSize(new Dimension(250, 40));
-        txtName.setText("Андрей");
 
         //Текстовое поле Фамилия
         JTextPane txtSurname = new JTextPane();
@@ -80,7 +79,6 @@ public class ViewContactChangeProfile extends LayeredPaneBlackGlass {
         txtSurname.setOpaque(false);
         txtSurname.setFont(WindowHandler.getMainFont(30));
         txtSurname.setPreferredSize(new Dimension(250, 40));
-        txtSurname.setText("Петров");
 
         //Кнопка Сохранить
         MyPanelBgImage pnlBtnSave = new MyPanelBgImage("res/img/button-save.png");

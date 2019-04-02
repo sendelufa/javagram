@@ -149,7 +149,7 @@
               </grid>
             </children>
           </grid>
-          <grid id="55345" binding="pnlDialogMessages" layout-manager="CardLayout" hgap="0" vgap="0">
+          <grid id="55345" binding="pnlDialogMessages" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints border-constraint="Center"/>
             <properties>
               <background color="-1"/>
@@ -160,9 +160,7 @@
             </border>
             <children>
               <scrollpane id="eabd7" binding="messagesJScroll">
-                <constraints>
-                  <card name="Card1"/>
-                </constraints>
+                <constraints border-constraint="Center"/>
                 <properties>
                   <autoscrolls value="true"/>
                   <background color="-1"/>

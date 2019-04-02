@@ -1,6 +1,7 @@
 package javagram.View;
 
 import java.io.File;
+import javagram.Configs;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.*;
@@ -37,7 +38,7 @@ class FileChooser {
     JFileChooser fileChooser = new JFileChooser();
     //настройка выбора: только файлы
     fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-    fileChooser.setDialogTitle("Выберите изображение");
+    fileChooser.setDialogTitle(Configs.TXT_CHOOSE_IMAGE);
     //настройка фильтра файлов
     fileChooser.setFileFilter(fileFilter);
     //вызываем диалоговое окно

@@ -3,11 +3,6 @@ package javagram.View; /**
  */
 
 
-import static java.lang.Thread.sleep;
-
-import com.vdurmont.emoji.Emoji;
-import com.vdurmont.emoji.EmojiParser;
-import com.vdurmont.emoji.EmojiParser.FitzpatrickAction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -33,7 +28,6 @@ import java.io.IOException;
 import java.util.EventListener;
 import java.util.HashMap;
 import javagram.Configs;
-import javagram.Log;
 import javagram.MainContract;
 import javagram.MainContract.IContact;
 import javagram.MainContract.IMessage;
@@ -54,7 +48,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
-import javax.swing.ListSelectionModel;
 import javax.swing.text.JTextComponent;
 
 public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
@@ -92,8 +85,8 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     setFloatPanels();
 
     //add placeholders
-    addPlaceholder(txtSearch, "Найти контакт", new ImageIcon(Configs.IMG_SEARCH_ICON_30));
-    addPlaceholder(txtEnterMessage, "Напишите сообщение...", null);
+    addPlaceholder(txtSearch, Configs.TXT_FIND_CONTACT, new ImageIcon(Configs.IMG_SEARCH_ICON_30));
+    addPlaceholder(txtEnterMessage, Configs.TXT_WRITE_MESSAGE, null);
 
 
   }
@@ -186,7 +179,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
         super.mouseReleased(e);
         try {
           ViewContactChangeProfile GlassPanel = new ViewContactChangeProfile(
-              WindowHandler.getFrameSize(), "Изменить пользователя");
+              WindowHandler.getFrameSize(), Configs.TXT_EDIT_CONTACT);
           WindowHandler.setModalFullScreenPanel(GlassPanel.getContent(), GlassPanel.getBgPanel());
           WindowHandler.repaintFrame();
         } catch (IOException e1) {
@@ -249,7 +242,7 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
     sendMessageButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        showError("Not work");
+
       }
     });
 

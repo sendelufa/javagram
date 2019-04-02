@@ -63,7 +63,7 @@ public class ViewAddContactModal extends LayeredPaneBlackGlass implements
       logo = ImageIO.read(new File("res/img/logo-micro.png"));
       imgBtn = ImageIO.read(new File("res/img/button-background.png"));
     } catch (IOException e) {
-      System.err.println("Не удалось загрузить картинки!");
+      System.err.println(Configs.ERR_IMG_LOAD);
       e.printStackTrace();
     }
 
@@ -157,7 +157,7 @@ public class ViewAddContactModal extends LayeredPaneBlackGlass implements
 
   @Override
   public void showErrorUserNotFound() {
-    showError("Пользователь не найден!");
+    showError(Configs.ERR_CONTACT_NOT_FOUND);
   }
 
   @Override
