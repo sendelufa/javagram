@@ -40,6 +40,8 @@ public class ViewSignUp implements MainContract.IViewSignUp {
   private JLabel buttonBackToPhoneInput;
   private JTextField txtFirstName;
   private JTextField txtLastName;
+  private JLabel lblTitleFirstname;
+  private JLabel lblTitleLastname;
   //Resources - Images
   private BufferedImage bg;
   private BufferedImage logo;
@@ -72,6 +74,11 @@ public class ViewSignUp implements MainContract.IViewSignUp {
 
     txtLastName.setFont(WindowHandler.getMainFont(30));
     txtFirstName.setFont(WindowHandler.getMainFont(30));
+
+    lblTitleFirstname.setText(Configs.LABEL_TITLE_FIRST_NAME);
+    lblTitleLastname.setText(Configs.LABEL_TITLE_LAST_NAME);
+    lblDescription.setText(Configs.LABEL_SIGNUP_DESC);
+    lblBtnSend.setText(Configs.LABEL_SIGNUP_START);
 
     pnlSignUp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -128,12 +135,12 @@ public class ViewSignUp implements MainContract.IViewSignUp {
 
   @Override
   public void showErrorEmptyFirstLast() {
-    showError("Введите, пожалуйста, Имя и Фамилию");
+    showError(Configs.ERR_EMPTY_FIRST_NAME);
   }
 
   @Override
   public void showErrorEmptyFirst() {
-    showError("Пожалуйста, введите Имя");
+    showError(Configs.ERR_EMPTY_FIRST_LAST_NAMES);
   }
 
   @Override
@@ -184,7 +191,7 @@ public class ViewSignUp implements MainContract.IViewSignUp {
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         //Draw Image on panel
-        g.drawImage(bg, 0, 0, 800, 600, null);
+        g.drawImage(bg, 0, 0, 1280, 720, null);
       }
     };
 

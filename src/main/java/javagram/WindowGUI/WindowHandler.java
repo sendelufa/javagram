@@ -26,8 +26,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class WindowHandler {
 
-  final static int FRAME_WIDTH = 800; //длина X окна
-  final static int FRAME_HEIGHT = 600; //длина Y окна
+  final static int FRAME_WIDTH = 1024; //длина X окна
+  final static int FRAME_HEIGHT = 720; //длина Y окна
   private static final int INDEX_OF_LAYER_FLOAT_BUTTONS = 50;
   //FC FullScreen Modals
   private static final int INDEX_OF_MODAL_BG_FC = 0;

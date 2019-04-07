@@ -69,8 +69,13 @@ public class ViewSendCode implements MainContract.IViewSendCode {
     lblBtnSend.setFont(WindowHandler.getMainFont(30));
     lblPhoneNumber.setFont(WindowHandler.getMainFont(40));
 
+    lblDescription.setText(Configs.TXT_VIEW_SEND_CODE);
+    lblBtnSend.setText(Configs.BTN_CONTINUE);
+
     pnlBtnSend.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     lblBackToPhoneInput.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+    txtCode.requestFocusInWindow();
 
     //change Layout to mainPanel fo Y axis position
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -134,7 +139,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
 
   @Override
   public void showErrorUnknown() {
-    showError("Неизвестная ошибка!");
+    showError(Configs.ERR_UNKNOWN);
   }
 
   @Override
@@ -183,7 +188,7 @@ public class ViewSendCode implements MainContract.IViewSendCode {
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         //Draw Image on panel
-        g.drawImage(bg, 0, 0, 800, 600, null);
+        g.drawImage(bg, 0, 0, 1280, 720, null);
       }
     };
 

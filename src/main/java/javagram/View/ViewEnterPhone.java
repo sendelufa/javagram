@@ -80,6 +80,18 @@ public class ViewEnterPhone implements MainContract.IViewEnterPhone {
     //change Layout to mainPanel fo Y axis position
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
+
+
+    IFormattedText.setTextFieldMask(txtPhone, Configs.INTERFACE_PHONE_MASK,
+        Configs.INTERFACE_PHONE_MASK_PLACEHOLDER);
+    //format phone text input field
+    txtPhone.setText("");
+    lbpDescPhone.setText(Configs.TXT_VIEW_ENTER_PHONE);
+    lbpDescPhone.setFont(WindowHandler.getMainFont(14));
+    lblBtnSend.setText(Configs.BTN_CONTINUE);
+
+    pnlBtnSend.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
     //Listeners
     lblBtnSend.addMouseListener(new MouseAdapter() {
       @Override
@@ -87,14 +99,6 @@ public class ViewEnterPhone implements MainContract.IViewEnterPhone {
         presenter.checkPhone(txtPhone.getText());
       }
     });
-
-    IFormattedText.setTextFieldMask(txtPhone, Configs.INTERFACE_PHONE_MASK,
-        Configs.INTERFACE_PHONE_MASK_PLACEHOLDER);
-    //format phone text input field
-    txtPhone.setText("9996624444");
-
-    pnlBtnSend.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
     //view set to windowframe
     WindowHandler.setViewOnFrame(this);
 
@@ -108,7 +112,7 @@ public class ViewEnterPhone implements MainContract.IViewEnterPhone {
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         //Draw Image on panel
-        g.drawImage(bg, 0, 0, 800, 600, null);
+        g.drawImage(bg, 0, 0, 1280, 720, null);
       }
     };
 

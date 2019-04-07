@@ -21,7 +21,7 @@ public class Configs {
 
   public static String IMG_BG, IMG_LOGO_SIGN, IMG_BTN_BG, IMG_ICON_PHONE;
   public static String ERR_NO_IMAGES, ERR_PHONE_FORMAT, INFO_CONNECT_TELEGRAM, ERR_WRONG_CODE,
-      ERR_PHONE_EMPTY, ERR_IMG_LOAD, ERR_CONTACT_NOT_FOUND;
+      ERR_PHONE_EMPTY, ERR_IMG_LOAD, ERR_CONTACT_NOT_FOUND, ERR_EMPTY_FIRST_NAME, ERR_EMPTY_FIRST_LAST_NAMES, ERR_UNKNOWN;
   //images for all formElement
   public static Image IMG_LOADING_GIF_100;
   public static BufferedImage IMG_BUTTON_BACK_35_35, IMG_DEFAULT_USER_PHOTO_41_41, IMG_TEST_USER_PHOTO_41_41;
@@ -46,7 +46,7 @@ public class Configs {
   //FONTS
   public static File FONT_FILE_REGULAR, FONT_FILE_BOLD;
 
-  public static String TXT_FIND_CONTACT, TXT_WRITE_MESSAGE, TXT_EDIT_CONTACT, TXT_CHOOSE_IMAGE;
+  public static String LABEL_SIGNUP_START, LABEL_SIGNUP_DESC, TXT_FIND_CONTACT, TXT_WRITE_MESSAGE, TXT_EDIT_CONTACT, TXT_CHOOSE_IMAGE, TXT_VIEW_ENTER_PHONE, TXT_VIEW_SEND_CODE, LABEL_TITLE_FIRST_NAME, LABEL_TITLE_LAST_NAME;
 
   private static Properties props = new Properties();
 
@@ -127,6 +127,10 @@ public class Configs {
       ERR_IMG_LOAD = props.getProperty("ERR_IMG_LOAD", "Не удалось загрузить картинки!");
       ERR_CONTACT_NOT_FOUND = props.getProperty("ERR_CONTACT_NOT_FOUND", "Пользователь не найден!");
 
+      ERR_EMPTY_FIRST_NAME= props.getProperty("ERR_EMPTY_FIRST_NAME", "Пожалуйста, введите Имя");
+      ERR_EMPTY_FIRST_LAST_NAMES= props.getProperty("ERR_EMPTY_FIRST_LAST_NAMES", "Введите, пожалуйста, Имя и Фамилию");
+      ERR_UNKNOWN= props.getProperty("ERR_UNKNOWN", "Извините, произошла неизвестная ошибка!");
+
       INFO_CONNECT_TELEGRAM = props
           .getProperty("INFO_CONNECT_TELEGRAM", "Подключение к серверам телеграм...");
       TXT_FIND_CONTACT = props
@@ -137,9 +141,24 @@ public class Configs {
           .getProperty("TXT_EDIT_CONTACT", "Изменить пользователя");
       TXT_CHOOSE_IMAGE = props
           .getProperty("TXT_CHOOSE_IMAGE", "Выберите изображение");
+      TXT_VIEW_ENTER_PHONE = props
+          .getProperty("TXT_VIEW_ENTER_PHONE", "Введите код страны и номер вашего мобильного телефона");
+      TXT_VIEW_ENTER_PHONE = props
+          .getProperty("TXT_VIEW_ENTER_PHONE", "Введите код страны и номер вашего мобильного телефона");
 
+      TXT_VIEW_SEND_CODE =  props
+          .getProperty("TXT_VIEW_SEND_CODE", "<html><center>На данный номер телефона было отправлено<BR> SMS сообщение с кодом подтверждения.<BR> Пожалуйста, введите этот код ниже:</center><html>");
       //BUTTONS AND LABELS
       BTN_CONTINUE = props.getProperty("BTN_CONTINUE", "ПРОДОЛЖИТЬ");
+      LABEL_TITLE_FIRST_NAME = props
+          .getProperty("LABEL_TITLE_FIRST_NAME", "Имя");
+      LABEL_TITLE_LAST_NAME = props
+          .getProperty("LABEL_TITLE_LAST_NAME", "Фамилия");
+      LABEL_SIGNUP_DESC = props
+          .getProperty("LABEL_SIGNUP_DESC", "<html><center>Введите Имя и Фамилию для регистрации</center><html>");
+
+      LABEL_SIGNUP_START = props
+          .getProperty("LABEL_SIGNUP_START", "Начать общение");
 
       //PATHES
       PATH_APP_DATA = "res/AppData/";

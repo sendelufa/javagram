@@ -1,5 +1,6 @@
 package javagram;
 
+import java.nio.charset.Charset;
 import javagram.View.ViewEnterPhone;
 import javagram.WindowGUI.WindowHandler;
 
@@ -12,6 +13,8 @@ public class Loader {
 
   public static void main(String[] args) {
     //Read config parameters and text strings
+
+    System.out.println(Charset.defaultCharset());
     Configs.read();
 
     WindowHandler.startFrame();

@@ -54,16 +54,12 @@
           <target>11</target>
         </configuration>
       </plugin>
+	  
+
     </plugins>
   </build>
 
   <dependencies>
-    <dependency>
-      <groupId>com.vdurmont</groupId>
-      <artifactId>emoji-java</artifactId>
-      <version>4.0.0</version>
-    </dependency>
-
     <dependency>
       <groupId>org.sendel</groupId>
       <artifactId>javagram-api</artifactId>

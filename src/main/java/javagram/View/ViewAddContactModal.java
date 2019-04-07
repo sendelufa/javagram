@@ -174,12 +174,12 @@ public class ViewAddContactModal extends LayeredPaneBlackGlass implements
 
   @Override
   public void showErrorEmptyFirstLast() {
-    showError("Введите, пожалуйста, Имя и Фамилию");
+    showError(Configs.ERR_EMPTY_FIRST_LAST_NAMES);
   }
 
   @Override
   public void showErrorEmptyFirst() {
-    showError("Пожалуйста, введите Имя");
+    showError(Configs.ERR_EMPTY_FIRST_NAME);
   }
 
   //Custom UI components create

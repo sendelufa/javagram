@@ -129,7 +129,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="59c92" class="javax.swing.JLabel">
+              <component id="59c92" class="javax.swing.JLabel" binding="lblTitleFirstname">
                 <constraints/>
                 <properties>
                   <font size="16"/>
@@ -147,7 +147,7 @@
                   <foreground color="-1710618"/>
                   <opaque value="false"/>
                   <preferredSize width="400" height="50"/>
-                  <text value="Константин"/>
+                  <text value=""/>
                 </properties>
               </component>
             </children>
@@ -194,7 +194,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="ead5b" class="javax.swing.JLabel">
+              <component id="ead5b" class="javax.swing.JLabel" binding="lblTitleLastname">
                 <constraints/>
                 <properties>
                   <font size="16"/>
@@ -213,7 +213,7 @@
                   <foreground color="-1710618"/>
                   <opaque value="false"/>
                   <preferredSize width="400" height="50"/>
-                  <text value="Константин"/>
+                  <text value=""/>
                 </properties>
               </component>
             </children>

@@ -97,6 +97,7 @@ public class PrChat implements MainContract.IPresenter {
 
         //new thread
         startUpdateMessages();
+
       }
 
     });
@@ -168,6 +169,9 @@ public class PrChat implements MainContract.IPresenter {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    catch (ArrayIndexOutOfBoundsException e){
+      view.showInfo("ArrayIndexOutOfBoundsException");
+    }
   }
 
   private synchronized void startUpdateMessages() {
@@ -187,7 +191,7 @@ public class PrChat implements MainContract.IPresenter {
           Log.info("update info succesfull!");
 
           try {
-            sleep(2000);
+            sleep(4000);
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
@@ -203,7 +207,6 @@ public class PrChat implements MainContract.IPresenter {
 
     th.start();
   }
-
 
   public synchronized void refreshUserPhotos() {
     Thread threadGetPhotos = new Thread(new Runnable() {

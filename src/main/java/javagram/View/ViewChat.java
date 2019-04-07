@@ -446,12 +446,14 @@ public class ViewChat extends ViewChatAbs implements MainContract.IViewChat {
       list.setModel(model);
     } else {
       DefaultListModel<IContact> searchModel = new DefaultListModel<>();
-      list.setModel(searchModel);
+
       for (int i = 0; i < model.getSize(); i++) {
         if (model.get(i).getFullName().toLowerCase().contains(searchString.toLowerCase())) {
           searchModel.addElement(model.get(i));
         }
       }
+      //show list after generate it
+      list.setModel(searchModel);
     }
   }
 

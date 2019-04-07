@@ -8,12 +8,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
-import javagram.Presenter.objects.TgMessage;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
-import org.javagram.response.object.Dialog;
 import org.javagram.response.object.Message;
-
 
 public interface MainContract {
 

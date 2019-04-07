@@ -6,7 +6,7 @@
     </constraints>
     <properties>
       <background color="-1909479"/>
-      <maximumSize width="800" height="600"/>
+      <maximumSize width="1920" height="600"/>
       <minimumSize width="800" height="600"/>
       <opaque value="false"/>
       <preferredSize width="800" height="600"/>
@@ -18,7 +18,7 @@
         <properties>
           <background color="-1710618"/>
           <foreground color="-1710618"/>
-          <maximumSize width="800" height="30"/>
+          <maximumSize width="1920" height="30"/>
           <minimumSize width="800" height="30"/>
           <opaque value="true"/>
           <preferredSize width="800" height="30"/>
