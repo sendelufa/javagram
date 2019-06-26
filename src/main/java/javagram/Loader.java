@@ -18,7 +18,7 @@ public class Loader {
    public static void main(String[] args) {
       //Read config parameters and text strings
 
-      Authenticator.setDefault(getAuth("vangog", "mone"));
+      Authenticator.setDefault(getAuth("user", "password"));
 
       System.out.println(Charset.defaultCharset());
       Configs.read();
